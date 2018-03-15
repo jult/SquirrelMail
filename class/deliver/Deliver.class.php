@@ -594,7 +594,7 @@ class Deliver {
         /* This creates an RFC 822 date */
         $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
 
-        /* Create a message-id xxx */
+        /* Create a message-id xxx Cleaned out needless branding */
         $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
         if (empty($rfc822_header->message_id)) {
             $message_id = '<'
