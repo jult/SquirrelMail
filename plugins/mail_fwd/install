@@ -1,0 +1,80 @@
+Installing the mail_fwd Plugin
+==============================
+
+1) Start with untaring the file into the plugins derictory.
+Here is a example for the 0.3.3 version of the mail_fwd plugin.
+
+  $ cd plugins
+  $ tar -zxvf /usr/archives/mail_fwd.0.3.3-1.2.8.tar.gz
+
+
+2) If you will be storing your users' forwarding information in
+   a MySQL database table, skip to step number 6.
+
+
+3) Then go to the fwdfile-directory and edit the config.mk file.
+   ($ cd mail_fwd/fwdfile; vi config.mk)
+
+   Here is a list of the options availible in config.mk
+
+   BINDIR : This is the directory where to put the compiled and installed 
+         wfwd file. If this parameter is changed you must also change 
+         the $mail_fwd_wfwd_binary path in setup.php.
+         Default is /usr/local/sbin/
+
+   WEBUSER : Should be set to what ever user your webserver is running as when 
+         parsing the squirrelmail php scripts.
+         Default is www-data 
+
+   XTRA_CC_FLAGS : Extra flags passed to the C compiler.
+         Mac OS X users must add the flag -traditional-cpp
+
+
+4) As root compile and install the wfwd binary.
+   $ make 
+   And if no errors occur
+   $ make install
+
+5) Go to the mail_fwd directory
+   $ cd ..
+
+6) Copy config_dist.php to config.php
+   Edit the configuration options in config.php according to the instructions 
+   below (depending on what features you want to use)
+
+   6.1) For "regulare" users
+
+        $mail_fwd_wfwd_binary : The location of the wfwd binary.
+            Should be same as the BINDIR in the config.mk file.
+            Default is "/usr/local/sbin/wfwd"
+
+   6.2) For users who use Courier or any other MTA which understand 
+        instructions for local delivery in the .forward file.
+
+        $save_local_enabled : Enables the possibility to save a local copy.
+            Using ./Maildir-notation in the .forward file (only available 
+            if you run the Courier-MTA)
+            Default is false
+
+        Also follow the instructions in 6.1.
+
+   6.3) For Mysql users
+
+        $mysql_forwarding_enabled : Set this to true if you are using
+              MySQL to store forwarding information.  The $mysql_xxxx
+              variables listed below that must be set up to access
+              your mysql installation. 
+              SECURITY NOTE:
+              Since the MySQL username and password are being stored 
+              in plaintext in the config.php file, it is strongly advised 
+              that at the minimum you pay attention to the ownership and 
+              permissions on that file!  An example would be:  
+              chown root:apache config.php; chmod 640 config.php
+
+
+7) Then go to your config directory and run conf.pl.  Choose option
+   8 and add the mail_fwd plugin.  Save and exit.
+
+  $ cd ../config
+  $ ./conf.pl
+

@@ -1,0 +1,99 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vkeyboard 0.8.1\n"
+"POT-Creation-Date: 2004-08-20 17:38-0300\n"
+"PO-Revision-Date: 2005-10-05 16:30+0300\n"
+"Last-Translator: Alexandros Vellis <avel@noc.uoa.gr>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-7\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: vkeyboard.php:115
+msgid " seconds."
+msgstr " δευτερόλεπτα."
+
+#: functions.php:49
+msgid "Are you using a public computer?"
+msgstr "Χρησιμοποιείτε έναν κοινόχρηστο υπολογιστή;"
+
+#: vkeyboard.php:161
+msgid "Clear"
+msgstr "Καθαρισμός"
+
+#: vkeyboard.php:166
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: functions.php:51
+msgid "Enter your password with the "
+msgstr "Εισάγετε τον μυστικό σας κωδικό με το "
+
+#: vkeyboard.php:107
+msgid "Enter your password:"
+msgstr "Εισάγετε τον κωδικό σας:"
+
+#: help.php:60
+msgid ""
+"For this, you must point the mouse and keep it for few seconds on the key "
+"that you want to type."
+msgstr ""
+"Γι'αυτό, πρέπει να επιλέξετε με το ποντίκι και να το κρατήσετε για λίγα "
+"δευτερόλεπτα στο κουμπί που επιθυμείτε να πληκτρολογήσετε."
+
+#: vkeyboard.php:109
+msgid "Help"
+msgstr "Βοήθεια"
+
+#: help.php:56
+msgid ""
+"It protects your password against keyloggers, which are hidden programs that "
+"capture everything that you type or click."
+msgstr ""
+"Προστατεύει τον μυστικό σας κωδικό από keyloggers, κρυμμένα προγράμματα που "
+"καταγράφουν ο,τιδήποτε πληκτρολογείτε ή επιλέγετε."
+
+#: help.php:54
+msgid "It's a keyboard that simulates a real keyboard. ;)"
+msgstr "Είναι ένα πληκτρολόγιο που εξομοιώνει ένα αληθινό πληκτρολόγιο. ;)"
+
+#: vkeyboard.php:156
+msgid "Login"
+msgstr "Είσοδος"
+
+#: functions.php:61
+msgid "Open Virtual Keyboard"
+msgstr "¶νοιγμα Εικονικού Πληκτρολογίου"
+
+#: help.php:58
+msgid ""
+"So, you can increase your security, using the virtual keyboard and its "
+"\"automatic click\" function."
+msgstr ""
+"Έτσι, μπορείτε να αυξήσετε την ασφάλειά σας, χρησιμοποιώντας το "
+"εικονικό πληκτρολόγιο και τη λειτουργία του \"αυτόματο κλικ\"."
+
+#: vkeyboard.php:113
+msgid "The key will be pressed in "
+msgstr "Το κουμπί θα πατηθεί σε "
+
+#: vkeyboard.php:52
+msgid "Virtual Keyboard"
+msgstr "Εικονικό Πληκτρολόγιο"
+
+#: help.php:46
+msgid "Virtual Keyboard: Help"
+msgstr "Εικονικό Πληκτρολόγιο: Βοήθεια"
+
+#: help.php:51
+msgid "What's a virtual keyboard?"
+msgstr "Τι είναι το εικονικό πληκτρολόγιο;"
+
+#: functions.php:56
+msgid "virtual keyboard"
+msgstr "εικονικό πληκτρολόγιο"

@@ -1,0 +1,148 @@
+$Id: ChangeLog,v 1.3 2009/12/09 00:29:58 indiri69 Exp $
+* Tue Dec  8 2009 Seth Randall <indiri69@users.sourceforge.net>
+- Updated version number to 3.1
+- Added support for smtoken
+
+* Sat May  9 2009 Seth Randall <indiri69@users.sourceforge.net>
+- Code cleanups and changes
+- Updated version number to 3.0
+
+* Sat Jan 17 2009 Seth Randall <indiri69@users.sourceforge.net>
+- Considerable rewrite
+
+* Sat Jun 23 2007 Seth Randall <indiri69@users.sourceforge.net>
+- Added Bahasa Melayu translation by zamri <myzamri@gmail.com>
+
+* Sat Jun  9 2007 Seth Randall <indiri69@users.sourceforge.net>
+- Updated version to 2.7a-1.4.x
+
+* Mon Jun  4 2007 Seth Randall <indiri69@users.sourceforge.net>
+- Added Korean translation by LEE CHANG MIN <mostech@gmail.com>.
+- Added Dutch translation by Sander Eerkes <sander@eerkes.eu>.
+
+* Sun Jun  3 2007 Seth Randall <indiri69@users.sourceforge.net>
+- Added Swedish translation by Erik Lindgren <erk@gote.org>.
+
+* Wed Oct  4 2006 Tomas Kuliavas <tokul@users.sourceforge.net>
+- Added Norwegian Bokmal translation by Svein Olav Bjerkeset 
+  <sobjerke@users.sourceforge.net>. SquirrelMail tracker #1525721.
+
+* Sat Nov 19 2005 Seth Randall <sethr@missoulafcu.org>
+
+- Added FAQ
+- Updated INSTALL and README files
+- Added Slovenian translation (sl_SI) from "Sasa Stupar <sasa@stupar.homelinux.net>
+- Added Czech translation (cs_CZ) from "Martin Šlouf" <martinslouf@users.sourceforge.net>
+- Updated Italian translation (it_IT) from "Salvatore Bocchetti" <salvatore.bocchetti@euroeuro.net>
+
+* Mon Jul 18 2005 Seth Randall <sethr@missoulafcu.org>
+
+- Added Finnish translation (fi_FI) from "Kari Mattsson" <kari AT trivore DOT com>
+
+* Thu Sep 16 2004 Seth Randall <sethr@missoulafcu.org>
+
+- Added Italian translation (it_IT) from "magomarcelo" <magomarcelo@altervista.org>
+
+* Wed Jul 21 2004 Seth Randall <sethr@missoulafcu.org>
+
+- Added option to specify a poppass server if it's different than the imap server
+- Changed version number to 2.7-1.4.x
+
+* Wed Jun 30 2004 Seth Randall <sethr@missoualfcu.org>
+
+- Added Brazilian Portuguese translation (pt_BR) from "Edinardo Potrich" <edinardo@cbainfo.com.br>
+
+* Thu Dec 18 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Minor updates to some translations
+- Changed version number to 2.6-1.4.x
+
+* Wed Dec 17 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added French translation (fr_FR) from "Ludovic Marcotte" <ludovic@sophos.ca>
+
+* Sun Dec  7 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added German translation (de_DE) from "Steffen Beyer" <sbeyer@reactor.de>
+- Accept 3xx codes after pass command (arguably wrong, but the poppass daemon
+  in the ports collection does it that way)
+- Changed version number to 2.5-1.4.x
+
+* Sat Nov  8 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added Bulgarian translation (bg_BG) from "Marian Popov" <mano@pazardjik.com>
+
+* Mon Oct 20 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Changed version number to 2.4-1.4.x
+
+* Wed Oct  1 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added Polish translation (pl_PL) from "Sebastian Turzynski" <buzz@zamek.gda.pl>
+
+* Thu Sep 25 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added Spanish (es_ES) translation from "grana canal10" <grana@canal10.com.uy>
+- Explicitly define SQ_SESSION as the source of onetimepad
+
+* Fri Sep 19 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added translation support (thanks to Ruben Leote Mendes)
+- Added Portuguese (Portugal) (pt_PT) translation from "Ruben Leote Mendes" <ruben@nocturno.org>
+- Added change_pass_version in setup.php
+- Changed version number to 2.3-1.4.x
+
+* Thu Jul 10 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Removed poppassd software
+- Added proper handling of 2xx and 3xx responses
+- Changed version number to 2.2-1.4.x
+
+* Fri Apr 25 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added support for 300 after "user" command (thanks to Richard Gee)
+- Added version file
+- Changed version number to 2.1-1.4.x
+
+* Mon Apr  7 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Updated for SquirrelMail 1.4.x
+- Changed version number to 2.0-1.4.x
+
+* Tue Jan  7 2003 Seth Randall <sethr@missoulafcu.org>
+
+- Added courierpassd
+- Changed version number to 1.5
+
+* Wed Dec 18 2002 Seth Randall <sethr@missoulafcu.org>
+
+- Removed debug code
+- Added a poppassd for some BSDs
+- Changed version number to 1.4a
+
+* Thu Sep 26 2002 Seth Randall <sethr@missoulafcu.org>
+
+- Updated for SquirrelMail 1.2.8
+- Changed version number to 1.4
+
+* Mon Mar 26 2001 Tyler Akins
+
+- Now uses the mail server address instead of hardcoding "localhost"
+- Now forwards to correct URL (removes errors if you want to change your
+  password twice in a row)
+- Changed version number to 1.3
+
+* Tue Feb  6 2001 Tyler Akins
+
+- Added debug mode
+- Better error message
+- Better error checking
+- No need to log out and back in after password change
+- Changed version number to 1.2
+
+* Tue Jan 23 2001 Tyler Akins
+
+- Changed variable and function names using change_pass_ as a prefix to
+  avoid conflict with other plugins as has been mentioned in the plugins
+  mailing list
+- Changed version number to 1.1

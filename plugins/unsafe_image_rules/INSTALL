@@ -1,0 +1,37 @@
+Installation
+============
+
+Simply untar the file in the plugins directory, and make sure it is in its own
+directory, and that the name of the directory is the name of the plugin. The
+example below uses v0.8 of the Unsafe Image Rules plugin:
+
+  $ cd plugins
+  $ tar -zxvf unsafe_image_rules.0.8-1.4.tar.gz
+
+Then go to your config directory and run "conf.pl". Choose option 8 and add the
+plugin (+). Save and exit, then that should be all if the plugin was made
+correctly.
+
+  $ cd ../config
+  $ ./conf.pl
+
+Configuration
+=============
+
+There is a chance that you, as the administrator may not want to give the users
+the "Trust all sources" option. If this is the case, copy "config.php.sample" to
+"config.php" and change the following line:
+
+$unsafe_image_rules_disable_all = 0;
+
+to:
+
+$unsafe_image_rules_disable_all = 1;
+
+Localization
+============
+
+Translations for this plugin are handled by The SquirrelMail
+Internationalization Team and are available at
+<http://www.squirrelmail.org/download.php>. Installation instructions for the
+locales are provided in the localization packages.

@@ -1,0 +1,157 @@
+# This script is populate-file-manager.
+# Ken Wilson (kaw@wilberforce.ac.uk)
+# Version: 1.0
+
+# Feel free to adjust and change this script to suit your
+# own set-up. Please e-mail me with any comments/improvements
+# so that it can be updated.
+
+# This script allow you to automate the updating
+# of the config.php file that is part of the
+# file_manager plugin for SquirrelMail.
+
+# The idea is simple: to allow your SM users gain
+# access to their home directories, and to perform the
+# initial bulk creation of the config.php file.
+
+# In my set-up, I have the following:
+# (a) two servers: SM server on DMZ and Samba server 
+#     on internal network.
+# (b) an NFS export on the Samba server which points
+#     to the user's home directories
+# (c) the SM server maps to the NFS export on the
+#     Samba server.
+# (d) the user homes on the NFS export are organised
+#     like this:
+#      home/groupname/username
+
+# This script works by populates the config.php file
+# of the filr_manager plugin with the usernames
+# and base directories of users.
+
+# In this set-up, security is important:
+# (a) In order to provide full access, each user's home directory
+#     is given 0770 recursive permissions
+# (b) the directory ownership is set recursively as user.apache (apache is
+#     my httpd user)
+# (c) users are not members of the apache group. (Important this one!)
+# Ths script will perform all the necessary changes to permissions
+# and ownership for you, but you _must_ be sure that your own security
+# is not compromised. Test it first.
+#
+
+# Also, so that files can be read by the httpd user, you'll need to set the
+# "create mode" and "directory mode" of the homes share to 770. Example
+# [homes]
+#   comment = User home directories
+#   read only = No
+#   guest ok = No
+#   force group = apache
+#   create mask = 0770
+#   force create mode = 0770
+#   directory mask = 0770
+#   force directory mode = 0770
+								
+#
+# Usage: populate-file-manager [grpname]
+# Example: populate-file-manager staff
+#
+# If you do not store your user's homedirs in group/user directories
+# on your file server, then leave [grpname] blank.
+# To allow the apache user access to user's home directories
+# you need to make the apache user a member of the [grpname]
+
+# ----- CONFIG.PHP SETTINGS -----
+# Change these settings to match your site.
+
+# Set HOME to point to the base directory where all your
+# users homedirs are located. 
+HOME="/export2/home/$1"
+
+# Set QUOTA to the quota that is set for all users
+QUOTA=5MB
+
+# Set ADMINMAIL to the admin mail address for all users
+ADMINMAIL=kaw@wilberforce.ac.uk
+
+# Set ALLOWLINKS to 1 to allow links for all users
+ALLOWLINKS=1
+
+# Set ALLOWCHMOD to 1 to allow chmod for all users
+ALLOWCHMOD=0
+
+# Set HTTPDGROUP to the group that your httpd server runs as.
+# SECURITY WARNING: Make sure that the individual _user_ is not
+# a member of this group.
+HTTPDGROUP=apache
+
+# Set PLUGINPATH to point to the base directory where your
+# SquirrelMail plugins are stored
+#PLUGINPATH=/var/www/squirrelmail/plugins
+PLUGINPATH=/usr/sbin/scratch
+
+
+# Set TMPPATH to point to your temp directory
+TMPPATH=/tmp
+
+# Set RESETPERMISSIONS to 1 of you want to change the permissions
+# on the user's home directory for access by the apache user.
+RESETPERMISSIONS=0
+
+# Don't change below this line
+#=============================
+GROUP=$1
+
+#Backup old config.php file
+cp -f $PLUGINPATH/file_manager/config.php $PLUGINPATH/file_manager/config.php-SAVED
+# Search for userdirs which are not in config.php
+cd $HOME
+for i in *
+do
+	# Get working copy of config.php file
+	cp -f $PLUGINPATH/file_manager/config.php $PLUGINPATH/file_manager/config.php.wrk
+	# Need to check if $HOME/$I is a directory and not in config.php.wrk also
+	if [ $(grep -c "$HOME/$i" $PLUGINPATH/file_manager/config.php.wrk) == 0 ] && [ -d $HOME/$i ]; then
+		echo "Adding $i to file_manager config.php"
+		# Configure sed script
+		echo "'USER'=>array(\\" > $TMPPATH/file_manager.sed
+		echo "'baseDir1'=>'HOME',\\" >> $TMPPATH/file_manager.sed
+		echo "'quota'=>'QUOTA',\\" >> $TMPPATH/file_manager.sed
+		echo "'adminMail'=>'ADMINMAIL',\\" >> $TMPPATH/file_manager.sed
+		echo "'allowLinks'=>ALLOWLINKS,\\" >> $TMPPATH/file_manager.sed
+		echo "'allowChmod'=>ALLOWCHMOD\\" >> $TMPPATH/file_manager.sed
+		echo ")\\" >> $TMPPATH/file_manager.sed
+		# .. change script for this user
+		BASEDIR=$(echo "$HOME"/"$i" | sed 's/\//\\\//g')
+		sed 	-e 's/USER/'"$i"'/' \
+			-e 's/HOME/'"$BASEDIR"'/' \
+			-e 's/QUOTA/'"$QUOTA"'/' \
+			-e 's/ADMINMAIL/'"$ADMINMAIL"'/' \
+			-e 's/ALLOWLINKS/'"$ALLOWLINKS"'/' \
+			-e 's/ALLOWCHMOD/'"$ALLOWCHMOD"'/' < \
+			$TMPPATH/file_manager.sed > \
+			$TMPPATH/file_manager.sed-NEW
+		# .. set file and path separators
+		echo "s/);/   ,\\" > $TMPPATH/file_manager.sed
+		sed 's/\//\\\//g' < \
+			$TMPPATH/file_manager.sed-NEW >> \
+			$TMPPATH/file_manager.sed
+		echo "&/" >> $TMPPATH/file_manager.sed
+		# Execute sed script
+		sed -f $TMPPATH/file_manager.sed < \
+			$PLUGINPATH/file_manager/config.php.wrk > \
+			$PLUGINPATH/file_manager/config.php
+		# Reset permissions to allow httpd user access to user
+		# home directories
+		if [ $RESETPERMISSIONS == 1 ]; then
+			chown -R $i.apache $HOME/$i
+			chmod 770 $HOME/$i
+			chmod -R 770 $HOME/$i/*
+		fi
+	fi
+	# Tidy up
+	rm -f $PLUGINPATH/file_manager/config.php.wrk
+	rm -f $TMPPATH/file_manager.sed
+done
+
+

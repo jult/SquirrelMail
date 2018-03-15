@@ -1,0 +1,43 @@
+Virtual Keyboard (vkeyboard)
+
+version: 0.9.1
+date: March 4, 2008
+author: Daniel K. Imori <daniel@bastion.com.br>
+
+DESCRIPTION
+
+The vkeyboard plugin simulates a real keyboard on login's page. It protects
+your data against keyloggers, which are hidden programs that capture everything
+that you type or click. Therefore, if you use unsafe computers, the vkeyboard
+plugin is high recommended to protect your password.
+
+FEATURES
+
+- Option to generate random keys;
+- Multi-language and layout keyboards supported;
+- A method to protect against screenshots.
+
+INSTALLATION
+
+Read the INSTALL file.
+
+CONFIGURATION
+
+Copy the config.php.sample file to config.php and edit it.
+
+LICENSE
+
+Read the COPYING file.
+
+CHANGE LOG
+
+See the CHANGELOG file.
+
+TODO
+
+Many things! ;)
+If you have a suggestion, e-mail me.
+
+THANKS
+
+All contributors are listed in THANKS file.

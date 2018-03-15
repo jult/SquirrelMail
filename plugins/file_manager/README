@@ -1,0 +1,484 @@
+File Manager plugin for SquirrelMail
+====================================
+Ver 2.0, 12/03/03
+
+Original author: Paul Lesneiwski <pdontthink@angrynerds.com>
+
+Endless thank-yous  (a.k.a. Credits):
+   Ryan <ryan@vendetta.com> 
+      Lots - no TONS - of good ideas, programming tips 
+      and debug help.
+   Kenneth G. Kirk <kkirk@christtheteacher.org>
+      Wrote a kick-ass README!  Also, tons of ideas, 
+      endless testing.
+   Rene <rene.madsen@webscorpion.com>
+      Help debugging and flushing out those hard to find 
+      problems...
+   Hans Pech <hanspech@gmx.net>
+      Wrote the German translation - whew!  Also, lots of
+      patience helping me debug.
+   Ken Wilson <kaw@wilberforce.ac.uk>
+      Wrote a very nice little shell script to automate
+      config file population!  Also helped find many of
+      those annoying little bugs.
+   Berend Tober <btober@seaworthysys.com>
+      Provided the ideas and initial code for .users config
+      file as well as for making sure newlines are processed
+      correctly.  Berend comes to us by way of the Eastern
+      Connecticut Linux User Group http://www.eclug.net
+   Harley <harley@remotech.com>
+      Great ideas and help testing.
+   Tomas Kuliavas <tokul@users.sourceforge.net>
+      Wrote the Lithuanian translation!
+   Franciszek Lewenda <franek@nask.pl>
+      Wrote the Polish translation!
+   Fredrik Nilsson <Fredrik@Nilsson.eu.org>
+      Wrote the Swedish translation!
+
+
+
+Description
+===========
+
+This plugin allows designated users file management
+access to a pre-defined portion of the host machine's
+file system.  
+
+Probably doesn't work in Windows hosting environment,
+but if anyone's willing to serve as a test dummy, I'm 
+sure we can fix that...
+
+
+Basic User Features
+===================
+
+  *  Create/Delete/Rename/Move/Copy files/directories
+  *  File upload/download (includes overwrite warnings
+     and virus scanning of uploaded files)
+  *  Edit files
+  *  Save attachments locally or send files as email attachments
+  *  Point-n-click directory navigation
+
+  
+Advanced/Admin Features (dynamically controlled by config.php)
+==============================================================
+
+  *  Per-user access to plugin
+  *  Per-user base directory configuration (can have multiple)
+  *  Per-user quota control (dynamically re-calculated)
+  *  Per-user access to symbolic links
+  *  Per-user access to chmod
+  *  Global - disable all chmod functionality (for use on
+     systems where php was compiled without chmod support)
+
+
+Configuration - (set by editing config.php)
+===========================================
+
+Global settings:
+----------------
+
+  * $systemUmask is currently only used when creating
+    new directories. Change with care!
+
+  * $defaultFolderPerms sets the permissions that will
+    be used when creating new directories. Change as needed.
+
+  * $defaultFilePerms sets the permissions that will be
+    used when creating/uploading new files. Change as needed.
+    
+  * $symlinkColor sets the color for symbolic link display.
+    Set to '' for default link color. Change as needed.
+
+  * $fileEditStyle controls how the edit feature is accessed
+    'edit link' displays [Edit] to the right of the filename.
+    'hyperlink' displays the filename as a hyperlink
+    
+  * $fileLinkColor sets the color for the 'hyperlink' option
+    of the $fileEditStyle. Set to '' for default link color.
+    Change as needed.
+    
+  * $viewFilesBehavior determines the behavior of view links
+    for files.  When set to 1 or 2, users may change this 
+    behavior for their own account; when set to 3 or 4, this
+    behavior is fixed for all users.  See the config file for 
+    descriptions of each of the four available settings.
+
+  * $chmodOK indicates if the chmod command is available on
+    the host system (and support for it is compiled into php).
+    This can be set to '0' if no chmod commands should be
+    allowed. When set to '1' only authorized users will have
+    access. (see allowChmod below...) Most users of this plugin
+    won't need to change this setting! Those who do probably 
+    know who you are. Change with care!
+
+  * $globalAllowEditBinary is how you can turn off permission
+    for all users to edit binary files (set to 0).  To enable
+    this on a per-user basis, set this to 1 and read below
+    about allowEditBinary
+
+  * $newlineChar should contain the octal code for newline 
+    characters on the host system.  This is used to make sure
+    edited files are stored appropriately on the host.  The 
+    sample (default) file is set so that *nix users should
+    not have to change this parameter.  The config file has
+    other sample settings for those of you not in *nix.
+
+  * $antiVirusCommand should contain your anti-virus scanner
+    command, using "%filename%" (without the quotes) where 
+    the name of the uploaded file to be checked for viruses 
+    will be substituted.  If you will not be using anti-virus
+    checking, this setting can be ignored.
+
+  * $antiVirusCommandFoundNoVirusReturnCode must be set to
+    the expected return value of the anti-virus command when 
+    no virus has been found during the scan.  Any other return 
+    code will result in the user being unable to upload the 
+    file.  If you will not be using anti-virus checking, this 
+    setting can be ignored.
+
+  * $checkUploadsForVirii should be set to 1 to turn on virus
+    checking.  If you will not be using anti-virus checking, 
+    make sure this setting is set to 0 (zero).
+
+  * $showAntiVirusErrorDetails is set to 1, the user will see
+    the output of the anti-virus command when a virus has been 
+    found.  If you will not be using anti-virus checking, this 
+    setting can be ignored.
+
+  * $showGoodAntiVirusResults allows an informational report-
+    back of the anti-virus scan when no viruses were found.  
+    Set it to 1 to turn the report on.
+
+  * $sharedDirectoryQuotas is a listing of directories you
+    can specify as "shared" and an associated quota that 
+    applies to all users of this directory.  The quota will
+    override that of individual users when they are browsing
+    the specified directories (and any below them).  These
+    directories need not be the same as base directories - they
+    can be anywhere in the directory hierarchy.  The quotas
+    can be specified just the same as individual user quotas
+    (see below).
+
+
+User settings: (only named users will have access to the file_manager)
+----------------------------------------------------------------------
+
+  * As of version 1.6, users should be specified in the file
+    file_manager.users, although they may still be specified
+    in config.php for all you lazy sysadmins.  The file_manager.users
+    file should have one line for each user who needs access to the
+    file_manager plugin, which looks like:
+
+      user2@domain.net /www/user2/html 5MB help@yet.another.domain.org 1 0 0
+
+    Each field is separated by any amount of whitespace.  Order is 
+    important and should be as follows: 
+
+       - username
+       - base directories (any number of these is acceptable)
+       - quota (may be nonexistent)
+       - adminMail
+       - allowLinks
+       - allowChmod
+       - allowEditBinary
+
+    See below for explanations of each field.  The *old* way of doing 
+    this (ignore this for anyone not using a config file from version
+    1.5 or less) was in the config.php file where this block was repeated 
+    in the $file_manager_config array for each user as such:
+
+      'user2@domain.net' => array(
+         'baseDir1' => '/www/user2/html',
+         'baseDir2' => '/home/user2',
+         'quota' => '5MB',
+         'adminMail' => 'help@yet.another.domain.org',
+         'allowLinks' => 1,
+         'allowChmod' => 0,
+         'allowEditBinary' => 0
+      ),
+
+  * username (e.g., 'user2@domain.net') should match the user's 
+    exact login ID (that is, SquirrelMail's $username contents).  
+    Of course, some systems do not require the '@domain.net'. 
+    This must precisely match the users login ID!  (Change $debug 
+    in setup.php to 1 to see a printout of $username in place of 
+    the regular File Manager link if there is any doubt.)
+
+  * base directories (in the old config, called "baseDir1", 
+    "baseDir2", etc.) define the home directory/directories to 
+    which the user will have access. They are used as the top-level 
+    of the user's access.  Use caution with these settings, as the 
+    user will have access to all files and sub-directories. Most 
+    likely this must be set to the absolute directory path. Use 
+    caution, you don't want to give away the store!
+    
+  * quota defines the user's storage allowance. Storage used is
+    calculated by adding up the size of all files in the current
+    base directory and any sub-directories of the baseDir. When 
+    not specified (or in the old config set to ''), the user is 
+    allowed unlimited storage.  NOTE: for users with more than 
+    one base directory, the quota applies PER base directory, not 
+    in total.  This may be specified as "50000000", "50MB", or 
+    "50M" where K/KB = kilobytes, M/MB = megabytes, G/GB = gigabytes.
+    (For information on how to change your per-file upload limit,
+    see below.)
+    
+  * adminMail defines what address will be shown to the user for 
+    problem determination and resolution. The address will be
+    displayed as a mailto: hyperlink when the user encounters an
+    error.
+    
+  * allowLinks determines if symbolic links will be displayed to 
+    the user. If set to 1, the user will have access to any files
+    and directories referenced in or below the link. Enable this 
+    option with extreme care!
+    
+  * allowChmod allows the user to change the file/folder permissions
+    on accessible files. When set to 1 the user is allowed, when set
+    to 0 the user is not allowed. This option is dependant on the 
+    global option chmodOK and is only available if it is set to 1.
+    
+  * allowEditBinary allows the user to open binary files for editing.
+    (A warning will always preceed such action)  This might be useful
+    for users who need access to files containing non-English characters.
+    Set to 1 to allow, or 0 to disallow.  Note that if 
+    $globalAllowEditBinary (see above) is set to 0, allowEditBinary will
+    not have any effect.
+
+
+
+Changing Per-File Upload Limit
+==============================
+To change this limit, you need to adjust (or add to) your php.ini file and 
+restart your web server (and File_Manager will pick up the change automatically).
+The three settings you'll want to examine, in relative order of importance
+are:
+   upload_max_filesize
+   post_max_size
+   memory_limit
+Refer to php.ini or http://php.net for more detailed information.
+
+
+
+Security Notes
+==============
+Users will only be able to manipulate files which
+php will have permission to change, which in most
+cases means that they (and containing directory if it
+is a file in question) will need to be owned by the
+user defined by the web server.  In the case of apache,
+you'll want to do something like this (replace "apache" 
+with "nobody" or as appropriate in your case):
+
+  $ chown -R apache:apache users/base/directory
+  
+  or better:
+  
+  $ chown -R someuser:apache users/base/directory
+
+(Where "someuser" is the original owner of that directory.)
+
+The directory information passed to the client browser
+is always relative; however, this is not to say that 
+that scheme might not be circumvented somehow.  Every 
+request is first checked against the user's base 
+directory, and no requests are acted upon above that 
+directory, but again, someone with more knowledge on 
+security breaches should review this code for potential 
+holes.
+
+
+
+Change Log
+==========
+  2.0 - Paul Lesneiwski <pdontthink@angrynersd.com>
+   * Upgraded for compatibility with SquirrelMail 1.4
+     (SquirrelMail 1.4 no longer needs to have its
+     compose.php patched to work with File Manager!)
+
+  1.6.3 - Paul Lesneiwski <pdontthink@angrynersd.com>
+   * Fix for SquirrelMail installations with problematic 
+     session issues.  This is not specifically a File 
+     Manager problem (you are strongly advised to solve
+     your session problems for real), but since File 
+     Manager provides sensitive access to your server,
+     this fix prevents File Manager permissions from being
+     "left over" in users' browsers.
+
+  1.6.2 - Paul Lesneiwski <pdontthink@angrynersd.com>
+   * Fix for browsers that had problems when trying
+     to attach local files to emails.
+
+  1.6.1 - Paul Lesneiwski <pdontthink@angrynersd.com>
+   * Fix for attaching files to replies (message
+     text showing up in File Manager interface and
+     fields such as To:, Cc:, and possibly message
+     body were being lost).  New versions of 
+     SquirrelMail's compose.php are included in this
+     release, so please make sure to replace 
+     compose.php for error-free functionality.
+   * Fixed compatibility with autocomplete plugin
+     (horrible microsoft issue around variable 
+     scope... argh)
+   * Custom patched compose.php has a small fix 
+     (unrelated to File Manager) having to do with 
+     lost attachments.
+   * New setup.php format for faster performance.
+
+  1.6 - Paul Lesneiwski <pdontthink@angrynersd.com>
+   * Users may now add attachments (as many as needed)
+     to new messages from File Manager using a link on 
+     the compose page (NOTE - be sure to follow the
+     instructions in the INSTALL file to replace 
+     SquirrelMail's compose.php in order for this to
+     work correctly).
+   * Added binary file detection and disallow/allow 
+     editing binary files (per-user or global)
+     (currently not sensitive to non-English chars - 
+     ideas anyone?)
+   * "Save" and "Save And Close" functionalities now
+     available when editing files.
+   * Adjustable sizing of file editing text area; 
+     sizing is stored in user preferences.
+   * Added quota overrides for "shared directories"
+     (Thanks to Harley <harley@remotech.com>)
+   * Added anti-virus scanning hooks for checking
+     uploaded files for infections.
+   * New .users user configuration file (old config
+     files are still supported however).  (Thanks to 
+     Berend Tober <btober@seaworthysys.com>)
+   * Viewing files can be done in same or separate
+     window - settable by admin or individual users
+   * Added config parameter to allow sysadmin to 
+     ensure edited files are stored with newlines 
+     that are correct for the host operating system.
+   * Current user's file_manager config info is kept
+     in the SM session so the .users file doesn't 
+     need to be read more than once.
+   * Fixed disappearing ampersand signs when editing
+     html files.
+   * Attachments are now saved using the default 
+     file permissions given in the config file.
+   * Javascript fix - now trims off extra spaces when 
+     user enters file names
+   * Fixed minor javascript error when uploading files.
+   * Locale fix for those of you who don't have php
+     compiled with gettext support.  File manager 
+     should no longer prevent other parts of 
+     SquirrelMail from showing up in the right language.
+     (Thanks to Alexandros Vellis <avel@noc.uoa.gr>)
+   * Lithuanian translation - complements Tomas 
+     Kuliavas <tokul@users.sourceforge.net>
+   * Polish translation - complements Franciszek 
+     Lewenda <franek@nask.pl>
+   * Mailto: links changed to be SquirrelMail compose
+     links (duh!).  Thanks to Harley 
+     <harley@remotech.com> for catching that one.
+
+  1.5 - Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Save email attachments locally (to host server)
+   * Send any file as an email attachment 
+     (the edit/view/download/send links are beginning 
+     to crowd the page layout; you might want to try 
+     using the $fileEditStyle='hyperlink' setting)
+   * Multiple file upload functionality
+   * Multiple base directory configuration option
+     (going forward, you should update your config
+     file with "baseDir1" instead of "baseDir", however,
+     it is backward compatible without making any config
+     changes!)
+   * Added sample script to automate the population of
+     the config file for large user bases (complements
+     Ken Wilson <kaw@wilberforce.ac.uk>)
+   * Added compatibility for plugin updates tool
+   * Internationalization!  Translators wanted - email
+     me if you're interested.
+
+  1.4.5 - Paul Lesneiwski <pdontthink@angrynerds.com>
+   * New README file - please do READ it!  (Kenneth G. 
+     Kirk <kkirk@christtheteacher.org> gets all the 
+     credit for this thankless job (THANKS!!!).)
+   * Minor bug fix checking upload file size (thanks 
+     to Jimmy Conner <jimmy@advcs.org>)
+   * Fixed BACK link that wasn't working in some 
+     environments (thanks to Matthew Kennedy's
+     <mkennedy@dnetworking.com> patience testing!).
+   * Suppress warnings when calculating quota
+
+  1.4 - Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Implemented quota checking
+   * Added Revert button when editing a file
+   * Removed old code that was accidentally placing
+     temp files in the SM attachments directory
+
+  1.3 - Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Implemented copy functionality
+   * CHMOD now works on all selected items
+   * Moved edit from the button row to be a link
+   * Symlinks get some color!
+   * BACK link at bottom of file list
+   * File edit link can also by a hyperlink (w/custom
+     color)
+   * Fixed bug when downloading nonexistent files 
+     (thanks to Ryan <ryan@vendetta.com>)
+   * Added $chmodOK to allow sysadmins to turn off
+     all chmod code in the entire plugin in one place
+
+  1.2 - Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added file download/view functionality (tons of
+     thanks to Ryan <ryan@vendetta.com> for the ideas
+     and help!)
+   * Added file sorting 
+   * Added CHMOD functionality (can turn on/off per user)
+     (thanks to Kenneth G. Kirk <kkirk@christtheteacher.org> 
+     for tips and testing this and many other functions)
+   * Disallow user to view symlinks (can turn on/off
+     per user)
+   * Added move/rename functionality.  User must enter
+     path manually (I'd like to provide a way for them
+     to browse in a popup window or the likes and select
+     the target by clicking on it).  Protection is 
+     included to disallow moving anything above the
+     user's base directory.
+   * Made default permissions (and umask) used when creating 
+     files and directories configurable.
+
+  1.1 - Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Disallow users from attempting to edit directories
+   * Potential security hole when uploading files fixed 
+     (props to Ryan <ryan@vendetta.com>!!)
+   * Protect files from being overwritten unless user
+     checks a checkbox
+   * Dynamic "smart" file name checks to avoid getting
+     a message about duplicate file names AFTER waiting
+     for a (possibly large) file to upload.
+
+  1.0 - Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Initial release.
+
+
+Future Work
+===========
+
+   *  Move files function -- need a clean way for
+      user to select target directory.  Pop up a
+      small window where the user can browse to
+      the target?
+
+   *  CHMOD functionality - perhaps it would be nice
+      to give a graphical way to choose permissions
+      instead of asking for the octal number!
+
+   *  Limit editing of files to text files only.
+      (How?  Using file extensions is easy, but not 
+      a definitive solution.)  Currently, this is 
+      implemented by scanning the first 1K of the file
+      for characters presumed to be binary data, but
+      this method will falsely identify most non-
+      English character sets as binary.
+
+   *  Allow limited access to file execution or 
+      certain tools (untar/unzip, etc)??  From
+      a security perspective, this may be disasterous.
+

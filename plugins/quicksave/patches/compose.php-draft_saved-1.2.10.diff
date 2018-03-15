@@ -1,0 +1,11 @@
+--- src/compose.php.old	Tue Nov 19 22:49:39 2002
++++ src/compose.php	Tue Mar  4 17:13:39 2003
+@@ -888,7 +888,7 @@
+     echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
+ 
+     if ($save_as_draft) {
+-        echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
++        echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\" onClick=\"document.QSstopsign.mailsent.value = 1; QuickSave_clear_storage();\">\n";
+     }
+ 
+     do_hook('compose_button_row');

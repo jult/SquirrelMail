@@ -1,0 +1,115 @@
+Unsafe Image Rules (unsafe_image_rules)
+
+Description
+===========
+
+A user may now build a list of rules that will be used to determine if unsafe
+images will be shown in HTML messages. If a message matches any of the rules and
+contains images that would normally be initially hidden, then they are now shown
+by default.
+
+The user may choose to always show unsafe images, for all message. This is
+obviously not recommended by the core SquirrelMail Project Team - or they
+wouldn't have built this functionality to begin with. See the following:
+
+http://www.squirrelmail.org/wiki/UnsafeImages
+
+Usage
+=====
+
+A new section is added to the options page titled, 'Unsafe Image Rules'. Within
+this page the user may define a number of rules to determine when messages are
+from a trusted source.
+
+These options are very similar to the core message filters plugin. A message
+field (To, From, CC, Subject) can be matched either against a regular
+expression, or simply searched to see if the given string is within the field.
+If a match is found then unsafe images are always shown for this source.
+
+Four options are seen above the rule list which are unchecked by default:
+
+- The first states that all sources are to be trusted, not recommended as
+  discussed above.
+- The second option ('Trust sources in address book') will show unsafe images
+  from any address listed in your personal address book.
+- Third option ('Trust anything I send') will show unsafe images sent by any of
+  your defined identities (useful if you are looking at your 'Sent' folder).
+- The final option ('Trust defined sources') will search the options added below
+  (entered by clicking the 'Add New Rule' link). If this option is unchecked
+  then adding your own rules below is pretty pointless.
+
+A new feature is the ability to quickly add the sender of an email containing
+unsafe images to the rule list by clicking the 'Add as Safe Sender' link when
+the message with unsafe images (i.e. after having clicked 'View Unsafe Images').
+The remaining options on this page control the behavior of that link.
+
+- Always add full email address will add the complete email address of the
+  sender to the rules as a strict match. This is the default action.
+- Always add full domain will add only the domain name of the sender to the
+  rules as a strict match.
+- Always ask will prompt the user each time to allow them to modify the email
+  address being added and also whether to make it a regular expression match,
+  similar to the behavior that exists when adding a new rule.
+
+To Do
+=====
+
+1. Make the plugin conform to the SquirrelMail plugin standard.
+
+Changes
+=======
+
+v0.1   2002-05-10   Initial version.
+v0.2   2002-05-25   Added address book and identities matching. Made "regexp"
+                    and "contains" check separate. Added admin option to remove
+                    the "Trust all sources" user option.
+v0.3   2002-10-31   Works with register_globals on or off.
+v0.4   2003-02-09   Compatible with SquirrelMail 1.4.
+v0.5   2003-07-21   More changes for SM 1.4.1, but also backwards compatible
+                    with 1.4.
+v0.6   2003-09-25   Added internationalization support and first translation
+                    (pt_PT).
+v0.7   2004-09-02   Added safe sender link and associated options.
+v0.8   2006-01-28   Removing PHP notices. Fixed translation bugs. Fixing URLs.
+                    Fixing error handler (patch by Paul Lesneiwski, closing bug
+                    #1154727). Fixing malfunctioning redirection (closing bug
+                    #1075108). Fixing bug that did not display images when the
+                    reply to address was in the address book.  Fixing bug that
+                    displayed a link to trust an already trusted sender. Various
+                    changes to make the conform more to the SquirrelMail plugin
+                    standards, most notably moving the configuration options to
+                    "config.php" and moving functions from "setup.php" to
+                    "functions.php". SquirrelMail Internationalization Team now
+                    handles the translations, instead of distributing them
+                    bundled with the plugin.
+
+Thanks
+======
+
+Original author:             Robin Rainton <robin@rainton.com>.
+                                http://rainton.com/fun/freeware
+Original i18n code:          Ruben Leote Mendes <ruben@nocturno.org>.
+Original safe sender code:   Marc Powell <marc@xodus.com>.
+Current maintainer:          Fredrik Jervfors <sqm_admin@fimbul.net>.
+
+Other persons who have contributed with patches and suggestions:
+                             Paul Lesneiwski,
+                             Tomas Kuliavas, and
+                             Florian Daumling.
+
+Copyright
+=========
+
+Copyright (C) 2002-2006 Robin Rainton, Fredrik Jervfors
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+A copy of the GNU General Public License can be found on the Free Software
+Foundation website: http://gnu.org/

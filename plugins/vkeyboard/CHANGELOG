@@ -1,0 +1,48 @@
+0.9.1
+- Fixed keyboard layout not found;
+- Added Hungarian (hu_HU) and Russian (ru_RU) translations;
+- Added hu_HU keyboard layout.
+
+0.9
+- Added it, el, de_DE and pl_PL translations;
+- Added fr_FR and pl_PL keyboard layouts;
+- Applied single quotes and backslash patch provided by Alexandros Vellis;
+- Some flaws in nl_NL translation fixed;
+- Include key size configuration to solve some browsers compatibility.
+
+0.8.1
+- Added cs_CZ, es_ES, fr, fr_FR and nl_NL translations;
+- Added cs_czech and es_ES keyboard layouts.
+
+0.8
+- Added a method to protect against screenshots;
+- Adapted to Squirrelmail Plugin Standards.
+
+0.7
+- Fulfilling of username field. (discontinued)
+
+0.6
+- Multi-language support added with keyboard layouts.
+
+0.5
+- Space key from random generation;
+- Button for login.
+
+0.4
+- Added the space key;
+- Change focus key implemented.
+
+0.3.2
+- Modifications for compatibility with 1.4.0 version.
+
+0.3.1
+- Incompatibility with the password_forget plugin fixed.
+
+0.3
+- Adding configuration options.
+
+0.2
+- First key from random generation.
+
+0.1
+- Initial release.

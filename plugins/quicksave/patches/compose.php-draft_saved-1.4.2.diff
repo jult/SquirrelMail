@@ -1,0 +1,11 @@
+--- src/compose.php.orig	Fri Sep 12 22:36:04 2003
++++ src/compose.php	Fri Sep 12 22:36:18 2003
+@@ -1232,7 +1232,7 @@
+     }
+ 
+     if ($save_as_draft) {
+-        echo '         <input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
++        echo '         <input type="submit" name ="draft" value="' . _("Save Draft") . "\" onClick=\"document.QSstopsign.mailsent.value = 1; QuickSave_clear_storage();\">\n";
+     }
+ 
+ if ($location_of_buttons != 'bottom') {

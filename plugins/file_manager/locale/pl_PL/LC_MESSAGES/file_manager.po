@@ -1,0 +1,396 @@
+# Squirrelmail file manager plugin
+# Polish translation
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Franciszek Lewenda <F.Lewenda@nask.pl>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id: 1.0\n"
+"PO-Revision-Date: 2003-01-23 11:09+0100\n"
+"Last-Translator: Franciszek Lewenda <F.Lewenda@nask.pl>\n"
+"Language-Team: Squirrelmail i18n team <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: functions.php
+msgid "appears to be binary."
+msgstr "jest plikiem binarnym."
+
+#: functions.php
+msgid "You can only open text files."
+msgstr "Mo¿esz otwieraæ tylko pliki tekstowe."
+
+#: functions.php
+msgid "Click"
+msgstr "Kliknij"
+
+#: functions.php
+msgid "here"
+msgstr "tu"
+
+#: functions.php
+msgid "to open anyway."
+msgstr "aby mimo wszystko otworzyæ."
+
+#: functions.php
+msgid "Unlimited"
+msgstr "Nieograniczony"
+
+#: file_manager.php:1060 file_manager.php:1295
+msgid "Refresh"
+msgstr "Od¶wie¿"
+
+#: file_manager.php:1058 file_manager.php:1293
+msgid "Delete"
+msgstr "Kasuj"
+
+#: file_manager.php:1056 file_manager.php:1291
+msgid "New File"
+msgstr "Nowy plik"
+
+#: file_manager.php:1054 file_manager.php:1289
+msgid "New Folder"
+msgstr "Nowy folder"
+
+#: file_manager.php:1052 file_manager.php:1287
+msgid "Move/Rename"
+msgstr "Przenie¶/Zmieñ nazwê"
+
+#: file_manager.php:1050 file_manager.php:1285
+msgid "Copy"
+msgstr "Kopiuj"
+
+#: file_manager.php:1038 file_manager.php:1273
+msgid "Move"
+msgstr "Przenie¶"
+
+#: file_manager.php:1036 file_manager.php:1271
+msgid "Edit"
+msgstr "Edytuj"
+
+#: file_manager.php:1011
+msgid "Upload"
+msgstr "Wgraj"
+
+#: file_manager.php:1099 file_manager.php:1240
+msgid "<--BACK"
+msgstr "<--POWRÓT"
+
+#: file_manager.php:1018
+msgid "Allow Overwrite"
+msgstr "Zezwalaj na nadpisanie"
+
+#: file_manager.php:1043 file_manager.php:1278
+msgid "CHMOD"
+msgstr "CHMOD"
+
+#: file_manager.php:790
+msgid "Cannot Copy File Or Folder - Destination Already Exists"
+msgstr "Nie mo¿na skopiowaæ - plik lub folder docelowy ju¿ istnieje"
+
+#: file_manager.php:736
+msgid "Cannot Rename Or Move File Or Folder - Destination Already Exists"
+msgstr "Nie mo¿na przenie¶æ lub zmieniæ nazwy - plik lub folder docelowy ju¿ istnieje"
+
+#: file_manager.php:920
+msgid "Cannot overwrite a directory with a file."
+msgstr "Nie mo¿na nadpisaæ katalogu plikiem."
+
+#: file_manager.php:908
+msgid "Current usage ="
+msgstr "Aktualnie zajêto ="
+
+#: file_manager.php:659
+msgid "Error - Bad Syntax For CHMOD Permissions."
+msgstr "B³±d - z³e argumenty dla polecenia CHMOD."
+
+#: file_manager.php:908
+msgid "Error - Quota Exceeded."
+msgstr "B³±d - przekroczono limit zajêto¶ci dysku."
+
+#: file_manager.php:641
+msgid "Error Occurred Attempting To Change Permissions On:"
+msgstr "Wyst±pi³ b³±d przy próbie zmiany uprawnieñ do:"
+
+#: file_manager.php:807
+msgid "Error Occurred Attempting To Copy File Or Folder."
+msgstr "Wyst±pi³ b³±d przy próbie kopiowania pliku lub folderu."
+
+#: file_manager.php:572
+msgid "Error Occurred Attempting To Create File."
+msgstr "Wyst±pi³ b³±d przy próbie utworzenia pliku."
+
+#: file_manager.php:700
+msgid "Error Occurred Attempting To Create Folder."
+msgstr "Wyst±pi³ b³±d przy próbie utworzenia folderu."
+
+#: file_manager.php:979
+msgid "Error Occurred Attempting To Delete:"
+msgstr "Wyst±pi³ b³±d przy próbie skasowania:"
+
+#: file_manager.php:754
+msgid "Error Occurred Attempting To Move Or Rename File Or Folder."
+msgstr "Wystapi³ b³±d przy próbie przeniesienia lub zmiany nazwy pliku lub folderu."
+
+#: file_manager.php:834 save_attachment.php:61
+msgid "Error Occurred Attempting To Save File."
+msgstr "Wyst±pi³ b³±d przy próbie zapisania pliku."
+
+#: file_manager.php:188
+msgid "Error Occurred Attempting To Send File As Attachment."
+msgstr "Wyst±pi³ b³±d przy próbie wys³ania pliku jako za³±cznika."
+
+#: file_manager.php:902
+msgid "Error determining upload quota."
+msgstr "Wyst±pi³ b³±d przy próbie okre¶lenia dostêpnego miejsca na dysku."
+
+#: download.php:34
+msgid "FILE DOES NOT EXIST OR PROBLEM OPENING FILE"
+msgstr "Plik nie istnieje lub nie daje siê otworzyæ"
+
+#: file_manager.php:544 setup.php:88
+msgid "File Manager"
+msgstr "Mened¿er Plików"
+
+#: file_manager.php:828
+msgid "File Saved"
+msgstr "Plik zapisano"
+
+#: file_manager.php:989
+msgid "File(s) Successfully Deleted"
+msgstr "Plik(i) skasowano"
+
+#: file_manager.php:188 file_manager.php:572 file_manager.php:644
+#: file_manager.php:659 file_manager.php:700 file_manager.php:754
+#: file_manager.php:807 file_manager.php:834 file_manager.php:902
+#: file_manager.php:908 file_manager.php:933 file_manager.php:982
+#: save_attachment.php:61
+msgid "If this problem persists, please send a message to"
+msgstr "Je¶li problem bêdzie sie powtarza³, wy¶lij wiadomo¶æ do"
+
+#: file_manager.php:1412
+msgid "KB"
+msgstr "kB"
+
+#: file_manager.php:1032
+msgid "Listing for"
+msgstr "Zawarto¶æ katalogu"
+
+#: file_manager.php:1410
+msgid "MB"
+msgstr "MB"
+
+#: file_manager.php:566
+msgid "New File Successfully Created"
+msgstr "Utworzono nowy plik"
+
+#: file_manager.php:694
+msgid "New Folder Successfully Created"
+msgstr "Utworzono nowy folder"
+
+#: file_manager.php:668
+msgid "Permissions Successfully Changed"
+msgstr "Uprawnienia zmieniono"
+
+#: file_manager.php:908
+msgid "Please delete other files first."
+msgstr "Usuñ najpierw inne pliki."
+
+#: file_manager.php:920
+msgid "Please rename one or the other."
+msgstr "Zmieñ nazwê którego¶ z nich."
+
+#: file_manager.php:908
+msgid "Quota ="
+msgstr "Limit zajêto¶ci ="
+
+#: file_manager.php:863
+msgid "Revert"
+msgstr "Porzuæ zmiany"
+
+#: file_manager.php:864
+msgid "Save"
+msgstr "Zapisz"
+
+#: file_manager.php:746 file_manager.php:799
+msgid "Success!"
+msgstr "Sukces!"
+
+#: file_manager.php:1414
+msgid "bytes"
+msgstr "bajtów"
+
+#: file_manager.php:1205
+msgid "download"
+msgstr "pobierz"
+
+#: file_manager.php:1214
+msgid "edit"
+msgstr "edytuj"
+
+#: setup.php:125
+msgid "save locally"
+msgstr "zapisz lokalnie"
+
+#: file_manager.php:1218
+msgid "send"
+msgstr "wy¶lij"
+
+#: file_manager.php:1210
+msgid "view"
+msgstr "poka¿"
+
+#: file_manager.php:
+msgid "Upload Multiple Files"
+msgstr "Wgraj wiele plików"
+
+#: file_manager.php:
+msgid "File Upload"
+msgstr "Wgraj plik"
+
+#: file_manager.php:
+msgid "Max Size"
+msgstr "Maksymalny rozmiar"
+
+#: file_manager.php:
+msgid "(per file)"
+msgstr " (na ka¿dy plik)"
+
+#: file_manager.php:
+msgid "File:"
+msgstr "Plik:"
+
+#: file_manager.php:914
+msgid "already exists!  Check the \"Allow Overwrite\" checkbox to replace it."
+msgstr "ju¿ istnieje! Zaznacz pole \"Zezwalaj na nadpisywanie\" aby go zast±piæ."
+
+#: file_manager.php:927
+msgid "File(s) Successfully Uploaded"
+msgstr "Plik(i) wgrano"
+
+#: file_manager.php:933
+msgid "Error Occurred Attempting To Upload"
+msgstr "Wyst±pi³ b³±d przy próbie wgrania"
+
+#: file_manager.php:
+msgid "Go"
+msgstr "Przejd¼"
+
+#: file_manager.php:775
+msgid "Error Occurred Attempting To Change File/Folder Permissions."
+msgstr "Wyst±pi³ b³±d przy próbie zmiany uprawnieñ pliku/folderu."
+
+#: setup.php:157
+msgid "Add Attachment From File Manager"
+msgstr "Dodaj za³±cznik z Mened¿era Plików"
+
+#: file_manager.php:1283
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: file_manager.php:1282
+msgid "Save And Close"
+msgstr "Zapisz i zamknij"
+
+#: file_manager.php:1250
+msgid "Error - Size Must Be Numeric."
+msgstr "B³±d - rozmiar musi byæ liczb±."
+
+#: file_manager.php:2021
+msgid "Change view links to show in"
+msgstr "Ustaw \"poka¿\" tak, aby plik otwierany by³ w"
+
+#: file_manager.php:2022
+msgid "this window"
+msgstr "tym samym oknie"
+
+#: file_manager.php:2023
+msgid "a separate window"
+msgstr "w nowym oknie"
+
+#: file_manager.php:1301
+msgid "Columns"
+msgstr "Kolumn"
+
+#: file_manager.php:1302
+msgid "Rows"
+msgstr "Rzêdów"
+
+#: file_manager.php:1303
+msgid "Change Size"
+msgstr "Zmieñ rozmiar"
+
+#: file_manager.php:1398
+msgid "Error - Virus found in"
+msgstr "B³±d - znaleziono wirusa w"
+
+
+#####################################
+#
+#  Strings below are used in javascript
+#  and need to be escaped for use in
+#  HTML (e.g., German umlautes are "&uuml;")
+#
+
+#  than the ones above
+#: file_manager.php:315
+msgid "You can't upload a file that has the same name as a folder.  Try anyway?"
+msgstr "Nie mo¿na wgraæ pliku pod tak± sam± nazw± jak folder. Spróbowaæ mimo to?"
+
+#: file_manager.php:325
+msgid "It looks like you want to upload a file that already exists in this directory.  Do you want to overwrite it?"
+msgstr "Plik o takiej nazwie ju¿ istnieje. Chcesz go nadpisaæ?"
+
+#: file_manager.php:259
+msgid "Click the browse button to select a file to upload."
+msgstr "Wska¿ pliki(i) do wgrania."
+
+#: file_manager.php:367
+msgid "Select a file or folder to move or rename."
+msgstr "Wska¿ plik lub folder do przeniesienia lub zmiany nazwy."
+
+#: file_manager.php:390
+msgid "Please enter new file name:"
+msgstr "Podaj nazwê pliku:"
+
+#: file_manager.php:373
+msgid "Please enter new file name (with optional folder where file will be moved):"
+msgstr "Podaj nazwê pliku (opcjonalnie z poprzedzaj±c± go nazw± folderu):"
+
+#: file_manager.php:405
+msgid "Please enter new folder name:"
+msgstr "Podaj nazwê folderu:"
+
+#: file_manager.php:428
+msgid "Please enter desired permission:"
+msgstr "Wprowad¼ nowe uprawnienia:"
+
+#: file_manager.php:438
+msgid "Select a file to change permissions on."
+msgstr "Wska¿ plik do zmiany uprawnieñ"
+
+#: file_manager.php:449
+msgid "Select a file to view."
+msgstr "Wska¿ plik do podgl±du."
+
+#: file_manager.php:558
+msgid "You cannot edit folders.  Please select a file to edit."
+msgstr "Nie mo¿na edytowaæ folderów. Wska¿ PLIK do edycji."
+
+#: file_manager.php:593
+msgid "Select a file or folder to copy."
+msgstr "Wska¿ plik lub folder do skopiowania."
+
+#: file_manager.php:599
+msgid "Please enter target name (with optional folder where file will be moved):"
+msgstr "Podaj nazwê docelow± (opcjonalnie z poprzedzaj±c± nazw± folderu):"
+
+#: file_manager.php:628
+msgid "Select a file to delete."
+msgstr "Wska¿ plik do skasowania."
+
+#: file_manager.php:533
+msgid "You sure?  There's no turning back once you delete any files or folders!"
+msgstr "Na pewno? Operacji nie da siê cofn±æ!"

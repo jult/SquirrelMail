@@ -1,0 +1,130 @@
+/*******************************************************************************
+
+    Author ......... Jimmy Conner
+    Contact ........ jimmy@advcs.org
+    Home Site ...... http://www.advcs.org/
+    Program ........ Archive Mail
+    Version ........ 1.2
+    Purpose ........ Allows you to download your email in a compressed archive
+
+*******************************************************************************/
+
+REQUIRES : Squirrlemail v1.4.2 Stable or higher,
+           or 1.5 Devel (before 5/24/04, after that the buttons don't work)
+
+
+
+Features
+========
+
+* Allows you to download all your messages in a folder to a zip, tar, gzip, or text file
+* Allows you to download messages as EML files, Separate Entities, in MBox format, or Maildir format
+* You can select which messages to download
+* Selectable file name format ("Email - Subject", ect...) for certain formats
+* Attachments are configurable to be downloaded or not
+
+NOTE : Downloading messages with LARGE Attachments can give you a memory error.
+
+
+
+Installation
+============
+
+As with other plugins, just uncompress the archive in the plugins
+directory, go back to the main directory, run configure and add the plugin.
+Questions/comments/flames/etc can be sent to the jimmy@advcs.org
+
+
+
+To Do
+============
+   Download ALL Folders at once!
+   Outlook PST format? (will be difficult)
+   Archive your address book?  Possible .wab, .pab format
+   Possible backup to folder all archived messages?
+   Use HTML_Tag functions inorder to support right to left languages
+   I need more ideas!!!
+
+
+
+Change Log
+============
+1.2     /*   (please let me know if there are problems)  */
+  * Major fix for SM 1.4.X use, should now work perfectly in both 1.4 and 1.5 (This was a big goof on my part, sorry!)
+
+1.1
+  * Fixed versioning problems (Thanks Paul!)
+  * Fixed synching problems where it would get the correct subject, but message
+    was wrong when sorted by Date
+  * Added Flagging the message filename as Seen when using Maildir format (Thanks Matthijs)
+  * Fixed some spelling mistakes (Thanks Tomas)
+  * Fixed srand error (Thanks pdontthink)
+  * SM_PATH fixes (Thanks Tomas)
+  * Internationalization Fixes (Thanks Tomas)
+  * Fixes for MIME Encoded subjects (Thanks Thomas Castelle)
+  * Fixed bug that resulted in a ")" being appended to all EML messages
+  * Fixed a bug that caused invalid TAR and GZip archives
+
+1.0
+  * Fixed bug with hash levels and pref saving
+  * Fixed bug with maildir (srand parameter missing)
+  * Internationalization (Create PO file, now just need translators)
+
+0.9
+  * Changed Timestamp on EMails to be the received time not current time
+  * Changed Timestamp on Maildir formatted files to be received timestamp
+  * Fixes for duplicate filenames in EML format
+  * Fixes for duplicate case-insensitive names in EML Format and Separate Entities
+  * Fixes for Winzip and the rare case that the data length is divisible by 512
+  * Fixes for Removing attachments in Multipart Emails
+  * Fixes for clients that use different boundary formats
+  * Fixes for filename lengths being longer than allowed by tar/gzip specs
+  * Removed extra spaces from filenames (to help keep them within bounds)
+
+  * Lots of code optimization
+
+0.8
+  * Removed the rest of some experimental flag code (was causing errors)
+  * Fixed a bug with tar.gz files internal filenames
+  * Fixed Email address extraction
+  * Fixed a few E_ALL errors in tar and tar.gz files
+  * Removed workaround code for wrong message ids (SM was broke, but now seems to be fixed)
+  * Moved "Archive" button to top (for 1.5 CVS) users and remains at bottom for 1.4 users
+
+0.7
+  * Added Mbox format 
+  * Added Maildir format
+  * Added Tar Compression Type for all formats
+  * Added Tar.GZ Compression Type for all formats
+  * Added Text Compression Type for the Mbox format
+  * Fixed problem with ending boundaries
+  * Separated the formats into different files (speed improvement)
+  * Separated the compress types into different files (speed improvement)
+  * Overall Speed improvements
+  * Lots of Modifications to the Options Page (only shows valid options for that format)
+  * Removed 1.2.X support since 1.4.0 will soon be Stable
+    (Needs hooks that are only in 1.4.0 anyways)
+  * Moved the Options to its own screen menu
+  * Added option to save to EML files (instead of only Separate Entities)
+  * Added file selection (check which messages to download)
+  * Now has an Archive Button instead of link
+  * Archiving messages does not lose their unread status
+
+0.6
+  * Better Stable/Devel detection
+  * Cleaned up some code
+  * Added beginning of internationization
+
+0.5
+  * Changed requires to includes where needed (faster SM load)
+  * Some small structural changes
+
+0.4
+  * Supports both Stable and Devel
+  * Cleaned up alot of code, faster and smaller now
+  * Fixed bug with loading the prefs
+  * Supports New Under-development Faster Loading plugin model
+  * Supports New Plugin Version Checking Model
+  * Removed the Netscape 7 Compatiblility (was causing lots of problems)
+  * Better error messages if zlib is not supported
+

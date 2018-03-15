@@ -1,0 +1,99 @@
+Installing Local User Autoresponder and Mail Forwarder
+======================================================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 3.0 version of the Local User 
+   Autoresponder and Mail Forwarder plugin.
+
+  $ cd plugins
+  $ tar -zxvf local_autorespond_forward-3.0-1.4.tar.gz
+
+2) If you are using FTP functionality, go into the 
+   local_autorespond_forward directory, then skip to step 5.
+
+  $ cd local_autorespond_forward
+
+3) Go to the suid_backend directory and configure, compile and
+   install the suid backend.  In many cases, you do not need 
+   to manually specify any configuration options (except 
+   possibly "--enable-auth=pam" and "--enable-webuser=USER"
+   (the latter only if your web server runs as some user 
+   OTHER than "apache")), otherwise, please consult the README 
+   file for a complete list of the available configuration 
+   options.
+
+  $ cd local_autorespond_forward/suid_backend
+  $ ./configure
+  $ make
+  $ su 
+  # make install
+
+   If you do need to specify any configuration options, they
+   must be placed after the "./configure" command above.
+
+   Please note that it is important that you execute "make
+   install" as the root user.
+
+4) Go back to the main local_autorespond_forward directory
+
+  $ cd ..
+
+5) Decide if you want to store the plugin configuration file
+   in the plugin directory or in the main SquirrelMail config
+   directory.
+
+   A) To store the configuration file in the plugin directory,
+      copy config_example.php to config.php and edit config.php,
+      making adjustments as you deem necessary.
+
+     $ cp config_example.php config.php
+     $ vi config.php
+
+   B) To store the configuration file in the main SquirrelMail
+      config directory, copy config_example.php to
+      ../../config/config_local_autorespond_forward.php
+      and edit ../../config/config_local_autorespond_forward.php,
+      making adjustments as you deem necessary.
+
+     $ cp config_example.php ../../config/config_local_autorespond_forward.php
+     $ vi ../../config/config_local_autorespond_forward.php
+
+6) Then go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and exit.
+
+  $ cd ../../config/
+  $ ./conf.pl
+
+7) Also, if not being used with SquirrelMail 1.5.2+,
+   please verify that you have the "Compatibility" plugin
+   installed (but not necessarily activated).
+
+8) Translations are not included in this package.  To get a
+   translation, download the language pack needed from:
+
+      http://www.squirrelmail.org/download.php
+
+
+
+Upgrading Local User Autoresponder and Mail Forwarder
+=====================================================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 3.0 version of the Local User 
+   Autoresponder and Mail Forwarder plugin.
+
+  $ cd plugins
+  $ tar -zxvf local_autorespond_forward-3.0-1.4.tar.gz
+
+2) Change into the local_autorespond_forward directory, check 
+   your config.php file against the new version, to see if 
+   there are any new settings that you must add to your 
+   config.php file.
+
+  $ diff -u config.php config_example.php
+
+   Or simply replace your config.php file with the provided example
+   and reconfigure the plugin from scratch (see step 5 under the
+   installation procedure above).
+

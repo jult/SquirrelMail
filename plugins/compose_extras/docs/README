@@ -1,0 +1,239 @@
+Compose Extras plugin for SquirrelMail
+======================================
+Ver 0.10, 2012/03/19
+
+
+Copyright (c) 2005-2012 Paul Lesniewski <paul@squirrelmail.org>
+Copyright (c) 2003-2004 Justus Pendleton <justus@ryoohki.net>
+Copyright (c) 2003 Bruce Richardson <itsbruce@uklinux.net>
+
+
+
+Description
+===========
+
+This plugin addresses some usability issues with the SquirrelMail
+compose screen: the tab order can be changed so that the user
+does not have to tab through all the buttons between the subject
+line and the message body, access keys can be added to most common
+elements on the compose page, the user can choose to have a few
+blank lines inserted at the top of the message body for replies
+and forwards, the user can be prevented from clicking the "Send"
+button more than once, pressing Enter in any text field won't
+invoke any form action (such as auto-clicking the Signature button),
+the user can choose to have buttons on the compose screen that
+remove reply citations and rewrap the message body text and the
+user can be warned when they click "Send" without having filled
+in the Subject field.
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.0
+
+  * Compatibility plugin version 2.0.7 or above
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see COPYING for details).
+
+
+
+Troubleshooting
+===============
+
+  * Note that currently the "Rewrap" button will only process text
+    with citation prefixes.  If using the "Remove Citation" button
+    with the "Rewrap" button, the "Rewrap" one should be clicked first.
+
+  * If none of the enhancements seem to be working on the
+    compose screen, make sure JavaScript is enabled in the
+    browser and verify that the user has not disabled
+    the "Use Javascript" setting under Options->Display
+    Preferences.
+
+  * Some access keys don't always work.  I don't see any JavaScript
+    errors when this happens and am sick of looking at the issue
+    (SquirrelMail 1.5.2+ supports access keys natively where it works
+    fine).  Note that in particular, the Send button works best if
+    there is only one such on the screen, which is usually the case
+    when the button bar is configured to show below the message body.
+    If you have the patience to figure out what's wrong with any of
+    the others, please submit a fix.
+
+  * If changes to the configuration file don't seem to be showing
+    in the user interface, ensure that you are editing the correct
+    configuration file.  If one is located in the main SquirrelMail
+    config directory (named "config_compose_extras.php"), it will
+    always be used.  Otherwise, "config.php" in the compose_extras
+    plugin directory will be used.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Make sure the plugin is configured correctly by browsing to
+    http://your-squirrelmail-location/src/configtest.php
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Rewrap only text that has been selected by the user.
+
+  * Make rewrap work with HTML Mail? (Or at least disable when
+    composing in HTML?)
+
+  * Verify that the add lines to message body for replies 
+    functionality works with HTML Mail - it very well might
+    work as is... if not, consider making it work (or at
+    least disable when composing in HTML)
+
+  * Right now the rewrap column is determined by the width
+    of the compose text area.  Maybe make this a separate
+    configuration variable?
+
+  * Make rewrap functionality work on non-cited text
+
+  * Had the neat idea of when the user clicks on any button 
+    that submits the compose form (Send, Add Attachment, 
+    Signature, etc.), all such buttons are disabled, preventing 
+    further clicks.  This code is in the plugin and works great,
+    but is commented out because any button that is disabled is
+    also excluded from the form's POST variables.  SM checks for
+    which button was clicked by name, so this code is not usable
+    without serious restructuring of the compose page to use
+    more JavaScript-enabled buttons (which ain't gonna happen
+    at least until templated SM comes of age), or without being
+    able to add a clever onclick handler to each of those buttons
+    or some other JavaScript solution that I am not thinking of.
+    Contributions welcome.
+    UPDATE for v0.4: Decided to use a new approach of counting
+    submit clicks, but only in the <form>'s onsubmit handler, 
+    so this may or may not work depending on what browser is 
+    being used and how the other submit buttons submit their 
+    data.  Also, the hook used to implement this will conflict
+    with any other plugins that define an onsubmit handler for
+    the compose form (the GPG plugin, for example), and in such
+    cases, behavior may become unreliable.  This might be fixed
+    in SquirrelMail 1.5.x, depending on a lot of other factors.
+    This functionality can be turned off in the plugin 
+    configuration file.
+    UPDATE for v0.5: The conflicting onsubmit handler issue
+    has been resolved, but it relies upon having SquirrelMail
+    1.5.1 (as of 2005-11-15 or later) and other plugins must
+    also be fixed to work with the changes made in the 
+    SquirrelMail core.
+
+
+
+Change Log
+==========
+
+  v0.10  2012/03/10  Paul Lesniewski <paul@squirrelmail.org>
+    * Added compatibility with the Custom From plugin (version 2.0+)
+    * Fixed issue with tab order and access key of the send button
+      when button row is at the top or middle of the compose screen
+    * Added ability to warn users that they forgot to fill in the
+      Subject field
+
+  v0.9  2011/11/19  Paul Lesniewski <paul@squirrelmail.org>
+    * Prevent default form actions from occurring when the user
+      presses Enter in the To, Cc, Bcc and Subject text fields
+    * Update to take advantage of better cross-plugin compatibility
+      on the compose screen in SquirrelMail 1.4.21
+    * Update for compatibility with changes in SquirrelMail 1.5.2 
+      (removal of the compose_bottom hook)
+
+  v0.8  2009/03/24  Paul Lesniewski <paul@squirrelmail.org>
+    * Fix for better send button tab order (only for 1.5.2+)
+    * Minor code updates
+    * Add ability for the administrator to disable the To, Cc
+      and Bcc input fields so users are only allowed to add
+      message recipients by using the address book
+    * Added access keys to the compose screen for SquirrelMail
+      versions before 1.5.2 (where it is supported natively)
+
+  v0.7  2008/07/02  Paul Lesniewski <paul@squirrelmail.org>
+    * Minor improvement to how citations are removed
+
+  v0.6  2008/06/12  Paul Lesniewski <paul@squirrelmail.org>
+    * Allow configuration file to be stored in main SquirrelMail
+      config directory
+    * Integrated "Rewrap" plugin functionality
+    * Updated for compatibility with SquirrelMail 1.5.2
+    * Changed directory name where this plugin gets installed from
+      "compose_fix" to "compose_extras".  If upgrading, please
+      deactivate "compose_fix" and delete its directory.
+
+  v0.5  2005/11/15  Paul Lesniewski <paul@squirrelmail.org>
+    * New way to build onsubmit handler code that plays nice with
+      other plugins (only works with 1.5.1 (it will auto-detect this))
+
+  v0.4  2005/08/11  Paul Lesniewski <paul@squirrelmail.org>
+    * Added ability to stop user from clicking "Send" more than once.
+      (not compatible with plugins such as GPG that also define
+      an onsubmit handler for the compose screen)
+
+  v0.3  2005/04/14  Paul Lesniewski <paul@squirrelmail.org>
+    * Removed focus "fixes"; they are part of SquirrelMail core now
+    * Brought plugin up to spec
+    * Miscellaneous cleanup, i18n fixes, better wording in interface
+    * Renamed plugin to "Compose Extras"
+    * Added blank line insertion at top of message body for replies/forwards
+
+  v0.2  2003/05/28   Bruce Richardson <itsbruce@uklinux.net>
+    * Reply focus fix
+
+  v0.1  2003/05/27  Bruce Richardson <itsbruce@uklinux.net>
+    * Initial release  
+    * Tabindex fix
+

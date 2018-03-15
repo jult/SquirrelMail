@@ -1,0 +1,11 @@
+/**
+  * SquirrelMail Local User Autoresponder and Mail Forwarder Plugin
+  * Copyright (c) 2004-2009 Jonathan Bayer <jbayer@spamcop.net>,
+  *                         Paul Lesniewski <paul@squirrelmail.org>,
+  *                         Dan Astoorian
+  * Licensed under the GNU GPL. For full terms see the file COPYING.
+  *
+  * @package plugins
+  * @subpackage local_autorespond_forward
+  *
+  */

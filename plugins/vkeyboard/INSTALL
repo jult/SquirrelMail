@@ -1,0 +1,46 @@
+Installing the Virtual Keyboard Plugin
+======================================
+
+1) Start with untaring the file into the plugins directory.
+Here is a example for the 0.8 version of the vkeyboard plugin.
+
+           $ cd plugins
+           $ tar -zxvf vkeyboard-0.8.tar.gz
+
+2) Change into the vkeyboard directory, copy config.php.sample
+to config.php and edit config.php, making adjustments as
+you deem necessary. For more detailed explanations about
+each of these parameters, consult the README file.
+
+           $ cd vkeyboard
+           $ cp config.php.sample config.php
+           $ vi config.php
+
+
+3) Then go to your config directory and run conf.pl. Choose
+option 8 and move the plugin from the "Available Plugins"
+category to the "Installed Plugins" category. Save and exit.
+
+           $ cd ../../config/
+           $ ./conf.pl
+
+
+Upgrading the Virtual Keyboard Plugin
+=====================================
+
+1) Start with untaring the file into the plugins directory.
+Here is a example for the 0.8 version of the vkeyboard plugin.
+
+           $ cd plugins
+           $ tar -zxvf vkeyboard-0.8.tar.gz
+
+
+2) Change into the vkeyboard directory, check your config.php
+file against the new version, to see if there are any new
+settings that you must add to your config.php file.
+
+           $ diff -Nau config.php config.php.sample
+
+Or simply replace your config.php file with the provided sample
+and reconfigure the plugin from scratch (see step 2 under the
+installation procedure above).

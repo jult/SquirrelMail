@@ -1,0 +1,146 @@
+Autocomplete plugin for SquirrelMail
+====================================
+Ver 3.0, 2012/01/01
+
+
+Copyright (c) 2003-2012 Paul Lesniewski <paul@squirrelmail.org>
+Copyright (c) 2005 Graham <gsm-smpi@soundclashchampions.com>
+Copyright (c) 2001 Tyler Akins
+
+
+
+Description
+===========
+
+This plugin searches user contacts as the user types into the
+To/Cc/Bcc fields on the compose screen, displaying those that
+match for quick selection.  Various forms of matching and
+other behaviors are configurable by the administrator and/or
+each user.
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.0
+
+  * Compatibility plugin version 2.0.7 or above
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see COPYING for details).
+
+
+
+Troubleshooting
+===============
+
+  * If the plugin does not seem to be working at all, make
+    sure JavaScript is enabled in the browser and verify that
+    the user has not disabled the "Use Javascript" setting
+    under Options->Display Preferences.
+
+  * If changes to the configuration file don't seem to be showing
+    in the user interface, ensure that you are editing the correct
+    configuration file.  If one is located in the main SquirrelMail
+    config directory (named "config_autocomplete.php"), it will
+    always be used.  Otherwise, "config.php" in the autocomplete
+    plugin directory will be used.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Make sure the plugin is configured correctly by browsing to
+    http://your-squirrelmail-location/src/configtest.php
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Ideas?
+
+
+
+Change Log
+==========
+
+  v3.0  2012/01/01  Paul Lesniewski <paul@squirrelmail.org>
+    * New design, several new features and nearly complete re-write.
+      Now works with most modern browsers and includes several new
+      configuration options for the administrator and individual
+      users.  Thanks to Graham for his valuable contributions.
+
+  v2.0  2003/03/01  Paul Lesniewski <paul@squirrelmail.org>
+    * Now returns addresses in the format "nickname <email@address>"
+      or "Full Name <email@address", depending on which option is set.
+      Having typed a partial name or nickname, you can use the up and down
+      arrow keys to cycle through the entries that match what you have
+      typed.
+    * Compatible with SquirrelMail 1.4 (as well as older versions)
+    * New setup.php format for better overall SquirrelMail performance.
+    * Makes use of new Compatibility plugin (this is a requirement).
+    * Internationalized all plugin output.
+
+  v1.3  2003/03/01  Paul Lesniewski <paul@squirrelmail.org>
+    * Updated to work with register_globals = Off
+    * Updated for compatibility with "Plugin Updates" plugin
+
+  v1.2  2001/05/01  Tyler Akins
+    * No longer uses 'undefined' -- IE 5.0 didn't like that.
+
+  v1.1  2001/04/27  Tyler Akins
+    * Felt like making some code changes, removed an update bug
+
+  v1.0  2001/04/25  Tyler Akins
+    * Initial release
+
+
+

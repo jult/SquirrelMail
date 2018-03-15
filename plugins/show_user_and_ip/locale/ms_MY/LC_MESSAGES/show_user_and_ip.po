@@ -1,0 +1,53 @@
+# Bahasa Melayu (ms_MY) change_pass plugin translation.
+# Copyright (C) 2007 Muhd Zamri MS <myzamri@gmail.com>
+# This file is distributed under the same license as the PACKAGE package.
+# Muhd Zamri MS <myzamri@gmail.com>, 2007.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version:  show_user_and_ip.po 3.3 re-release$\n"
+"Report-Msgid-Bugs-To: myzamri@gmail.com\n"
+"POT-Creation-Date: 2007-06-23 17:03+0800\n"
+"PO-Revision-Date: 2007-06-23 17:03+0800\n"
+"Last-Translator: Muhd Zamri MS <myzamri@gmail.com>\n"
+"Language-Team: Bahasa Melayu <myzamri@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Your username:"
+msgstr "Nama Pengguna Anda:"
+
+msgid "Your IP address:"
+msgstr "Alamat IP Anda:"
+
+msgid "Your Hostname:"
+msgstr "Nama Hos Anda:"
+
+msgid "Welcome,"
+msgstr "Selamat datang,"
+
+msgid "INFO:"
+msgstr "INFO:"
+
+#, c-format
+msgid ""
+"your last connection was from <strong>%s%s</strong> on <strong>%s</strong>."
+msgstr ""
+"Sambungan terkahir anda adalah dari <strong>%s%s</strong> pada <strong>%s</strong>."
+
+msgid "Show username under folders list:"
+msgstr "Papar Nama Pengguna di bawah senarai folder:"
+
+msgid "Yes"
+msgstr "Ya"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "Show IP address under folders list:"
+msgstr "Papar alamat IP di bawah senarai folder:"
+
+msgid "Show hostname under folders list:"
+msgstr "Papar nama hos di bawah senarai folder:"

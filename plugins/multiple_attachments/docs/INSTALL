@@ -1,0 +1,97 @@
+Installing The Multiple Attachments Plugin
+==========================================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 1.0 version of the Multiple
+   Attachments plugin.
+
+  $ cd plugins
+  $ tar -zxvf multiple_attachments-1.0-1.4.0.tar.gz
+
+2) If you do not want to change the default behavior of this
+   plugin, skip to step four.
+
+3) (OPTIONAL) Decide if you want to store the plugin
+   configuration file in the plugin directory or in
+   the main SquirrelMail config directory.
+
+   A) To store the configuration file in the plugin directory,
+      change into the multiple_attachments directory, copy
+      config_example.php to config.php and edit config.php,
+      making adjustments as you deem necessary.
+
+     ----- optional -----
+     $ cd multiple_attachments
+     $ cp config_example.php config.php
+     $ vi config.php
+     ----- optional -----
+
+   B) To store the configuration file in the main SquirrelMail
+      config directory, change into the multiple_attachments directory,
+      copy config_example.php to ../../config/config_multiple_attachments.php
+      and edit ../../config/config_multiple_attachments.php, making
+      adjustments as you deem necessary.
+
+     ----- optional -----
+     $ cd multiple_attachments
+     $ cp config_example.php ../../config/config_multiple_attachments.php
+     $ vi ../../config/config_multiple_attachments.php
+     ----- optional -----
+
+4) Patch the SquirrelMail source code to add the needed hook
+   for this plugin.
+
+   The patch should be run from the multiple_attachments
+   directory.  Make sure to use the patch that corresponds
+   closest to your SquirrelMail version.  If one does not work,
+   try the other.
+
+  $ patch -p0 < patches/save_attached_files_hook-squirrelmail_1.4.23.diff
+
+   Note for Windows users: you can get native patch functionality
+   by installing this very useful package:
+   http://unxutils.sourceforge.net/
+
+5) Then go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and exit.
+
+  $ cd ../../config/
+  $ ./conf.pl
+
+6) Also, please verify that you have the "Compatibility" plugin
+   installed (but not necessarily activated).
+
+7) Translations are not included in this package.  To get a
+   translation, download the language pack needed from:
+
+      http://www.squirrelmail.org/download.php
+
+
+
+Upgrading The Multiple Attachments Plugin
+=========================================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 1.0 version of the Multiple
+   Attachments plugin.
+
+  $ cd plugins
+  $ tar -zxvf multiple_attachments-1.0-1.4.0.tar.gz
+
+2) Change into the multiple_attachments directory and check your
+   config.php file against the new version to see if
+   there are any new settings that you must add to your
+   config.php file.
+
+  $ diff -u config.php config_example.php
+
+   If you store your configuration file in the main SquirrelMail
+   config directory, adjust this command as follows:
+
+  $ diff -u ../../config/config_multiple_attachments.php config_example.php
+
+   Or simply replace your configuration file with the provided
+   example and reconfigure the plugin from scratch (see step three
+   under the installation procedure above).
+

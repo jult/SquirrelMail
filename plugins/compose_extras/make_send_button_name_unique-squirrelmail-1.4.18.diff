@@ -1,0 +1,84 @@
+Index: src/compose.php
+===================================================================
+--- src/compose.php	(revision 13383)
++++ src/compose.php	(working copy)
+@@ -58,7 +58,10 @@
+ sqsession_unregister('compose_messages');
+ 
+ /** SESSION/POST/GET VARS */
+-sqgetGlobalVar('send', $send, SQ_POST);
++sqgetGlobalVar('send_button_count', $send_button_count, SQ_POST);
++if (!is_numeric($send_button_count)) $send_button_count = 1;
++for ($i = 1; $i <= $send_button_count; $i++)
++   if (sqgetGlobalVar('send' . $i, $send, SQ_POST)) break;
+ // Send can only be achieved by setting $_POST var. If Send = true then
+ // retrieve other form fields from $_POST
+ if (isset($send) && $send) {
+@@ -1169,7 +1172,7 @@
+     } else {
+         echo '   <tr>' . "\n" .
+             html_tag( 'td', '', 'right', '', 'colspan="2"' ) . "\n" .
+-            '         ' . addSubmit(_("Send"), 'send').
++            '         ' . addSubmit(_("Send"), unique_widget_name('send')).
+             '         &nbsp;&nbsp;&nbsp;&nbsp;<br /><br />' . "\n" .
+             '      </td>' . "\n" .
+             '   </tr>' . "\n";
+@@ -1264,6 +1267,7 @@
+     echo '</table>' . "\n" .
+         addHidden('username', $username).
+         addHidden('smaction', $action).
++        addHidden('send_button_count', unique_widget_name('send', TRUE)).
+         addHidden('mailbox', $mailbox);
+     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
+     /*
+@@ -1339,7 +1343,7 @@
+         echo '         <input type="submit" name ="draft" value="' . _("Save Draft") . "\" />\n";
+     }
+ 
+-    echo '         <input type="submit" name="send" value="'. _("Send") . '" />' . "\n";
++    echo '         <input type="submit" name="' . unique_widget_name('send') . '" value="'. _("Send") . '" />' . "\n";
+     do_hook('compose_button_row');
+ 
+     echo '      </td>' . "\n" .
+Index: functions/forms.php
+===================================================================
+--- functions/forms.php	(revision 13383)
++++ functions/forms.php	(working copy)
+@@ -147,3 +148,37 @@
+         $enctype . $name . $charset . ">\n";
+ }
+ 
++/**
++  * Creates unique widget names
++  *
++  * Names are formatted as such: "send1", "send2", "send3", etc.,
++  * where "send" in this example is what was given for $base_name
++  *
++  * @param string  $base_name    The name upon which to base the
++  *                              returned widget name.
++  * @param boolean $return_count When TRUE, this function will
++  *                              return the last number used to
++  *                              create a widget name for $base_name
++  *                              (OPTIONAL; default = FALSE).
++  *
++  * @return mixed When $return_output is FALSE, a string containing
++  *               the unique widget name; otherwise an integer with
++  *               the last number used to create the last widget
++  *               name for the given $base_name (where 0 (zero) means
++  *               that no such widgets have been created yet).
++  *
++  */
++function unique_widget_name($base_name, $return_count=FALSE)
++{
++   static $counts = array();
++
++   if (!isset($counts[$base_name]))
++      $counts[$base_name] = 0;
++
++   if ($return_count)
++      return $counts[$base_name];
++
++   ++$counts[$base_name];
++   return $base_name . $counts[$base_name];
++}
++

@@ -1,0 +1,99 @@
+# vkeyboard plugin for Squirrelmail project.
+# Copyright (C) 2004 Daniel K. Imori
+# This file is distributed under the same license as the vkeyboard package.
+# Daniel K. Imori <daniel@bastion.com.br>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: vkeyboard 0.8\n"
+"POT-Creation-Date: 2006-08-27 23:38-0300\n"
+"PO-Revision-Date: 2006-08-17 32:00-0100\n"
+"Last-Translator: Adrian Grygier <adi@zwami.pl>\n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: vkeyboard.php:115
+msgid " seconds."
+msgstr " sekundami."
+
+#: functions.php:49
+msgid "Are you using a public computer?"
+msgstr "<strong>Czy u¿ywasz publicznego komputera?</strong>"
+
+#: vkeyboard.php:161
+msgid "Clear"
+msgstr "Wyczy¶æ"
+
+#: vkeyboard.php:166
+msgid "Close"
+msgstr "Zamknij"
+
+#: functions.php:51
+msgid "Enter your password with the "
+msgstr "Wpisz swoje has³o przez "
+
+#: vkeyboard.php:107
+msgid "Enter your password:"
+msgstr "Wprowad¼ swoje has³o:"
+
+#: help.php:60
+msgid ""
+"For this, you must point the mouse and keep it for few seconds on the key "
+"that you want to type."
+msgstr ""
+"Musisz ustawiæ myszkê i przytrzymaæ parê sekund nad klawiszem, ktory chcesz"
+" ¿eby zosta³ wpisany."
+
+#: vkeyboard.php:109
+msgid "Help"
+msgstr "Pomoc"
+
+#: help.php:56
+msgid ""
+"It protects your password against keyloggers, which are hidden programs that "
+"capture everything that you type or click."
+msgstr ""
+"Chroni twoje has³o przed programami typu keylogger, czyli ukrytymi programami "
+"przechwytuj±cymi wszystko co wprowadzasz z klawiatury lub naciskasz myszk±."
+
+#: help.php:54
+msgid "It's a keyboard that simulates a real keyboard. ;)"
+msgstr "To jest klawiatura, która symuluje prawdziw± klawiaturê. ;)"
+
+#: vkeyboard.php:156
+msgid "Login"
+msgstr "Login"
+
+#: functions.php:61
+msgid "Open Virtual Keyboard"
+msgstr "Otwórz Wirtulan± Klawiaturê"
+
+#: help.php:58
+msgid ""
+"So, you can increase your security, using the virtual keyboard and its "
+"\"automatic click\" function."
+msgstr ""
+"Mo¿esz zwiêkszyæ swoje bezpieczeñstwo u¿ywaj±c wirtualnej klawiatury "
+"z funkcj± \"automatycznego wciskania\"."
+
+#: vkeyboard.php:113
+msgid "The key will be pressed in "
+msgstr "Klawisz zostanie wcisniêty w "
+
+#: vkeyboard.php:52
+msgid "Virtual Keyboard"
+msgstr "Wirtualna Klawiatura"
+
+#: help.php:46
+msgid "Virtual Keyboard: Help"
+msgstr "Wirtualna Klawiatura: Pomoc"
+
+#: help.php:51
+msgid "What's a virtual keyboard?"
+msgstr "Co to jest wirtualna klawiatura?"
+
+#: functions.php:56
+msgid "virtual keyboard"
+msgstr "wirtualn± klawiaturê."

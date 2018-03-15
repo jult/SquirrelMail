@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VKEYBOARD 0.9\n"
+"POT-Creation-Date: 2004-08-20 17:38-0300\n"
+"PO-Revision-Date: 2006-09-03 04:04+0300\n"
+"Last-Translator: Alexandre Belousov <bel@ints.ru>\n"
+"Language-Team:  <bel@ints.ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+#: vkeyboard.php:115
+msgid " seconds."
+msgstr "секунд(ы)."
+
+#: functions.php:49
+msgid "Are you using a public computer?"
+msgstr "Используете общедоступный компьютер?"
+
+#: vkeyboard.php:161
+msgid "Clear"
+msgstr "Очистить"
+
+#: vkeyboard.php:166
+msgid "Close"
+msgstr "Закрыть"
+
+#: functions.php:51
+msgid "Enter your password with the "
+msgstr "Введите ваш пароль при помощи "
+
+#: vkeyboard.php:107
+msgid "Enter your password:"
+msgstr "Введите ваш пароль:"
+
+#: help.php:60
+msgid "For this, you must point the mouse and keep it for few seconds on the key that you want to type."
+msgstr "Просто наведите курсор мыши на кнопку, которую следует нажать, и подержите пару секунд."
+
+#: vkeyboard.php:109
+msgid "Help"
+msgstr "Справка"
+
+#: help.php:56
+msgid "It protects your password against keyloggers, which are hidden programs that capture everything that you type or click."
+msgstr "Она защищает вас от клавиатурных шпионов, т.е. от скрытых программ, перехватывающих ввод данных с клавиатуры"
+
+#: help.php:54
+msgid "It's a keyboard that simulates a real keyboard. ;)"
+msgstr "Это клавиатура, которая имитирует настоящую клавиатуру :)"
+
+#: vkeyboard.php:156
+msgid "Login"
+msgstr "Логин"
+
+#: functions.php:61
+msgid "Open Virtual Keyboard"
+msgstr "Открыть виртуальную клавиатуру"
+
+#: help.php:58
+msgid "So, you can increase your security, using the virtual keyboard and its \"automatic click\" function."
+msgstr "Таким образом, используя виртуальную клавиатуру и её функцию автоматического нажатия на кнопки, можно усилить безопасность пароля"
+
+#: vkeyboard.php:113
+msgid "The key will be pressed in "
+msgstr "Клавиша будет нажата через"
+
+#: vkeyboard.php:52
+msgid "Virtual Keyboard"
+msgstr "Виртуальная клавиатура"
+
+#: help.php:46
+msgid "Virtual Keyboard: Help"
+msgstr "Виртуальная клавиатура: справка"
+
+#: help.php:51
+msgid "What's a virtual keyboard?"
+msgstr "Что такое виртуальная клавиатура?"
+
+#: functions.php:56
+msgid "virtual keyboard"
+msgstr " виртуальной клавиатуры"
+

@@ -1,0 +1,100 @@
+# vkeyboard plugin for Squirrelmail project.
+# Copyright (C) 2006 Mészáros Gyula
+# This file is distributed under the same license as the vkeyboard package.
+# Mészáros Gyula <meszaros.gyula@mgyhardsoft.hu>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vkeyboard 0.9\n"
+"POT-Creation-Date: 2004-08-20 17:38-0300\n"
+"PO-Revision-Date: 2006-08-19 22:38\n"
+"Last-Translator: Mészáros Gyula <meszaros.gyula@mgyhardsoft.hu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: vkeyboard.php:115
+msgid " seconds."
+msgstr " másodperc múlva."
+
+#: functions.php:49
+msgid "Are you using a public computer?"
+msgstr "Nyilvános számítógépet használ?"
+
+#: vkeyboard.php:161
+msgid "Clear"
+msgstr "Törlés"
+
+#: vkeyboard.php:166
+msgid "Close"
+msgstr "Bezárás"
+
+#: functions.php:51
+msgid "Enter your password with the "
+msgstr "Adja meg a jelszavát: "
+
+#: vkeyboard.php:107
+msgid "Enter your password:"
+msgstr "Az Ön jelszava:"
+
+#: help.php:60
+msgid ""
+"For this, you must point the mouse and keep it for few seconds on the key "
+"that you want to type."
+msgstr ""
+"Ehhez tartsa pár másodpercig az egérmutatót a billentyû fölött, "
+"amelyet le kíván nyomni."
+
+#: vkeyboard.php:109
+msgid "Help"
+msgstr "Súgó"
+
+#: help.php:56
+msgid ""
+"It protects your password against keyloggers, which are hidden programs that "
+"capture everything that you type or click."
+msgstr ""
+"Ez a módszer megvédi a jelszavát a billentyû-lopóktól, amelyek rejtett "
+"programok a billentyûleütések és egérkattintások lehallgatására."
+
+#: help.php:54
+msgid "It's a keyboard that simulates a real keyboard. ;)"
+msgstr "Ez egy igazi billentyûzetet szimuláló képernyõ-billentyûzet. ;)"
+
+#: vkeyboard.php:156
+msgid "Login"
+msgstr "Bejelentkezés"
+
+#: functions.php:61
+msgid "Open Virtual Keyboard"
+msgstr "A virtuális billentyûzet megnyitása"
+
+#: help.php:58
+msgid ""
+"So, you can increase your security, using the virtual keyboard and its "
+"\"automatic click\" function."
+msgstr ""
+"Így növelheti a biztonságát a virtuális billentyûzet "
+"\"Automatikus kattintás\" funkciójának használatával."
+
+#: vkeyboard.php:113
+msgid "The key will be pressed in "
+msgstr "A nyomógombot lenyomom "
+
+#: vkeyboard.php:52
+msgid "Virtual Keyboard"
+msgstr "virtuális billentyûzet"
+
+#: help.php:46
+msgid "Virtual Keyboard: Help"
+msgstr "Virtuális billentyûzet: Súgó"
+
+#: help.php:51
+msgid "What's a virtual keyboard?"
+msgstr "Mi az a virtuális billentyûzet?"
+
+#: functions.php:56
+msgid "virtual keyboard"
+msgstr "virtuális billentyûzet"

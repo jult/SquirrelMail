@@ -1,0 +1,75 @@
+# <your language> SquirrelMail change_pass Plugin Translation File
+# Copyright (C) 2009 The SquirrelMail Development Team
+# This file is distributed under the same license as the SquirrelMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: change_pass\n"
+"Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-i18n@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2009-05-09 11:25-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: SquirrelMail Language Team <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: functions.php:13 options.php:86
+msgid "Change Password"
+msgstr ""
+
+#: functions.php:35
+#, c-format
+msgid "Connection error: %s"
+msgstr ""
+
+#: options.php:108
+msgid "Current Password:"
+msgstr ""
+
+#: options.php:112
+msgid "New Password:"
+msgstr ""
+
+#: functions.php:56
+msgid "Password change was not successful!"
+msgstr ""
+
+#: functions.php:15
+msgid "Use this to change your email password."
+msgstr ""
+
+#: functions.php:138
+msgid "User's Password"
+msgstr ""
+
+#: options.php:116
+msgid "Verify New Password:"
+msgstr ""
+
+#: options.php:52
+msgid "You must also type in your new password in the verify box."
+msgstr ""
+
+#: options.php:48
+msgid "You must type in a new password."
+msgstr ""
+
+#: options.php:44
+msgid "You must type in your current password."
+msgstr ""
+
+#: options.php:69
+msgid "Your current password is not correct."
+msgstr ""
+
+#: options.php:57
+msgid "Your new password does not match the verify password."
+msgstr ""
+
+#: options.php:61
+#, c-format
+msgid "Your new password should be %s to %s characters long."
+msgstr ""

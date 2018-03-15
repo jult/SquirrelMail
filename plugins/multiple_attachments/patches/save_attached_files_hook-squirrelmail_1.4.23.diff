@@ -1,0 +1,15 @@
+Index: ../../src/compose.php
+===================================================================
+--- ../../src/compose.php	(revision 14250)
++++ ../../src/compose.php	(working copy)
+@@ -1459,6 +1459,10 @@
+     global $_FILES, $attachment_dir, $username,
+         $data_dir, $composeMessage;
+ 
++    // plugins should return TRUE if there were any attachment handling errors
++    $hook_return = boolean_hook_function('save_attached_files', $session, 1, FALSE);
++    if ($hook_return) return TRUE;
++
+     /* get out of here if no file was attached at all */
+     if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
+         return true;

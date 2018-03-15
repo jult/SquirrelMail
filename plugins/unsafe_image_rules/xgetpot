@@ -1,0 +1,2 @@
+#!/bin/sh
+xgettext --foreign-user -F --keyword=_ -d unsafe_image_rules -C *.php --add-comments

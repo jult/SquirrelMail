@@ -1,0 +1,9 @@
+#
+# This is a template file for fetchmail.  This gets put at the top of
+# the /etc/fetchmailrc file which is created by Squirrelmail whenever
+# Squirrelmail updates someone's .fetchmailrc file
+set syslog 
+# template
+# poll [server] protocol pop3 username [name in quotes] password [password in quotes] is [localname] here
+
+

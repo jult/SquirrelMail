@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2004-03-06 15:00-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: address_book_import.php:190
+msgid "The following rows have errors"
+msgstr ""
+
+#: address_book_import.php:278
+msgid ""
+"There were errors uploading the data, as listed below. Entries not listed "
+"here were uploaded."
+msgstr ""
+
+#: address_book_import.php:285
+msgid "Upload Completed!"
+msgstr ""
+
+#: address_book_import.php:285
+msgid "Click on the link below to verify your work."
+msgstr ""
+
+#: address_book_import.php:288
+msgid "Addresses"
+msgstr ""
+
+#: address_book_import.php:306
+msgid "Nickname"
+msgstr ""
+
+#: address_book_import.php:308
+msgid "First Name"
+msgstr ""
+
+#: address_book_import.php:310
+msgid "Last Name"
+msgstr ""
+
+#: address_book_import.php:312
+msgid "Email"
+msgstr ""
+
+#: address_book_import.php:314
+msgid "Additional Info"
+msgstr ""
+
+#: address_book_import.php:316
+msgid "Do Not Include"
+msgstr ""
+
+#: functions.php:391
+msgid "Message Sent To: "
+msgstr ""
+
+#: functions.php:413
+msgid "Message Sent"
+msgstr ""
+
+#: functions.php:438
+msgid "Your message has been sent to "
+msgstr ""
+
+#: functions.php:459
+msgid "Your message has been sent"
+msgstr ""
+
+#: functions.php:503 functions.php:697
+msgid "Close"
+msgstr ""
+
+#: functions.php:513 functions.php:707 functions.php:770 functions.php:955
+msgid "Message List"
+msgstr ""
+
+#: functions.php:533
+msgid "Please select an address to add to your address book."
+msgstr ""
+
+#: functions.php:534 functions.php:791
+msgid "Message Sent To:"
+msgstr ""
+
+#: functions.php:556 functions.php:812
+msgid "Cc:"
+msgstr ""
+
+#: functions.php:566 functions.php:820
+msgid "Bcc:"
+msgstr ""
+
+#: functions.php:580
+msgid "Add To Address Book"
+msgstr ""
+
+#: functions.php:628 functions.php:878
+msgid "Original Message"
+msgstr ""
+
+#: functions.php:629 functions.php:879
+msgid "From"
+msgstr ""
+
+#: functions.php:631 functions.php:881
+msgid "Subject"
+msgstr ""
+
+#: functions.php:646 functions.php:896
+msgid "Move to:"
+msgstr ""
+
+#: functions.php:648 functions.php:898
+msgid "Move"
+msgstr ""
+
+#: functions.php:680 functions.php:930
+msgid "BLOCKED ADDRESSES"
+msgstr ""
+
+#: functions.php:763 functions.php:948
+msgid "Compose"
+msgstr ""
+
+#: options.php:49
+msgid "Sent Mail Confirmation"
+msgstr ""
+
+#: options.php:52
+msgid "Confirm Recipients:"
+msgstr ""
+
+#: options.php:55 options.php:86 options.php:96 options.php:106
+#: options.php:116 options.php:126 options.php:136
+msgid "Yes"
+msgstr ""
+
+#: options.php:58 options.php:89 options.php:99 options.php:109
+#: options.php:119 options.php:129 options.php:139
+msgid "No"
+msgstr ""
+
+#: options.php:62
+msgid "Above Message List:"
+msgstr ""
+
+#: options.php:67
+msgid "Above Message List, Expanded:"
+msgstr ""
+
+#: options.php:72
+msgid "Transitional Window,<br>With Address Book Functionality:"
+msgstr ""
+
+#: options.php:77
+msgid "Transitional Window, Simple:"
+msgstr ""
+
+#: options.php:83
+msgid "Show Header Fields:"
+msgstr ""
+
+#: options.php:93
+msgid "Include Recipient Address:"
+msgstr ""
+
+#: options.php:103
+msgid "Only Show First Recipient:"
+msgstr ""
+
+#: options.php:113
+msgid "Show Cc Recipients:"
+msgstr ""
+
+#: options.php:123
+msgid "Show Bcc Recipients:"
+msgstr ""
+
+#: options.php:133
+msgid "Enable Original Message Options:"
+msgstr ""

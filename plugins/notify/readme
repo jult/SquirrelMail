@@ -1,0 +1,44 @@
+The Notify plugin provides a minimal browser window that will notify the user
+when they have new mail.
+
+On installation a link "Show Notify Popup" will be placed below the folder
+list. Clicking this link opens a small window showing whether the user has new
+mail waiting.
+
+Additional options on the Display Options page control:
+
+* how often new mail is checked - the default is five minutes, and the value
+  can be between one and thirty minutes
+
+* whether to play a sound when there is unread mail
+
+This plugin requires Javascript - this is used to restore the popup window if
+it is minimised, and for refreshing the popup window.
+
+The sound is stored in notify.wav - change this file if you want to use a
+different sound.
+
+Notify is maintained by Richard Gee - if you like it, have any comments, or
+find any bugs, please email me at richard.gee@pseudocode.co.uk
+
+Changes
+-------
+2002/11/06   V1.0   Initial version
+
+2002/11/10   V1.1   Added sound support
+
+2002/11/19   V1.2   Removed hard-coded http:// and server name from "Go to
+                    SquirrelMail Inbox" URL so it works when access is through
+                    other protocols i.e. https (thanks to Andrew Liebeskind for
+                    this suggestion)
+
+                    Corrected pluralisation of "X new messages" in popup
+
+                    Use BGSOUND for IE sound
+
+2003/04/14   V1.3   Support SquirrelMail 1.4.0 - different validation requirements.
+
+                    Make window title alternate case when new email.
+
+                    Use user-defined email address from personal details instead
+                    of login name.

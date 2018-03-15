@@ -1,0 +1,169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2003-3-1 22:19-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=REMEMBER-TO-SET-CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: ../includes/formats/separate.php:42
+msgid "No Subject"
+msgstr ""
+
+#: ../includes/display_inside.php:182
+#: ../includes/display_inside.php:177
+#: ../includes/display_inside.php:172
+#: ../includes/display_inside.php:167
+#: ../includes/display_inside.php:152
+#: ../includes/formats/separate.php:112
+#: ../includes/formats/separate.php:107
+#: ../includes/formats/separate.php:102
+msgid "Subject"
+msgstr ""
+
+#: ../includes/formats/separate.php:114
+#: ../includes/formats/separate.php:108
+#: ../includes/formats/separate.php:103
+#: ../includes/formats/separate.php:103
+msgid "From"
+msgstr ""
+
+#: ../includes/formats/separate.php:116
+#: ../includes/formats/separate.php:109
+#: ../includes/formats/separate.php:104
+#: ../includes/formats/separate.php:104
+msgid "To"
+msgstr ""
+
+#: ../includes/display_inside.php:182
+#: ../includes/display_inside.php:162
+#: ../includes/display_inside.php:152
+#: ../includes/display_inside.php:147
+#: ../includes/display_inside.php:142
+#: ../includes/formats/separate.php:118
+#: ../includes/formats/separate.php:110
+#: ../includes/formats/separate.php:105
+#: ../includes/formats/separate.php:105
+msgid "Date"
+msgstr ""
+
+#: ../includes/display_options.php:23
+msgid "Archive Settings"
+msgstr ""
+
+#: ../includes/display_options.php:25
+msgid "These settings allow you to modify the way you archive messages."
+msgstr ""
+
+#: ../includes/archive_mail_bottom.php:32
+#: ../includes/archive_mail.php:27
+msgid "Archive"
+msgstr ""
+
+#: ../includes/display_inside.php:39
+msgid "Format Emails as"
+msgstr ""
+
+#: ../includes/display_inside.php:45
+msgid "EML Messages"
+msgstr ""
+
+#: ../includes/display_inside.php:50
+msgid "Mbox"
+msgstr ""
+
+#: ../includes/display_inside.php:55
+msgid "Maildir"
+msgstr ""
+
+#: ../includes/display_inside.php:60
+msgid "PST"
+msgstr ""
+
+#: ../includes/display_inside.php:65
+msgid "Separate Entities"
+msgstr ""
+
+#: ../includes/display_inside.php:70
+msgid "Save Attachments"
+msgstr ""
+
+#: ../includes/display_inside.php:74
+msgid "Yes"
+msgstr ""
+
+#: ../includes/display_inside.php:77
+msgid "No"
+msgstr ""
+
+#: ../includes/display_inside.php:188
+#: ../includes/display_inside.php:80
+msgid "Save"
+msgstr ""
+
+#: ../includes/display_inside.php:87
+msgid "Separate Entities Options"
+msgstr ""
+
+#: ../includes/display_inside.php:90
+msgid "EML Messages Options"
+msgstr ""
+
+#: ../includes/display_inside.php:93
+msgid "Mbox Options"
+msgstr ""
+
+#: ../includes/display_inside.php:96
+msgid "Maildir Options"
+msgstr ""
+
+#: ../includes/display_inside.php:102
+msgid "Compress Type"
+msgstr ""
+
+#: ../includes/display_inside.php:108
+msgid "Tar"
+msgstr ""
+
+#: ../includes/display_inside.php:113
+msgid "Tar.GZ"
+msgstr ""
+
+#: ../includes/display_inside.php:119
+msgid "Text"
+msgstr ""
+
+#: ../includes/display_inside.php:125
+msgid "Zip"
+msgstr ""
+
+#: ../includes/display_inside.php:131
+msgid "Email Filename"
+msgstr ""
+
+#: ../includes/display_inside.php:137
+msgid "Numbered"
+msgstr ""
+
+#: ../includes/display_inside.php:177
+#: ../includes/display_inside.php:167
+#: ../includes/display_inside.php:162
+#: ../includes/display_inside.php:157
+#: ../includes/display_inside.php:147
+msgid "Email"
+msgstr ""
+
+#: ../includes/archive_mail_bottom.php:28
+msgid "Archive disabled (zlib not supported)"
+msgstr ""
+

@@ -1,0 +1,29 @@
+Installing the Show Headers Plugin
+==================================
+
+1) Start with untaring the file into the plugins directory.
+Here is a example for the 1.3 version of the Show Headers plugin.
+
+    $ cd plugins
+    $ tar -xzvf show_headers-1.3-1.4.0.tar.gz
+
+2) Then go to your config directory and run conf.pl.  Choose
+option 8 and move the plugin from the "Available Plugins"
+category to the "Installed Plugins" category.  Save and exit.
+
+    $ cd ../config/
+    $ ./conf.pl
+
+3) Log into SquirrelMail and goto 'Options', 'Display Preferences'.
+There is a textbox for 'Show Headers'.  Enter each header on it's
+own line.  Headers can be defined two ways:
+
+    (1) explicit text:  for example, "User-Agent:" would only match
+        the "user-agent" header.
+    
+    (2) regular expression: for example, "X-Habeas.*[1-5]:" would match the
+        first 5 lines of the Habeas "Sender Warranted Email" headers.
+        
+Save your changes.
+
+4) Read your mail ... that's all there is to it.

@@ -1,0 +1,102 @@
+# vkeyboard plugin for Squirrelmail project.
+# Copyright (C) 2004 Daniel K. Imori
+# This file is distributed under the same license as the vkeyboard package.
+# Daniel K. Imori <daniel@bastion.com.br>, 2004.
+#
+#Previous translators:
+#Frans Gerbosch <frans@networx.be>
+
+msgid ""
+msgstr ""
+"Project-Id-Version: vkeyboard 0.8.1\n"
+"POT-Creation-Date: 2004-08-20 17:38-0300\n"
+"PO-Revision-Date: 2006-01-26 12:40+0100\n"
+"Last-Translator: Hendrik-Jan Heins <hjh@passys.nl>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: vkeyboard.php:115
+msgid " seconds."
+msgstr " seconden."
+
+#: functions.php:49
+msgid "Are you using a public computer?"
+msgstr "Gebruikt u een openbare computer?"
+
+#: vkeyboard.php:161
+msgid "Clear"
+msgstr "Wis"
+
+#: vkeyboard.php:166
+msgid "Close"
+msgstr "Sluit af"
+
+#: functions.php:51
+msgid "Enter your password with the "
+msgstr "Voer uw wachtwoord in met de "
+
+#: vkeyboard.php:107
+msgid "Enter your password:"
+msgstr "Voer uw wachtwoord in:"
+
+#: help.php:60
+msgid ""
+"For this, you must point the mouse and keep it for few seconds on the key "
+"that you want to type."
+msgstr ""
+"Om de gewenste toets aan te duiden, dient u met de muis de toets aan te wijzen "
+"en er gedurende enkele seconden op te blijven staan."
+
+#: vkeyboard.php:109
+msgid "Help"
+msgstr "Hulp"
+
+#: help.php:56
+msgid ""
+"It protects your password against keyloggers, which are hidden programs that "
+"capture everything that you type or click."
+msgstr ""
+"Dit beschermt uw wachtwoord tegen toetsloggers. Dit zijn programma's die elke "
+"toetsaanslag registreren."
+
+#: help.php:54
+msgid "It's a keyboard that simulates a real keyboard. ;)"
+msgstr "Het is een toetsenbord dat een echt toetsenbord simuleert. ;)"
+
+#: vkeyboard.php:156
+msgid "Login"
+msgstr "Login"
+
+#: functions.php:61
+msgid "Open Virtual Keyboard"
+msgstr "Open het virtuele Toetsenbord"
+
+#: help.php:58
+msgid ""
+"So, you can increase your security, using the virtual keyboard and its "
+"\"automatic click\" function."
+msgstr ""
+"Door gebruik te maken van Het virtuele Toetsenbord met de \"automatische "
+"klik\" functie kunt u uw beveiliging verhogen."
+
+#: vkeyboard.php:113
+msgid "The key will be pressed in "
+msgstr "De toets zal ingedrukt worden in "
+
+#: vkeyboard.php:52
+msgid "Virtual Keyboard"
+msgstr "Het virtuele Toetsenbord"
+
+#: help.php:46
+msgid "Virtual Keyboard: Help"
+msgstr "Het virtuele Toetsenbord: Hulp"
+
+#: help.php:51
+msgid "What's a virtual keyboard?"
+msgstr "Wat is een virtueel Toetsenbord?"
+
+#: functions.php:56
+msgid "virtual keyboard"
+msgstr "Het virtuele Toetsenbord"

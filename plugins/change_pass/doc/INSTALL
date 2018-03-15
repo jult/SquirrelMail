@@ -1,0 +1,58 @@
+Installing change_pass
+======================
+0) NOTE: This plugin is not needed for SquirrelMail 1.5.0 or above.
+   The functionality it provides is already included in the
+   change_password plugin that is part of 1.5.x.
+
+   This plugin requires SquirrelMail 1.4.20 or later (or 1.4.0+ and
+   Compatibility 2.0.16).
+
+1) Start with untaring the file into the plugins directory.
+   Here is an example for the 3.1 version of the change_pass plugin.
+
+  $ cd plugins
+  $ tar -zxf change_pass-3.1-1.4.0.tar.gz
+
+2) By default, the plugin will connect to the IMAP server configured
+   for SquirrelMail on port 106 to change passwords.
+   If you need to change any of the following:
+     IP address of your poppass server
+     poppass server port number (if not 106)
+     minimum or maximum password length
+   you will need to create a configuration file.
+
+   Decide if you want to store the plugin configuration file
+   in the plugin directory or in the main SquirrelMail config
+   directory.
+
+   A) To store the configuration file in the plugin directory,
+      change into the change_pass directory, copy config_example.php
+      to config.php and edit config.php, making adjustments as
+      you deem necessary.
+
+     $ cd change_pass
+     $ cp config_example.php config.php
+     $ vi config.php
+
+   B) To store the configuration file in the main SquirrelMail
+      config directory, change into the change_pass directory,
+      copy config_example.php to ../../config/config_change_pass.php
+      and edit ../../config/config_change_pass.php, making
+      adjustments as you deem necessary.
+
+     $ cd change_pass
+     $ cp config_example.php ../../config/config_change_pass.php
+     $ vi ../../config/config_change_pass.php
+
+3) Go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and
+   exit.
+
+  $ cd ../../../../config/
+  $ ./conf.pl
+
+4) Translations are not included in this package.  To get a
+   translation, download the language pack needed from:
+
+       http://www.squirrelmail.org/download.php

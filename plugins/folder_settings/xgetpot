@@ -1,0 +1,34 @@
+#!/bin/sh
+# Script extracts gettext strings from plugin files
+#
+# Copyright (c) 1999-2005 The SquirrelMail Project Team
+# This file is part of SquirrelMail Folder Settings plugin. Original script
+# version was provided by SquirrelMail webmail package and licensed under GPL.
+#
+# Folder Settings plugin is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# Folder Settings plugin is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Folder Settings plugin; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# $Id: xgetpot,v 1.1 2005/09/21 17:37:50 tokul Exp $
+XGETTEXT_OPTIONS="--keyword=_ -keyword=N_ --default-domain=folder_settings --add-comments"
+
+# Allows controlling language option
+# (gettext v.0.10.40 = -C, gettext 0.11+ = -L php).
+if [ $SM_LANG_PHP ] ; then
+ XGETTEXT_OPTIONS="${XGETTEXT_OPTIONS} -L php";
+else
+ XGETTEXT_OPTIONS="${XGETTEXT_OPTIONS} -C";
+fi
+
+xgettext ${XGETTEXT_OPTIONS} \
+    *.php --output=folder_settings.pot

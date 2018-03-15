@@ -18,8 +18,8 @@
  *
  * Also view plugins/README.plugins for more information.
  *
- * @version $Id: spamoptions.php 14749 2018-01-16 23:36:07Z pdontthink $
- * @copyright (c) 1999-2018 The SquirrelMail Project Team
+ * @version $Id: spamoptions.php 14248 2012-01-02 00:18:17Z pdontthink $
+ * @copyright (c) 1999-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package plugins
  * @subpackage filters
@@ -47,7 +47,6 @@ sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 sqgetGlobalVar('action', $action, SQ_GET);
-global $imap_stream_options; // in case not defined in config
 /* end globals */
 
 displayPageHeader($color, 'None');
@@ -102,7 +101,7 @@ if ($SpamFilters_YourHop == ' ') {
 
 
 if (isset($action) && $action == 'spam') {
-    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0, $imap_stream_options);
+    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
     $boxes = sqimap_mailbox_list($imapConnection);
     sqimap_logout($imapConnection);
     $numboxes = count($boxes);

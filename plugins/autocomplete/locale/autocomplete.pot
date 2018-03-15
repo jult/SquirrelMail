@@ -1,0 +1,56 @@
+# LANGUAGE (xx_XX) SquirrelMail Autocomplete Plugin Translation
+# Copyright (c) 2001-2012 The Squirrelmail Project Team
+# This file is distributed under the same license as the SquirrelMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# $Id$
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: autocomplete 3.0\n"
+"Report-Msgid-Bugs-To: Paul Lesniewski <paul@squirrelmail.org>\n"
+"POT-Creation-Date: 2012-01-01 20:29-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Search Contacts As You Type"
+msgstr ""
+
+msgid "Only Search Personal Contacts"
+msgstr ""
+
+msgid "Pre-load Contacts"
+msgstr ""
+
+msgid "(Faster lookup but slower loading)"
+msgstr ""
+
+msgid "Match Case"
+msgstr ""
+
+msgid "Match Only Beginning Of Contact Fields"
+msgstr ""
+
+msgid "Search Contact Nicknames"
+msgstr ""
+
+msgid "Search Contact Full Names"
+msgstr ""
+
+msgid "Search Contact Email Addresses"
+msgstr ""
+
+msgid "Number Of Characters Typed To Trigger Search"
+msgstr ""
+
+msgid "Select Contact Upon Tab Press"
+msgstr ""
+
+msgid "Address Autocompletion"
+msgstr ""
+
+msgid "Error searching address book:"
+msgstr ""

@@ -1,0 +1,137 @@
+Sent Confirmation plugin for SquirrelMail
+=========================================
+Ver 1.6, 29/02/04
+
+Original author: Paul Lesneiwski <pdontthink@angrynerds.com>
+
+Thanks to:
+
+   Dustin Anders, Andy Brook <andyb@iserv.net> 
+   and Christian Sauer <christian@endrun.org> for their
+   address_book_import_export plugin, from which the address
+   book import code was stolen and modified for use here.
+
+   Wolf Bergenheim <wolf@bergenheim.net> for ideas and some 
+   code borrowed from his To-Do Reminder plugin.
+
+
+Description
+===========
+
+This plugin displays a confirmation message above the
+message index after a message is successfully sent.
+It can also display a screen offering the option to
+add any of the message's recipients to the user's address
+book or move, delete or return to the original message 
+in the case of replies and forwards.
+
+In combination with the "Restrict Senders" plugin, it
+also displays any addresses on the outgoing mail that
+were blocked.
+
+
+Warning: SquirrelMail 1.4.1
+===========================
+
+It has been reported that deleting the original message 
+in a nested folder may delete ALL messages in the folder
+when using this plugin with SquirrelMail 1.4.1.  Although
+this has only been reported once and has not been reproducable
+by the author of this plugin, this is a serious enough
+problem that it is advisable to upgrade to the latest 
+stable release of SquirrelMail.
+
+
+Known Bugs
+===========
+
+When SMTP/sendmail errors occur upon sending, the next time this 
+plugin has the chance to run, it displays the sent confirmation, 
+even though the message DID NOT get sent due to the SMTP/sendmail
+errors.  This is an architectural compromise.  It could be solved 
+by adding a new hook just after the message was sent in the SM 
+core, but for now, I'll assume that most SM installations actually 
+have working SMTP or sendmail servers.
+
+
+Change Log
+==========
+
+  1.6 -  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * New options descriptions - make much more 
+     sense - thanks to Kurt Yoder <freespirit74@yahoo.com>
+   * Many changes for full compatibility with new
+     "Preview Pane" plugin
+   * Full internationalization - send your translations!
+   * Minor fix; some PHP installations were showing 
+     a zero at bottom of the confirmation screen.
+   * Minor code refactoring
+
+  1.5 -  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Removed PHP notice/warnings that appeared on 
+     compose screen when replying.
+
+  1.4 -  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Fixed double page headers with styles one and
+     two 
+   * Page header now shows current mailbox for styles 
+     three and four
+   * Changed "Compose" links to "Close" links for 
+     styles three and four when using "compose in 
+     new window" functionality
+   * Fixed bad hyperlink URI for address book after
+     adding addresses
+  
+  1.3 -  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Fixed poor address parsing - sorry!  It now
+     correctly pulls apart addresses in the form 
+     "Name" <addr@domain.com>
+   * Smarter parsing of nicknames (in the case of
+     addresses as above, anything in quotes is used
+     as the nickname).  It also attempts to pull out
+     first and last name from the nickname
+
+  1.2 -  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added same controls for forwarded messages as we
+     already have for replies
+   * When user sent a reply to a message not on page
+     one of message list, the correct page is returned
+     to after confirmation
+   * Saved Drafs no longer interpreted as sent messages
+   * Resumed and sent drafts ARE interpreted as sent
+     messages
+   * Removed need for patching SquirrelMail source
+     for compose in new window functionality
+   * Added ability to display addresses blocked by the
+     "Restrict Senders" plugin.
+   * Themes should always display correctly 
+   * Don't get reply info if we won't be using
+     it (styles 1 and 2) (because it costs an actual
+     extra imap login)
+   * Fixed conflict with Quicksave plugin where Quicksave
+     would give false alerts if Sent Confirmation modes
+     3 or 4 were used to not return to the message list
+
+  1.1 -  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added ability to move, delete or return to the 
+     original message from confirmation screen (display 
+     modes 3 and 4) after sending a reply.
+   * Added source patch to make this plugin work with
+     "Compose In New Window" functionality
+   * Fixed clash with other plugins such as Link Buttons
+
+  1.0 -  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Initial release
+
+
+
+Future Work
+===========
+
+   * Disable checkboxes in confirmation screen for addresses
+     already in address book.  Problem is that the primary
+     key is the nickname; that doesn't stop us for grepping
+     the address book for an email address, but for now, this
+     is left up to the user...
+
+   *  Ideas?

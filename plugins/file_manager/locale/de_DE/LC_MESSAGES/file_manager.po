@@ -1,0 +1,396 @@
+# Squirrelmail file manager plugin
+# German translation
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Hans Pech <hanspech@gmx.net>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id: 1.0\n"
+"PO-Revision-Date: 2003-01-29 11:45-0800\n"
+"Last-Translator: Hans Pech <hanspech@gmx.net>\n"
+"Language-Team: Squirrelmail i18n team <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: functions.php
+msgid "appears to be binary."
+msgstr "Die Daten liegen in Bin&auml;rform vor."
+
+#: functions.php
+msgid "You can only open text files."
+msgstr "Sie können ausschließlich Textdatein &ouml;ffnen."
+
+#: functions.php
+msgid "Click"
+msgstr "Klicken Sie"
+
+#: functions.php
+msgid "here"
+msgstr "hier"
+
+#: functions.php
+msgid "to open anyway."
+msgstr "um die Datei zu &ouml;ffnen."
+
+#: functions.php
+msgid "Unlimited"
+msgstr "unbegrenzt"
+
+#: file_manager.php:1060 file_manager.php:1295
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: file_manager.php:1058 file_manager.php:1293
+msgid "Delete"
+msgstr "L&ouml;schen"
+
+#: file_manager.php:1056 file_manager.php:1291
+msgid "New File"
+msgstr "Neue Datei"
+
+#: file_manager.php:1054 file_manager.php:1289
+msgid "New Folder"
+msgstr "Neues Verzeichnis"
+
+#: file_manager.php:1052 file_manager.php:1287
+msgid "Move/Rename"
+msgstr "Verschieben/Umbenennen"
+
+#: file_manager.php:1050 file_manager.php:1285
+msgid "Copy"
+msgstr "Kopieren"
+
+#: file_manager.php:1038 file_manager.php:1273
+msgid "Move"
+msgstr "Verschieben"
+
+#: file_manager.php:1036 file_manager.php:1271
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: file_manager.php:1011
+msgid "Upload"
+msgstr "Hochladen"
+
+#: file_manager.php:1099 file_manager.php:1240
+msgid "<--BACK"
+msgstr "<-- Zur&uuml;ck"
+
+#: file_manager.php:1018
+msgid "Allow Overwrite"
+msgstr "&uuml;berschreiben"
+
+#: file_manager.php:1043 file_manager.php:1278
+msgid "CHMOD"
+msgstr ""
+
+#: file_manager.php:790
+msgid "Cannot Copy File Or Folder - Destination Already Exists"
+msgstr "Es ist nicht m&ouml;glich die Datei oder das Verzeichnis zu kopieren. Die Datei oder das Verzeichnis existiert bereits."
+
+#: file_manager.php:736
+msgid "Cannot Rename Or Move File Or Folder - Destination Already Exists"
+msgstr " Es ist nicht m&ouml;glich die Datei oder das Verzeichnis zu verschieben. Die Datei oder das Verzeichnis existiert bereits."
+
+#: file_manager.php:920
+msgid "Cannot overwrite a directory with a file."
+msgstr "Sie k&ouml;nnen kein Verzeichnis mit einer Datei &uuml;berschreiben."
+
+#: file_manager.php:908
+msgid "Current usage ="
+msgstr "Momentan belegt = "
+
+#: file_manager.php:659
+msgid "Error - Bad Syntax For CHMOD Permissions."
+msgstr "Fehler! Falsche Angabe der CHMOD Berechtigungen."
+
+#: file_manager.php:908
+msgid "Error - Quota Exceeded."
+msgstr "Fehler! Verf&uuml;gbarer Speicherplatz &uuml;berschritten."
+
+#: file_manager.php:641
+msgid "Error Occurred Attempting To Change Permissions On:"
+msgstr "Fehler! W&auml;hrend des &auml;ndern von Berechtigungen ist ein Fehler aufgetreten: "
+
+#: file_manager.php:807
+msgid "Error Occurred Attempting To Copy File Or Folder."
+msgstr "Fehler! W&auml;hrend des kopieren oder verschieben einer Datei oder eines Verzeichnisses ist ein Fehler aufgetreten."
+
+#: file_manager.php:572
+msgid "Error Occurred Attempting To Create File."
+msgstr "Fehler! W&auml;hrend des erstellen einer Datei ist ein Fehler aufgetreten."
+
+#: file_manager.php:700
+msgid "Error Occurred Attempting To Create Folder."
+msgstr " Fehler! W&auml;hrend des erstellen eines Verzeichnisses ist ein Fehler aufgetreten."
+
+#: file_manager.php:979
+msgid "Error Occurred Attempting To Delete:"
+msgstr "Fehler! W&auml;hrend des L&ouml;schens ist ein Fehler aufgetreten:"
+
+#: file_manager.php:754
+msgid "Error Occurred Attempting To Move Or Rename File Or Folder."
+msgstr "Fehler! W&auml;hrend des verschieben oder umbenennen einer Datei oder eines Verzeichnisses ist ein Fehler aufgetreten."
+
+#: file_manager.php:834 save_attachment.php:61
+msgid "Error Occurred Attempting To Save File."
+msgstr "Fehler! W&auml;hrend des speichern einer Datei ist ein Fehler autgetreten."
+
+#: file_manager.php:188
+msgid "Error Occurred Attempting To Send File As Attachment."
+msgstr "Fehler! W&auml;hrend es verschicken der Datei als Anhang ist ein Fehler aufgetreten."
+
+#: file_manager.php:902
+msgid "Error determining upload quota."
+msgstr "Fehler! Die Datei ist gr&ouml;&szlig;er als erlaubt."
+
+#: download.php:34
+msgid "FILE DOES NOT EXIST OR PROBLEM OPENING FILE"
+msgstr "Fehler! Datei existiert nicht oder Fehler beim &ouml;ffnen der Datei."
+
+#: file_manager.php:544 setup.php:88
+msgid "File Manager"
+msgstr "Dateiverwaltung"
+
+#: file_manager.php:828
+msgid "File Saved"
+msgstr "Datei gespeichert"
+
+#: file_manager.php:989
+msgid "File(s) Successfully Deleted"
+msgstr "Datei(en) gel&ouml;scht"
+
+#: file_manager.php:188 file_manager.php:572 file_manager.php:644
+#: file_manager.php:659 file_manager.php:700 file_manager.php:754
+#: file_manager.php:807 file_manager.php:834 file_manager.php:902
+#: file_manager.php:908 file_manager.php:933 file_manager.php:982
+#: save_attachment.php:61
+msgid "If this problem persists, please send a message to"
+msgstr "Wenn dieses Problem permanent auftritt, senden Sie eine Nachricht an"
+
+#: file_manager.php:1412
+msgid "KB"
+msgstr " KB"
+
+#: file_manager.php:1032
+msgid "Listing for"
+msgstr "Pfad"
+
+#: file_manager.php:1410
+msgid "MB"
+msgstr " MB"
+
+#: file_manager.php:566
+msgid "New File Successfully Created"
+msgstr "Neue Datei erstellt"
+
+#: file_manager.php:694
+msgid "New Folder Successfully Created"
+msgstr "Neues Verzeichnis erfolgreich erstellt"
+
+#: file_manager.php:668
+msgid "Permissions Successfully Changed"
+msgstr "Berechtigungen erfolgreich ge&auml;ndert"
+
+#: file_manager.php:908
+msgid "Please delete other files first."
+msgstr "L&ouml;schen Sie erst andere Dateien"
+
+#: file_manager.php:920
+msgid "Please rename one or the other."
+msgstr "Benennen Sie eine der beiden Dateien um."
+
+#: file_manager.php:908
+msgid "Quota ="
+msgstr "verf&uuml;gbarer Speicherplatz ="
+
+#: file_manager.php:863
+msgid "Revert"
+msgstr "Zur&uuml;ck"
+
+#: file_manager.php:864
+msgid "Save"
+msgstr "Speichern"
+
+#: file_manager.php:746 file_manager.php:799
+msgid "Success!"
+msgstr "Erfolgreich!"
+
+#: file_manager.php:1414
+msgid "bytes"
+msgstr "Bytes"
+
+#: file_manager.php:1205
+msgid "download"
+msgstr "Herunterladen"
+
+#: file_manager.php:1214
+msgid "edit"
+msgstr "Bearbeiten"
+
+#: setup.php:125
+msgid "save locally"
+msgstr "In Dateiverwaltung &uuml;bertragen"
+
+#: file_manager.php:1218
+msgid "send"
+msgstr "Senden"
+
+#: file_manager.php:1210
+msgid "view"
+msgstr "Betrachten"
+
+#: file_manager.php:
+msgid "Upload Multiple Files"
+msgstr "Mehrere Dateien hochladen"
+
+#: file_manager.php:
+msgid "File Upload"
+msgstr "Datei hochladen"
+
+#: file_manager.php:
+msgid "Max Size"
+msgstr "Maximale Gr&ouml;&szlig;e"
+
+#: file_manager.php:
+msgid "(per file)"
+msgstr " (pro Datei)"
+
+#: file_manager.php:
+msgid "File:"
+msgstr "Datei:"
+
+#: file_manager.php:914
+msgid "already exists!  Check the \"Allow Overwrite\" checkbox to replace it."
+msgstr "Datei oder Verzeichnis existiert bereits! Setzen Sie in \"&Uuml;berschreiben erlauben\" ein H&auml;kchen um die Datei zu &uuml;berschreiben."
+
+#: file_manager.php:927
+msgid "File(s) Successfully Uploaded"
+msgstr "Datei(en) erfolgreich hochgeladen"
+
+#: file_manager.php:933
+msgid "Error Occurred Attempting To Upload"
+msgstr "Fehler! W&auml;hrend des hochladen ist ein Fehler aufgetreten."
+
+#: file_manager.php:
+msgid "Go"
+msgstr "Ausf&uuml;hren"
+
+#: file_manager.php:775
+msgid "Error Occurred Attempting To Change File/Folder Permissions."
+msgstr "Fehler! W&auml;hrend des &auml;ndern von Berechtigungen f&uuml;r eine Datei oder ein Verzeichnis ist ein Fehler aufgetreten."
+
+#: setup.php:157
+msgid "Add Attachment From File Manager"
+msgstr "Datei aus der Dateiverwaltung anh&auml;ngen"
+
+#: file_manager.php:1283
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: file_manager.php:1282
+msgid "Save And Close"
+msgstr "Speichern und Schlie&szlig;en"
+
+#: file_manager.php:1250
+msgid "Error - Size Must Be Numeric."
+msgstr "Fehler! Gr&ouml;&szlig;e muss numerisch sein."
+
+#: file_manager.php:2021
+msgid "Change view links to show in"
+msgstr "Anzeigemodus:"
+
+#: file_manager.php:2022
+msgid "this window"
+msgstr "In diesem Fenster."
+
+#: file_manager.php:2023
+msgid "a separate window"
+msgstr "In einem seperatem Fenster."
+
+#: file_manager.php:1301
+msgid "Columns"
+msgstr "Spalten"
+
+#: file_manager.php:1302
+msgid "Rows"
+msgstr "Reihen"
+
+#: file_manager.php:1303
+msgid "Change Size"
+msgstr "Größe ändern"
+
+#: file_manager.php:1398
+msgid "Error - Virus found in"
+msgstr "Es wurde ein Virus gefunden in "
+
+
+#####################################
+#
+#  Strings below are used in javascript
+#  and need to be escaped for use in
+#  HTML (e.g., German umlautes are "&uuml;")
+#
+
+#  than the ones above
+#: file_manager.php:315
+msgid "You can't upload a file that has the same name as a folder.  Try anyway?"
+msgstr "Es ist nicht möglich eine Datei hochzuladen mit dem selben Namen wie ein bereits existierendes Verzeichnis. Wollen Sie es trotzdem probieren?"
+
+#: file_manager.php:325
+msgid "It looks like you want to upload a file that already exists in this directory.  Do you want to overwrite it?"
+msgstr "Der Name der Datei die Sie hochladen wollen existiert bereits in diesem Verzeichnis. Wollen Sie die vorhandene Datei überschreiben?"
+
+#: file_manager.php:259
+msgid "Click the browse button to select a file to upload."
+msgstr "Klicken Sie die \"Browse...\" Schaltfläche um eine Datei zum hochladen auszuwählen."
+
+#: file_manager.php:367
+msgid "Select a file or folder to move or rename."
+msgstr "Wählen Sie eine Datei oder ein Verzeichnis zum verschieben oder umbenennen."
+
+#: file_manager.php:390
+msgid "Please enter new file name:"
+msgstr "Geben Sie den gew&ünschten Dateinamen ein:"
+
+#: file_manager.php:373
+msgid "Please enter new file name (with optional folder where file will be moved):"
+msgstr "Geben Sie den neuen Dateinamen an (optional mit dem Verzeichnis wo die Datei gespeichert werden soll):"
+
+#: file_manager.php:405
+msgid "Please enter new folder name:"
+msgstr "Geben Sie den gewünschten Verzeichnisnamen ein:"
+
+#: file_manager.php:428
+msgid "Please enter desired permission:"
+msgstr "Geben Sie die gewünschten Berechtigungen ein."
+
+#: file_manager.php:438
+msgid "Select a file to change permissions on."
+msgstr "Wählen Sie eine Datei zum wechseln der Berechtigungen aus."
+
+#: file_manager.php:449
+msgid "Select a file to view."
+msgstr "Wählen Sie eine Datei zum Anzeigen aus."
+
+#: file_manager.php:558
+msgid "You cannot edit folders.  Please select a file to edit."
+msgstr "Sie können keine Verzeichnisse \"Bearbeiten\". Wählen Sie eine Datei aus."
+
+#: file_manager.php:593
+msgid "Select a file or folder to copy."
+msgstr "Wählen Sie eine Datei oder ein Verzeichnis zum kopieren aus."
+
+#: file_manager.php:599
+msgid "Please enter target name (with optional folder where file will be moved):"
+msgstr "Geben Sie einen Namen an (optional mit dem Verzeichnis wo die Datei gespeichert werden soll):"
+
+#: file_manager.php:628
+msgid "Select a file to delete."
+msgstr "Wählen Sie eine Datei zum löschen aus."
+
+#: file_manager.php:533
+msgid "You sure?  There's no turning back once you delete any files or folders!"
+msgstr "Sind Sie sicher? Gelöschte Dateien oder Verzeichnisse können nicht wiederhergestellt werden!"

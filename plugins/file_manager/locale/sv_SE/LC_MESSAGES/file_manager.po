@@ -1,0 +1,401 @@
+# File Manager plugin for SquirrelMail
+# ====================================
+# Ver 1.6.2, 02/22/03
+# Swedish translation
+# Copyright (C) 2003 Free Software Foundation, Inc
+# Fredrik Nilsson <trans@fnen.eu.org>, 2003.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: $id: 1.0\n"
+"POT-Creation-Date: 2003-02-24 14:20+0100\n"
+"PO-Revision-Date: 2003-03-06 21:26+0100\n"
+"Last-Translator: Fredrik Nilsson <trans@fnen.eu.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: functions.php
+msgid "appears to be binary."
+msgstr "verkar vara binär."
+
+#: functions.php
+msgid "You can only open text files."
+msgstr "Du kan bara öppna textfiler."
+
+#: functions.php
+msgid "Click"
+msgstr "Klicka"
+
+#: functions.php
+msgid "here"
+msgstr "här"
+
+#: functions.php
+msgid "to open anyway."
+msgstr "öppna ändå."
+
+#: functions.php
+msgid "Unlimited"
+msgstr "Obegränsat"
+
+#: file_manager.php:1060 file_manager.php:1295
+msgid "Refresh"
+msgstr "Uppdatera"
+
+#: file_manager.php:1058 file_manager.php:1293
+msgid "Delete"
+msgstr "Ta bort"
+
+#: file_manager.php:1056 file_manager.php:1291
+msgid "New File"
+msgstr "Ny fil"
+
+#: file_manager.php:1054 file_manager.php:1289
+msgid "New Folder"
+msgstr "Ny mapp"
+
+#: file_manager.php:1052 file_manager.php:1287
+msgid "Move/Rename"
+msgstr "Flytta/Byta namn"
+
+#: file_manager.php:1050 file_manager.php:1285
+msgid "Copy"
+msgstr "Kopiera"
+
+#: file_manager.php:1038 file_manager.php:1273
+msgid "Move"
+msgstr "Flytta"
+
+#: file_manager.php:1036 file_manager.php:1271
+msgid "Edit"
+msgstr "Redigera"
+
+#: file_manager.php:1011
+msgid "Upload"
+msgstr "Ladda upp"
+
+#: file_manager.php:1099 file_manager.php:1240
+msgid "<--BACK"
+msgstr "<--Tillbaka"
+
+#: file_manager.php:1018
+msgid "Allow Overwrite"
+msgstr "Tillåt att objekt med samma namn skrivs över"
+
+#: file_manager.php:1043 file_manager.php:1278
+msgid "CHMOD"
+msgstr ""
+
+#: file_manager.php:790
+msgid "Cannot Copy File Or Folder - Destination Already Exists"
+msgstr "Kan inte kopiera fil/mapp - objektet existerar redan."
+
+#: file_manager.php:736
+msgid "Cannot Rename Or Move File Or Folder - Destination Already Exists"
+msgstr "Kan inte byta namn/flytta fil/mapp - objektet existerar redan."
+
+#: file_manager.php:920
+msgid "Cannot overwrite a directory with a file."
+msgstr "Kan inte skriva över en katalog med en fil."
+
+#: file_manager.php:908
+msgid "Current usage ="
+msgstr "Nuvarande användning ="
+
+#: file_manager.php:659
+msgid "Error - Bad Syntax For CHMOD Permissions."
+msgstr "Fel - Inkorrekt syntax på CHMOD-rättigheter"
+
+#: file_manager.php:908
+msgid "Error - Quota Exceeded."
+msgstr "Fel - Kvot överskriden."
+
+#: file_manager.php:641
+msgid "Error Occurred Attempting To Change Permissions On:"
+msgstr "Fel uppstod vid försök att ändra rättigheterna på:"
+
+#: file_manager.php:807
+msgid "Error Occurred Attempting To Copy File Or Folder."
+msgstr "Fel uppstod vid försök att kopiera fil/mapp."
+
+#: file_manager.php:572
+msgid "Error Occurred Attempting To Create File."
+msgstr "Fel uppstod vid försök att skapa fil."
+
+#: file_manager.php:700
+msgid "Error Occurred Attempting To Create Folder."
+msgstr "Fel uppstod vid försök att skapa mapp."
+
+#: file_manager.php:979
+msgid "Error Occurred Attempting To Delete:"
+msgstr "Fel uppstod vid försök att ta bort:"
+
+#: file_manager.php:754
+msgid "Error Occurred Attempting To Move Or Rename File Or Folder."
+msgstr "Fel uppstod vid försök att flytta/byta namn på fil/mapp"
+
+#: file_manager.php:834 save_attachment.php:61
+msgid "Error Occurred Attempting To Save File."
+msgstr "Fel uppstod vid försök att spara filen."
+
+#: file_manager.php:188
+msgid "Error Occurred Attempting To Send File As Attachment."
+msgstr "Fel uppstod vid försök att skicka fil som bifogad."
+
+#: file_manager.php:902
+msgid "Error determining upload quota."
+msgstr "Fel vid bestämmande av uppladdningskvot."
+
+#: download.php:34
+msgid "FILE DOES NOT EXIST OR PROBLEM OPENING FILE"
+msgstr "FIL EXISTERAR INTE / PROBLEM VID ÖPPNANDE"
+
+#: file_manager.php:544 setup.php:88
+msgid "File Manager"
+msgstr "Filhanterare"
+
+#: file_manager.php:828
+msgid "File Saved"
+msgstr "Fil sparad"
+
+#: file_manager.php:989
+msgid "File(s) Successfully Deleted"
+msgstr "Fil(er) bortagen/na."
+
+#: file_manager.php:188 file_manager.php:572 file_manager.php:644
+#: file_manager.php:659 file_manager.php:700 file_manager.php:754
+#: file_manager.php:807 file_manager.php:834 file_manager.php:902
+#: file_manager.php:908 file_manager.php:933 file_manager.php:982
+#: save_attachment.php:61
+msgid "If this problem persists, please send a message to"
+msgstr "Om detta problem fortsätter, sänd ett meddelande till"
+
+#: file_manager.php:1412
+msgid "KB"
+msgstr ""
+
+#: file_manager.php:1032
+msgid "Listing for"
+msgstr "Listning av"
+
+#: file_manager.php:1410
+msgid "MB"
+msgstr ""
+
+#: file_manager.php:566
+msgid "New File Successfully Created"
+msgstr "Ny fil skapad"
+
+#: file_manager.php:694
+msgid "New Folder Successfully Created"
+msgstr "Ny mapp skapad"
+
+#: file_manager.php:668
+msgid "Permissions Successfully Changed"
+msgstr "Rättigheter ändrade"
+
+#: file_manager.php:908
+msgid "Please delete other files first."
+msgstr "Ta bort andra filer först."
+
+#: file_manager.php:920
+msgid "Please rename one or the other."
+msgstr "Byt namn på den ena."
+
+#: file_manager.php:908
+msgid "Quota ="
+msgstr "Kvot ="
+
+#: file_manager.php:863
+msgid "Revert"
+msgstr "Återgå"
+
+#: file_manager.php:864
+msgid "Save"
+msgstr "Spara"
+
+#: file_manager.php:746 file_manager.php:799
+msgid "Success!"
+msgstr "Utfört!"
+
+#: file_manager.php:1414
+msgid "bytes"
+msgstr ""
+
+#: file_manager.php:1205
+msgid "download"
+msgstr "ladda ned"
+
+#: file_manager.php:1214
+msgid "edit"
+msgstr "redigera"
+
+#: setup.php:125
+msgid "save locally"
+msgstr "spara lokalt"
+
+#: file_manager.php:1218
+msgid "send"
+msgstr "skicka"
+
+#: file_manager.php:1210
+msgid "view"
+msgstr "visa"
+
+#: file_manager.php:
+msgid "Upload Multiple Files"
+msgstr "Ladda upp flera filer"
+
+#: file_manager.php:
+msgid "File Upload"
+msgstr "Filuppladdning"
+
+#: file_manager.php:
+msgid "Max Size"
+msgstr "Maxstorlek"
+
+#: file_manager.php:
+msgid "(per file)"
+msgstr "(per fil)"
+
+#: file_manager.php:
+msgid " File:"
+msgstr " Fil"
+
+#: file_manager.php:914
+msgid "already exists!  Check the \"Allow Overwrite\" checkbox to replace it."
+msgstr "existerar redan!  Markera \"Tillåt att objekt med samma namn skrivs över\" rutan för att ersätta den."
+
+#: file_manager.php:927
+msgid "File(s) Successfully Uploaded"
+msgstr "Fil(er) uppladdade"
+
+#: file_manager.php:933
+msgid "Error Occurred Attempting To Upload"
+msgstr "Fel uppstod vid uppladdning"
+
+#: file_manager.php:
+msgid "Go"
+msgstr "Kör"
+
+#: file_manager.php:775
+msgid "Error Occurred Attempting To Change File/Folder Permissions."
+msgstr "Fel uppstod vid försök att ändra fil/mapprättigheter."
+
+#: setup.php:157
+msgid "Add Attachment From File Manager"
+msgstr "Bifoga fil från filhanterare"
+
+#: file_manager.php:1283
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: file_manager.php:1282
+msgid "Save And Close"
+msgstr "Spara och stäng"
+
+#: file_manager.php:1250
+msgid "Error - Size Must Be Numeric."
+msgstr "Fel - Storlek måste anges numeriskt."
+
+#: file_manager.php:2021
+msgid "Change view links to show in"
+msgstr "Ändra så att visa länkar visas i"
+
+#: file_manager.php:2022
+msgid "this window"
+msgstr "det här fönstret"
+
+#: file_manager.php:2023
+msgid "a separate window"
+msgstr "separat fönster"
+
+#: file_manager.php:1301
+msgid "Columns"
+msgstr "Kolumner"
+
+#: file_manager.php:1302
+msgid "Rows"
+msgstr "Rader"
+
+#: file_manager.php:1303
+msgid "Change Size"
+msgstr "Ändra storlek"
+
+#: file_manager.php:1398
+msgid "Error - Virus found in"
+msgstr "Fel - virus hittat i"
+
+
+#####################################
+#
+#  Strings below are used in javascript
+#  and need to be escaped for use in
+#  HTML (e.g., German umlautes are "&uuml;")
+#
+
+#  than the ones above
+#: file_manager.php:315
+msgid "You can't upload a file that has the same name as a folder.  Try anyway?"
+msgstr "Du kan inte ladda upp en fil som har samma namn som en mapp. Försök ändå?"
+
+#: file_manager.php:325
+msgid "It looks like you want to upload a file that already exists in this directory.  Do you want to overwrite it?"
+msgstr "Det verkar som om du vill ladda upp en fil som redan existerar i mappen. Vill du skriva över den?"
+
+#: file_manager.php:259
+msgid "Click the browse button to select a file to upload."
+msgstr "Klicka på Bläddra-knappen för att välja en fil att ladda up."
+
+#: file_manager.php:367
+msgid "Select a file or folder to move or rename."
+msgstr "Ange en fil eller en mapp att flytta/byta namn på."
+
+#: file_manager.php:390
+msgid "Please enter new file name:"
+msgstr "Ange ett namn på den nya filen:"
+
+#: file_manager.php:373
+msgid "Please enter new file name (with optional folder where file will be moved):"
+msgstr "Ange nytt namn (med ev. sökväg, dit den då kommer att flyttas):"
+
+#: file_manager.php:405
+msgid "Please enter new folder name:"
+msgstr "Ange ett namn på den nya mappen:"
+
+#: file_manager.php:428
+msgid "Please enter desired permission:"
+msgstr "Ange önskade rättigheter:"
+
+#: file_manager.php:438
+msgid "Select a file to change permissions on."
+msgstr "Välj en fil eller en mapp att ändra rättigheterna på."
+
+#: file_manager.php:449
+msgid "Select a file to view."
+msgstr "Välj en fil att studera."
+
+#: file_manager.php:558
+msgid "You cannot edit folders.  Please select a file to edit."
+msgstr "Du kan inte redigera mappar. Välj en fil att redigera."
+
+#: file_manager.php:593
+msgid "Select a file or folder to copy."
+msgstr "Välj en fil eller en mapp att kopiera."
+
+#: file_manager.php:599
+msgid "Please enter target name (with optional folder where file will be moved):"
+msgstr "Ange ett målnamn (med ev. sökväg, dit den då kommer att kopieras):"
+
+#: file_manager.php:628
+msgid "Select a file to delete."
+msgstr "Välj objekt som skall tas bort."
+
+#: file_manager.php:533
+msgid "You sure?  There's no turning back once you delete any files or folders!"
+msgstr "Är du säker? Det finns ingen återvändo när du väl tar bort filer eller mappar! (Mappar måste vara tomma.)"
+

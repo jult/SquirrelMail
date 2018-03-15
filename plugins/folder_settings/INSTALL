@@ -1,0 +1,22 @@
+Installing Plugin
+=================
+Simply untar the file in the plugins directory, and make sure it is
+in its own directory, and that the name of the directory is the name
+of the plugin. For example:
+
+  $ cd /var/www/squirrelmail/plugins
+  $ tar -zxvf /home/archives/folder_settings-0.3-1.4.0.tar.gz
+
+Then go to SquirrelMail config directory and run conf.pl. Choose option
+8 and enable the plugin.
+
+  $ cd ../config
+  $ ./conf.pl
+
+Save configuration changes and exit.
+
+Plugin translations use folder_settings domain. folder_settings.po and 
+folder_settings.mo files should be stored in same directory that stores 
+squirrelmail.po and squirrelmail.mo files. Translations are maintained 
+by SquirrelMail Internationalization Team and are distributed in 
+SquirrelMail locale packages.

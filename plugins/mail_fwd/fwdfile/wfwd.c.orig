@@ -1,0 +1,126 @@
+/*
+ * wfwd.c
+ *
+ * Writes .forward file for email forwarding
+ *
+ * Original author Ritchie Low
+ *
+ * Completely rewritten by
+ *     Oyvind Gronnesby <oyving@pvv.org>
+ *
+ */
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <pwd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <unistd.h>
+
+#define MAXADDR 3
+#define BUFFER  1024
+
+int main(int argc, char *argv[])
+{
+	FILE *df;
+	int    i;
+	char filename[BUFFER];
+
+	struct stat    st;
+	struct passwd *ptmp;
+	uid_t webuid, uid;
+	gid_t gid;
+	char *path;
+
+	/* check if we have legal number of arguments */
+	if (argc < 2) {
+		fprintf(stderr, "Usage: %s username [address ...]\n", argv[0]);
+		exit(1);
+	}
+
+	if (argc > MAXADDR+2) {
+		fprintf(stderr, "%s: exceeded maximum number of addresses.\n",
+		        argv[0]);
+	}
+
+	/* getpwnam() may return a pointer to a static struct, so we need to
+	 * make a copy of the content */
+	if ((ptmp = getpwnam(WEBUSER)) == NULL) {
+		perror(argv[0]);
+		exit(1);
+	} else {
+		webuid = ptmp->pw_uid;
+	}
+
+	/* copy the argument entry too, just for consistancy */
+	if ((ptmp = getpwnam(argv[1])) == NULL) {
+		perror(argv[0]);
+		exit(1);
+	} else {
+		uid = ptmp->pw_uid;
+		gid = ptmp->pw_gid;
+		path = strdup(ptmp->pw_dir);
+	}
+
+	/* see to it that the UIDs actually match */
+	if (webuid != getuid()) {
+		fprintf(stderr, "%s: Invalid real user.\n", argv[0]);
+		exit(1);
+	}
+
+	/* check that we actually were able to change uid and gid */
+	if (setgid(gid) == -1 ||
+	    setuid(uid) == -1) {
+		perror(argv[0]);
+		exit(1);
+	}
+
+	/* get filename to molest */
+	if (snprintf(filename, BUFFER-1, "%s/.forward", path) == -1) {
+		fprintf(stderr, "%s: path too long.\n", argv[0]);
+		exit(1);
+	}
+
+	/* is somebody attempting to screw around with us? */
+	if (lstat(filename, &st) == 0) {
+		if (!S_ISREG(st.st_mode)) {
+			fprintf(stderr, "%s: .forward is not a regular file.\n",
+			        argv[0]);
+			exit(1);
+		}
+	}
+
+	/* no mail addresses supplied, unlink .forward */
+	if (argc == 2) {
+		if (unlink(filename) == -1) {
+			perror(argv[0]);
+			exit(1);
+		} else {
+			exit(0);
+		}
+	}
+
+	/* open .forward file */
+	if ((df = fopen(filename, "w")) == NULL) {
+		perror(argv[0]);
+		exit(1);
+	}
+
+	/* write the file */
+	for (i = 2; i < argc && i - 2 < MAXADDR; i++) {
+		if (strstr(argv[i], "|") == NULL) {
+			printf("Added %s\n", argv[i]);
+			fprintf(df, "%s\n", argv[i]);
+		}
+	}
+
+	/* close it */
+	if (fclose(df) == EOF) {
+		fprintf(stderr, "%s: could not close file.\n", argv[0]);
+		exit(1);
+	}
+
+	exit(0);
+}

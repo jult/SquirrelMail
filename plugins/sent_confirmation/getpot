@@ -1,0 +1,3 @@
+#!/bin/sh
+xgettext --keyword=_ -keyword=N_  --default-domain=sent_confirmation \
+    *.php --output=sent_confirmation.pot

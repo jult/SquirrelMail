@@ -1,0 +1,48 @@
+Installing the file_manager Plugin
+==================================
+
+1) Start with untaring the file into the plugins directory.
+Here is a example for the 1.0 version of the file_manager plugin.
+
+  $ cd plugins
+  $ tar -zxvf file_manager-1.0-1.2.7.tar.gz
+
+2) Go into the file_manager directory
+
+  $ cd file_manager
+
+3) Copy config.php.sample to config.php and edit config.php,
+   making adjustments as you deem necessary.  For more detailed
+   explanations about each of these parameters, consult the
+   "Configuration" section in the README file.
+
+  $ cp config.php.sample config.php
+  $ vi config.php
+
+4) Copy file_manager.users.sample to file_manager.users and
+   edit file_manager.users, adding a line for each user that 
+   should have file management access.  Remember to set each 
+   user's base directory carefully!  For more detailed information 
+   on the available settings, see the "Configuration" section 
+   in README.
+
+  $ cp file_manager.users.sample file_manager.users
+  $ vi file_manager.users
+
+5) NOTE - This step ONLY applies to SquirrelMail versions 1.2.x.
+   If you are running 1.4.0 or greater, you should skip to step
+   number 6.  
+   For older SquirrelMail versions, if you want email attachments 
+   from File Manager to work, replace SquirrelMail's compose.php 
+   with what is included with File Manager under the "attachment_patch" 
+   directory.  Make sure to use the file that corresponds to your 
+   SquirrelMail version.
+
+  $ cp attachment_patch/1.2.11/compose.php ../../src/compose.php 
+  cp: overwrite `../../src/compose.php'? y 
+
+6) Then go to your config directory and run conf.pl.  Choose 
+   option 8 and add the file_manager plugin.  Save and exit.
+
+  $ cd ../../config
+  $ ./conf.pl

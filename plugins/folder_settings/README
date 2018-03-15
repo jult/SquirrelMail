@@ -1,0 +1,80 @@
+Folder Settings plugin
+
+Description
+===========
+I hope to develop this plugin to allow for a whole range of folder-
+specific settings.  At the moment it just does one thing...
+Alters folder sorting behavior so that individual folders remember
+their message-sort settings.
+
+Requirements
+============
+This plugin version requires SquirrelMail 1.4.x. Plugin functions are 
+included in SquirrelMail 1.5.1 and newer.
+
+Usage
+=====
+There are two new options on the 'Folder Preferences' page:
+
+Enable per-folder sorting
+-------------------------
+If this is enabled, changing the sort order of a folder will change
+the behavior of that folder only.  Other folders will continue to
+use the default sort order (see below) or their own, individual setting.
+
+Default Sort Order
+-------------------
+This is where you specify the default sort order, for all folders which
+don't have their own setting.  If you don't specify anything here, the
+default will be Date (descending).
+
+Note: changing a folder's sort order back to the default clears the
+setting for that folder and it will revert to following the default
+setting.
+
+To Do
+=====
+
+1. Allow sort settings for the Inbox, Sent and Trash folders to be
+   specified on the options page.
+2. Think of a good way for the user to explicitly reset a folder to the
+   default (as in a big button with Reset on it).
+
+Changes
+=======
+
+v0.1  20-Feb-2003 by Bruce Richardson <itsbruce@uklinux.net>
+ * Initial version
+
+v0.2  21-Feb-2003 by Bruce Richardson <itsbruce@uklinux.net>
+ * The sort preference for a folder is deleted if
+   its order is set to the default order.
+ * Added "Unsorted" to the default options.
+
+v0.3  2005-09-25  NMU by Tomas Kuliavas <tokul@users.sourceforge.net>
+ * Plugin is imported into SM-Plugins project cvs.
+ * Fixed data_dir errors in folderSettings() function
+ * Moved setting options to optpage widgets
+ * Using folder_settings gettext domain for plugin strings.
+ * Plugin is obsolete in SquirrelMail 1.5.1.
+ * Moved main code to functions.php.
+ * Added version function.
+
+
+Copyright
+=========
+Copyright (c) 2003 Bruce Richardson
+Copyright (c) 2005 The SquirrelMail Project Team
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+A copy of the GNU General Public License can be found on the
+Free Software Foundation website: http://gnu.org/

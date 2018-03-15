@@ -4,7 +4,7 @@
  * -------------
  * Squirrelspell module.
  *
- * Copyright (c) 1999-2018 The SquirrelMail Project Team
+ * Copyright (c) 1999-2012 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module is the main workhorse of SquirrelSpell. It submits
@@ -12,7 +12,7 @@
  * the interface window.
  *
  * @author Konstantin Riabitsev <icon@duke.edu>
- * @version $Id: check_me.mod 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: check_me.mod 14248 2012-01-02 00:18:17Z pdontthink $
  * @package plugins
  * @subpackage squirrelspell
  */
@@ -36,7 +36,7 @@ function SpellLink($jscode, $title, $link) {
 /**
  * Declaring globals for users with E_ALL set.
  */
-global $SQSPELL_APP, $attachment_dir, $SQSPELL_EREG, $color, $squirrelmail_language;
+global $SQSPELL_APP, $attachment_dir, $SQSPELL_EREG, $color;
 
 $sqspell_text = $_POST['sqspell_text'];
 $sqspell_use_app = $_POST['sqspell_use_app'];
@@ -94,13 +94,8 @@ if( check_php_version ( 4, 3 ) ) {
     );
     $spell_proc = @proc_open($sqspell_command, $descriptorspec, $pipes);
     if ( ! is_resource ( $spell_proc ) ) {
-        // this is a hack to avoid having to change the strings
-        // in all our translations for this misspelled word
-        if (strpos($squirrelmail_language, 'en_') === 0)
-            $err = 'Could not run the spell checker command (%s).';
-        else
-            $err = _("Could not run the spellchecker command (%s).");
-        error_box(sprintf($err, sm_encode_html_special_chars($sqspell_command)), $color);
+        error_box ( sprintf(_("Could not run the spellchecker command (%s)."),
+            sm_encode_html_special_chars($sqspell_command) ) , $color );
         // close html tags and abort script.
         echo "</body></html>";
         exit();
@@ -310,13 +305,7 @@ if ($errors){
   /**
    * Add some strings so they can be i18n'd.
    */
-  // this is a hack to avoid having to change the strings
-  // in all our translations for this misspelled word
-  if (strpos($squirrelmail_language, 'en_') === 0)
-    $text = 'Spelling check completed. Commit changes?';
-  else
-    $text = _("Spellcheck completed. Commit changes?");
-  $extrajs.= "var ui_completed = \"" . $text
+  $extrajs.= "var ui_completed = \"" . _("Spellcheck completed. Commit changes?")
     . "\";\n";
   $extrajs.= "var ui_nochange = \"" . _("No changes were made.") . "\";\n";
   $extrajs.= "var ui_wait = \""
@@ -449,24 +438,15 @@ if ($errors){
        <tr>
         <td colspan="4" align="center" bgcolor="<?php echo $color[9] ?>">
          <?php
-             // this is a hack to avoid having to change the strings
-             // in all our translations for this misspelled word
-             if (strpos($squirrelmail_language, 'en_') === 0) {
-                 $commit_warn = 'The spelling check is not finished. Are you sure you want to close and commit your changes?';
-                 $discard_warn = 'The spelling check is not finished. Are you sure you want to close and discard your changes?';
-             } else {
-                 $commit_warn = _("The spellcheck is not finished. Really close and commit changes?");
-                 $discard_warn = _("The spellcheck is not finished. Really close and discard changes?");
-             }
              echo '<input type="button" value="  '
                  . _("Close and Commit")
                  . '  " onclick="if (confirm(\''
-                 . $commit_warn
+                 . _("The spellcheck is not finished. Really close and commit changes?")
                  . '\')) sqspellCommitChanges()" />'
                  . ' <input type="button" value="  '
                  . _("Close and Cancel")
                  . '  " onclick="if (confirm(\''
-                 . $discard_warn
+                 . _("The spellcheck is not finished. Really close and discard changes?")
                  . '\')) self.close()" />';
          ?>
         </td>
@@ -495,3 +475,4 @@ if ($errors){
  * End:
  * vim: syntax=php
  */
+?>

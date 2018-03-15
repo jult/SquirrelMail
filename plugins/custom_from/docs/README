@@ -1,0 +1,127 @@
+Custom From plugin for SquirrelMail
+===================================
+Ver 2.0, 2012/03/01
+
+
+Copyright (c) 2003-2012 Paul Lesniewski <paul@squirrelmail.org>
+
+
+
+Description
+===========
+
+This plugin adds a "From:" text field to the compose screen.
+This allows the user to specify an arbitrary From address (that
+will also be used as the "Reply-To").  If this "From:" field is
+left blank, the normal identity selector (just above it) is used.
+
+The administrator may provide a list of users who are allowed to
+use this feature, perhaps making this a super-user or administrative
+tool.
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.0 or above
+
+  * Compatibility plugin version 2.0.15+ unless using SquirrelMail 1.4.12+
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see the file COPYING for details).
+
+
+
+Troubleshooting
+===============
+
+  * If changes to the configuration file don't seem to be having
+    any effect, ensure that there are not two Custom From
+    configuration files, one in the custom_from/config directory
+    and one in the main SquirrelMail config directory (named
+    "config_custom_from.php").  The one in the main SquirrelMail
+    config directory will always override the one in the
+    custom_from/config directory.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Add compatibility with SquirrelMail version 1.5.2+?  Requires
+    having a template for the compose screen that supports this feature...
+
+
+
+Change Log
+==========
+
+  v2.0  2012/03/01  Paul Lesniewski <paul@squirrelmail.org>
+    * Complete re-write
+    * No longer requires source patch
+    * No longer specifically requires the Compatibility plugin
+    * User access table syntax changed slightly for security
+      reasons - when upgrading, you are encouraged to copy your
+      user list into the new example access table
+
+  v1.1  2003/06/28  Paul Lesniewski <paul@squirrelmail.org>
+    * Fixed bug where multiple identities would override
+      the custom from entry
+    * Added ability to restrict access to only certain users.
+
+  v1.0  2003/06/05  Paul Lesniewski <paul@squirrelmail.org>
+    * Initial release
+
+
+

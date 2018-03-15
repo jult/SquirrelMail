@@ -2,10 +2,10 @@
 /**
  * mailout.php
  *
- * Copyright (c) 1999-2018 The SquirrelMail Project Team
+ * Copyright (c) 1999-2012 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * $Id: mailout.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * $Id: mailout.php 14248 2012-01-02 00:18:17Z pdontthink $
  * @package plugins
  * @subpackage listcommands
  */
@@ -27,7 +27,6 @@ sqgetGlobalVar('send_to', $send_to, SQ_GET);
 sqgetGlobalVar('subject', $subject, SQ_GET);
 sqgetGlobalVar('body',    $body,    SQ_GET);
 sqgetGlobalVar('action',  $action,  SQ_GET);
-sqgetGlobalVar('identity',  $identity,  SQ_GET);
 
 switch ( $action ) {
 case 'help':
@@ -65,10 +64,8 @@ echo html_tag('p', '', 'center' ) . _("From:") . ' ';
 if (count($idents) > 1) {
     echo '<select name="identity">';
     foreach($idents as $nr=>$data) {
-        echo '<option '
-           . ($identity == $nr ? ' selected="selected" ' : '')
-           . 'value="' . $nr . '">'
-           . sm_encode_html_special_chars(
+        echo '<option value="' . $nr . '">' .
+            sm_encode_html_special_chars(
                 $data['full_name'].' <'.
                 $data['email_address'] . ">\n");
     }

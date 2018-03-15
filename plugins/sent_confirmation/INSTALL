@@ -1,0 +1,64 @@
+Installing Sent Confirmation
+============================
+
+1) Start with untaring the file into the plugins directory.
+Here is a example for the 1.0 version of the sent_confirmation 
+plugin.
+
+  $ cd plugins
+  $ tar -zxvf sent_confirmation-1.0-1.2.tar.gz
+
+2) Change into the sent_confirmation directory, copy config.php.sample
+   to config.php and edit config.php, making adjustments as
+   you deem necessary.  
+
+  $ cd sent_confirmation
+  $ cp config.php.sample config.php
+  $ vi config.php
+
+3) Then go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and exit.
+
+  $ cd ../../config/
+  $ ./conf.pl
+
+4) Also, please verify that you have the "compatibility" plugin
+   installed.
+
+
+
+Upgrading Sent Confirmation
+===========================
+
+1) Start with untaring the file into the plugins directory.
+Here is a example for the 1.0 version of the sent_confirmation plugin.
+
+  $ cd plugins
+  $ tar -zxvf sent_confirmation-1.0-1.2.tar.gz
+
+
+2) Change into the sent_confirmation directory, check your config.php
+   file against the new version, to see if there are any new
+   settings that you must add to your config.php file.
+
+  $ diff -Nau config.php config.php.sample
+
+   Or simply replace your config.php file with the provided sample
+   and reconfigure the plugin from scratch (see step 2 under the
+   installation procedure above).
+
+   * As of version 1.6, there is an extra entry in the user preferences
+     that might disable the confirmation message for users who had
+     had it turned on under version 1.5.
+
+     To avoid this happening, you can either set the default style
+     in config.php to anything other than 'off', or you can make
+     sure that all users view their preferences screen once after 
+     version 1.6 is installed, verify their new settings, and click
+     "Submit".  The best solution is to simply add the new preference 
+     entry to any preference files that need it: 
+
+    $ echo 'sent_conf_enable=1' | tee -a `grep -rEin 'sent_conf_style=[1234]' /path/to/squirrelmail/data/directory/ | sed 's/:.*//'`
+
+

@@ -1,0 +1,246 @@
+# LANGUAGE (xx_XX) unsafe_image_rules Translation (SquirrelMail plugin)
+# Copyright (c) 1999-2005 The SquirrelMail Project Team
+# This file is distributed under the same license as the SquirrelMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# $Id: unsafe_image_rules.pot,v 1.1 2006/01/17 09:57:11 jervfors Exp $
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: unsafe_image_rules 0.8\n"
+"POT-Creation-Date: 2006-01-17 10:40+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: add.php:60
+msgid "Safe Sender"
+msgstr ""
+
+#: add.php:60 functions.php:267 options.php:84
+msgid "Unsafe Image Rules"
+msgstr ""
+
+#: add.php:66
+msgid ""
+"Use the form below to modify the address that will be added to the Unsafe "
+"Image Rules."
+msgstr ""
+
+#: add.php:73 options.php:173
+msgid "From"
+msgstr ""
+
+#: add.php:77 options.php:193 options.php:226
+msgid "Contains"
+msgstr ""
+
+#: add.php:78 options.php:196 options.php:226
+msgid "Reg.Exp."
+msgstr ""
+
+#: add.php:83 options.php:155
+msgid "Save"
+msgstr ""
+
+#: add.php:111
+msgid ""
+"The following address has been successfully added to the Unsafe Images Rules:"
+msgstr ""
+
+#: add.php:114
+msgid ""
+"I didn't seem to get a valid email address to add. This shouldn't happen!"
+msgstr ""
+
+#: add.php:118
+msgid "Sending you back to the message list in five seconds."
+msgstr ""
+
+#. i18n: The first %s inserts HTML flr starting a link, and the second ends it.
+#: add.php:120
+#, php-format
+msgid "If you are not automatically redirected, please click %shere%s."
+msgstr ""
+
+#: functions.php:269
+msgid "Set up rules about how unsafe images in HTML messages are handled."
+msgstr ""
+
+#: functions.php:389
+msgid "Always trust images from this sender"
+msgstr ""
+
+#: options.php:68
+msgid "Saved Trusted Options"
+msgstr ""
+
+#: options.php:84
+msgid "Options"
+msgstr ""
+
+#: options.php:92
+msgid "Trust all sources:"
+msgstr ""
+
+#: options.php:96
+msgid "WARNING!"
+msgstr ""
+
+#: options.php:97
+msgid "This is not recommended by the SquirrelMail Project Team."
+msgstr ""
+
+#. i18n: %s inserts a complete link which doesn't need to be i18n.
+#: options.php:99
+#, php-format
+msgid ""
+"Read %s for more details. There is a risk you may receive more spam if you "
+"check this option."
+msgstr ""
+
+#: options.php:101
+msgid "If checked unsafe images are always seen."
+msgstr ""
+
+#: options.php:102
+msgid "If this option is checked, the state of other options is irrelevant."
+msgstr ""
+
+#: options.php:107
+msgid "Trust sources in address book:"
+msgstr ""
+
+#: options.php:111
+msgid ""
+"If checked, unsafe images are shown for messages from anyone in your address "
+"book."
+msgstr ""
+
+#: options.php:115
+msgid "Trust anything I send:"
+msgstr ""
+
+#: options.php:119
+msgid ""
+"If checked, unsafe images are shown for messages sent by any of your "
+"identities."
+msgstr ""
+
+#: options.php:120
+msgid ""
+"You might not want to set this if you forward Spam to other people, and then "
+"go back and read from your 'Sent' folder."
+msgstr ""
+
+#: options.php:124
+msgid "Trust defined sources:"
+msgstr ""
+
+#: options.php:128
+msgid "If checked, unsafe images are shown for the sources shown below."
+msgstr ""
+
+#: options.php:134
+msgid ""
+"When viewing a message with unsafe images, you can quickly add the sender's "
+"email address or domain to the Unsafe Image Rules by clicking the 'Always "
+"trust images from this sender' link. The following options set the default "
+"behavior when the address is being added."
+msgstr ""
+
+#: options.php:137
+msgid "Always add full email address:"
+msgstr ""
+
+#: options.php:140
+msgid ""
+"If selected the full email address of the sender will be added to the Unsafe "
+"Image Rules list."
+msgstr ""
+
+#: options.php:142
+msgid "Always add full domain:"
+msgstr ""
+
+#: options.php:145
+msgid ""
+"If selected only the domain of the sender will be added to the Unsafe Image "
+"Rules list."
+msgstr ""
+
+#: options.php:147
+msgid "Always ask:"
+msgstr ""
+
+#: options.php:150
+msgid "Ask what to add to the Unsafe Image Rules list."
+msgstr ""
+
+#: options.php:158
+msgid "Add New Rule"
+msgstr ""
+
+#: options.php:159
+msgid "Done"
+msgstr ""
+
+#: options.php:167
+msgid "Trust source if "
+msgstr ""
+
+#: options.php:176
+msgid "To"
+msgstr ""
+
+#: options.php:179
+msgid "Cc"
+msgstr ""
+
+#: options.php:182
+msgid "To or Cc"
+msgstr ""
+
+#: options.php:185
+msgid "Subject"
+msgstr ""
+
+#: options.php:204
+msgid "NB"
+msgstr ""
+
+#: options.php:206
+msgid "When specifying a Reg.Exp you must include delimeters."
+msgstr ""
+
+#: options.php:207
+msgid "The 'Contains' check will be done with case-insensitive match."
+msgstr ""
+
+#: options.php:209
+msgid "Submit"
+msgstr ""
+
+#: options.php:219
+msgid "Edit"
+msgstr ""
+
+#: options.php:221
+msgid "Delete"
+msgstr ""
+
+#. i18n: If [field] [Contains|Reg.Exp.] [user defined data]
+#: options.php:224
+#, php-format
+msgid "If %s %s %s"
+msgstr ""
+
+#: options.php:230
+msgid "This doesn't look like a valid Reg.Exp."
+msgstr ""
+
+#: options.php:230
+msgid "WARNING:"
+msgstr ""

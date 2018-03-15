@@ -1,0 +1,27 @@
+#
+# FILE MANAGER USER CONFIGURATION
+#
+# Each line should correspond to one user where the fields are:
+#
+#   username (must match SquirrelMail login - see README for more info)
+#   base directory (any number of base directories may be listed here)
+#   upload quota (in the form of "50000000" or "50MB" or "50M"; this field may be skipped (unlimited quota))
+#   admin email
+#   allow symlinks?  1 = yes, 0 = no
+#   allow chmod?  1 = yes, 0 = no
+#   allow editing of binary files?  1 = yes, 0 = no
+#
+# All fields must be separated by one or more tabs or spaces.
+# See README for more detailed explanation of each field.
+#
+
+user1@some.domain.com       /home/some.domain.com/web  5MB  webmaster@some.domain.com    0  0  0
+
+user2@another.domain.net    /www/user2/html            5MB  help@yet.another.domain.org  0  0  0
+
+
+# Note - this user has three base directories (including root) and no (unlimited) quota
+#
+veryimportantuser@another.domain.net  /  /home/some/other/directory  /yet/another/directory  help@yet.another.domain.org  1  1  1
+
+

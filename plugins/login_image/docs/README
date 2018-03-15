@@ -1,0 +1,124 @@
+Random Login Image plugin for SquirrelMail
+==========================================
+Ver 1.0, 2011/03/15
+
+
+Copyright (c) 2011-2011 Paul Lesniewski <paul@squirrelmail.org>
+Copyright (c) 2002 Tracy McKibben <tracy@mckibben.d2g.com>
+
+
+
+Description
+===========
+
+This plugin chooses an image randomly from one of several
+possible sources to display on the login page.  Both local
+and remote image sources are supported, all of which may
+be configured by the administrator if desired.  The image
+produced by this plugin may be used to replace the default
+SquirrelMail "org logo" or may be displayed in addition to
+(above) it.
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see the file COPYING for details).
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 0.5 or above
+  * Compatibility 2.0.10+ (unless using SquirrelMail 1.4.12+ or 1.5.2+)
+
+
+
+Troubleshooting
+===============
+
+  * If changes to the configuration file don't seem to be having
+    any effect, ensure that there are not two Random Login Image
+    configuration files, one in the login_image directory and
+    one in the main SquirrelMail config directory (named
+    "config_login_image.php").  The one in the main SquirrelMail
+    config directory will always override the one in the
+    login_image directory.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+Change Log
+========== 
+
+  v1.0  2011/03/15  Paul Lesniewski <paul@squirrelmail.org>
+    * Complete re-write and cleanup
+    * Dropped use of Webshots
+    * Added configurable list of remote image sources
+      (if you have a good suggestion for a default daily
+      image source, please submit them to the plugin maintainer)
+    * Added configurable local and remote image caching
+    * Local image source location is now configurable and
+      defaults to an "images" subdirectory in this plugin
+    * Added ability to override SquirrelMail's $org_logo
+      or display the random image in addition to it
+    * Added configurable per-source image sizing 
+    * Added support for SquirrelMail 1.5.2+
+
+  v0.2  2002/05/06  Tracy McKibben <tracy@mckibben.d2g.com>
+    * Webshots changed their site structure, breaking the original
+      version of this plugin. This revision works with the new site
+      structure. No other changes have been made
+
+  v0.1  2002/04/07  Tracy McKibben <tracy@mckibben.d2g.com>
+    * Initial release
+
+ 
+
