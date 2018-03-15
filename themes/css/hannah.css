@@ -1,0 +1,13 @@
+body  { font-size: 13px; font-family: Georgia,Trebuchet MS,serif }
+td  { font-size: 13px; font-family: Georgia,Trebuchet MS,serif }
+p  { font-size: 13px; font-family: Georgia,Trebuchet MS,serif }
+b  { font-weight: bold; font-size: 13px; font-family: Georgia,Trebuchet MS,serif }
+a {font-family: Georgia,Trebuchet MS,serif; font-size: 13px;}
+tt {
+font-family: Georgia,Trebuchet MS,serif;
+font-size: 13px;
+}
+textarea, pre { font-family: Fixedsys,Courier,Courier New; } 
+a:link { font-size: 13px;text-decoration:none; }
+a:visited { font-size: 13px;text-decoration:none; }
+a:hover { color: #339900;text-decoration:none;;cursor:crosshair; }

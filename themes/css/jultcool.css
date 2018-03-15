@@ -1,0 +1,13 @@
+body  { font-size: 13px; font-family: Arial,Geneva,Helvetica,sans-serif }
+td  { font-size: 13px; font-family: Arial,Helvetica,sans-serif }
+p  { font-size: 13px; font-family: Arial,Helvetica,sans-serif }
+b  { font-weight: bold; font-size: 13px; font-family: Arial, Helvetica,sans-serif }
+a {font-family: Arial,Helvetica,sans-serif; font-size: 13px;}
+tt {
+font-family: Arial,Geneva,Helvetica,sans-serif;
+font-size: 13px;
+}
+textarea, pre { font-family: Fixedsys,Courier,Courier New; } 
+a:link { font-size: 13px;text-decoration:none; }
+a:visited { font-size: 13px;text-decoration:none; }
+a:hover { color: #339900;text-decoration:none; }

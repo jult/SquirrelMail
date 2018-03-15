@@ -1,0 +1,10 @@
+body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
+  font-family: verdana,geneva,helvetica,arial;
+}
+body, small {
+font-size: 9pt;
+}
+td, th {
+font-size: 11pt;
+}
+textarea, pre { font-family: fixed,Courier,Courier New; font-size: 10pt; }

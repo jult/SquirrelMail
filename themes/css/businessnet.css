@@ -1,0 +1,13 @@
+body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
+font-family: arial,helvetica,geneva,sans-serif;
+}
+body, small {
+font-size: 11pt;
+}
+td, th {
+font-size: 10pt;
+}
+textarea, pre { font-family: Fixedsys,Courier; }
+a:link { font-size: 10pt }
+a:visited { font-size: 10pt }
+a:hover { color: #449900 }
