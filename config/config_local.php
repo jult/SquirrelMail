@@ -54,8 +54,6 @@ $auto_create_special            = true;
 $delete_folder                  = false;
 $noselect_fix_enable            = false;
 
-$data_dir                 = '/home/prefs/';
-$attachment_dir           = '/home/attach/';
 $dir_hash_level           = 0;
 $default_left_size        = '146';
 $force_username_lowercase = true;
