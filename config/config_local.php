@@ -15,9 +15,6 @@
  */
 
 $config_use_color = 2;
-$org_logo      = '/jman.gif';
-$org_logo_width  = '80';
-$org_logo_height = '67';
 $frame_top     = '_top';
 
 $motd = "";
