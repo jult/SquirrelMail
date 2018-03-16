@@ -82,12 +82,6 @@ $config_location_base     = '';
 
 $disable_plugins          = false;
 
-$user_theme_default = 53;
-$user_themes[0]['PATH'] = 'none';
-$user_themes[0]['NAME'] = 'Default';
-$user_themes[1]['PATH'] = SM_PATH . 'css/blue_gradient/';
-$user_themes[1]['NAME'] = 'Blue Options';
-
 $session_name          = 'SQMSESSID';
 $only_secure_cookies     = true;
 $disable_security_tokens = false;
@@ -104,6 +98,7 @@ $browser_rendering_mode  = 'quirks';
 $max_token_age_days = 2;
 $newmail_allowsound = true;
 
+$user_theme_default = 53;
 $theme_css = 'jultcoolbig';
 $theme_default = 53;
 $theme[52]['PATH'] = SM_PATH . 'themes/forestnight.php';
