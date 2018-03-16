@@ -8,9 +8,7 @@
  * Use standard PHP syntax, see config.php for examples.
  *
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: config_local.php 18 2018-03-16 10:23:07Z pdontthink $
- * @package squirrelmail
- * @subpackage config
+ * @version $Id: config_local.php 18 2018-03-16 10:23:07Z jult $
  */
 
 $config_use_color = 2;
