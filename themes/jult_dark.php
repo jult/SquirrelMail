@@ -1,4 +1,19 @@
 <?php
+/**
+ * Name: jult dark
+ * Date: April 3, 1999
+ * 
+ * Easy on the eyes strong contrast theme.
+ * Note that this theme depends on email using correct color-tags when it's sent in HTML.
+ * many mail-clients and auto-mailers ignore the fact that txt font-color needs to be set,
+ * this results in type colored by this theme (light), but background colored by mail-source (also light)!
+ *
+ * @author Julius Thijssen <julius at cryptolab.net>
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id: jult_dark.php 18 2018-03-16 09:45:07Z jult $
+ * @package squirrelmail
+ * @subpackage themes
+ */
 global $color;
 $color[0]   = '#092003'; // TitleBar
 $color[1]   = '#DDFEAB'; // Quote in mail
