@@ -16,6 +16,7 @@
  * @author Marc Groot Koerkamp
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id: Deliver.class.php 14749 2018-01-16 23:36:07Z pdontthink $
  * @version $Id: Deliver.class.php 14751 2018-03-21 13:36:07Z jult $
  * @package squirrelmail
  *
