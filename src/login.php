@@ -8,8 +8,8 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: login.php 14749 2018-01-16 23:36:07Z pdontthink $
- * @package squirrelmail
+ * @version $Id: login.php 1 2018-03-21 23:36:07Z jult $
+ *
  */
 
 /** This is the login page */
@@ -140,21 +140,35 @@ $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
           "    }\n".
           "  }\n".
           "// -->\n".
-          "</script>\n";
+          "</script>\n".
+  "<style type=\"text/css\">\n".
+        "body{\n".
+        "margin: 0;".
+        "padding: 0;".
+        "background-image: url(\"/eekhoorn.jpg\");\n".
+        "background-position: center center;\n".
+        "background-repeat: no-repeat;\n".
+        "background-size: 100% 100%;\n".
+        "width:100vw;\n".
+        "height: 100vh;\n".
+        "}\n".
+     "#content {position:relative;z-index:1;}".
+  "</style>\n";
+
 $custom_css = 'none';
 
 // Load default theme if possible
-if (@file_exists($theme[$theme_default]['PATH']))
-   @include ($theme[$theme_default]['PATH']);
+// xxx if (@file_exists($theme[$theme_default]['PATH']))
+//   @include ($theme[$theme_default]['PATH']);
 
 if (! isset($color) || ! is_array($color)) {
     // Add default color theme, if theme loading fails
     $color = array();
-    $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
-    $color[1]  = '#800000';  /* red                                  */
-    $color[2]  = '#cc0000';  /* light red     Warning/Error Messages */
-    $color[4]  = '#ffffff';  /* white         Normal Background      */
-    $color[7]  = '#0000cc';  /* blue          Links                  */
+    $color[0]  = '';  /*    TitleBar               */
+    $color[1]  = '#990000';  /*                                   */
+    $color[2]  = '#aa2200';  /*      Warning/Error Messages */
+    $color[4]  = '#ababaa';  /* greyish         Normal Background      */
+    $color[7]  = '#00aa00';  /* green          Links                  */
     $color[8]  = '#000000';  /* black         Normal text            */
 }
 
@@ -162,7 +176,8 @@ if (! isset($color) || ! is_array($color)) {
 if (!boolean_hook_function('login_before_page_header', array($header), 1))
     displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
-echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload();\">" .
+// note the div content part xxx
+echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload();\"><br /><div id=\"content\">" .
      "\n" . addForm('redirect.php', 'post', 'login_form');
 
 $username_form_name = 'login_username';
@@ -200,12 +215,12 @@ echo html_tag( 'table',
                 ' /><br />' . "\n"
               : '' ).
             ( (isset($hide_sm_attributions) && $hide_sm_attributions) ? '' :
-            '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br />' ."\n".
-            '  ' . _("By the SquirrelMail Project Team") . '<br /></small>' . "\n" ) .
+            '<small>' . sprintf (_("version %s"), $version) . "\n".
+            '  ' . _(".") . '<br /></small>' . "\n" ) .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
-                        '<b>' . sprintf (_("%s Login"), $org_name) . "</b>\n",
+                        '<b>' . sprintf (_("%s"), $org_name) . "</b>\n",
                     'center', $color[0] )
                 ) .
                 html_tag( 'tr',
@@ -243,7 +258,8 @@ echo html_tag( 'table',
     ) ,
 '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
 do_hook('login_form');
-echo '</form>' . "\n";
+// note the added div closing xxx:
+echo '</form></div>' . "\n";
 
 do_hook('login_bottom');
 ?>

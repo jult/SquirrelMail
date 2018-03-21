@@ -1111,12 +1111,17 @@ class Message {
      * Delete all attachments from this object from disk.
      * @since 1.4.6
      */
+
+
     function purgeAttachments() {
         if ($this->att_local_name) {
             global $username, $attachment_dir;
             $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-            if ( file_exists($hashed_attachment_dir . '/' . $this->att_local_name) ) {
-                unlink($hashed_attachment_dir . '/' . $this->att_local_name);
+// fix against Troopers 2018 (#TR18) vuln https://gist.github.com/hannob/3c4f86863c418930ad08853c1109364e#gistcomment-2382528
+            if ( file_exists($hashed_attachment_dir . '/' . base64_encode($this->att_local_name) ) ) {
+                unlink($hashed_attachment_dir . '/' . base64_encode($this->att_local_name) );
+//          if ( file_exists($hashed_attachment_dir . '/' . $this->att_local_name) ) {
+//              unlink($hashed_attachment_dir . '/' . $this->att_local_name);
             }
         }
         // recursively delete attachments from entities contained in this object
