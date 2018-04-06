@@ -17,7 +17,7 @@
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: Deliver.class.php 14749 2018-01-16 23:36:07Z pdontthink $
- * @version $Id: Deliver.class.php 14751 2018-03-21 13:36:07Z jult $
+ * @version $Id: Deliver.class.php 14751 2018-04-07 21:46:01Z jult $
  * @package squirrelmail
  *
  */
@@ -276,9 +276,7 @@ class Deliver {
             } elseif ($message->att_local_name) {
                 global $username, $attachment_dir;
                 $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-// added workaround for Troopers 2018 0day ( https://gist.github.com/hannob/3c4f86863c418930ad08853c1109364e )
-                $filename = base64_encode($message->att_local_name);
-//                $filename = $message->att_local_name;
+                $filename = $message->att_local_name;
 
                 // inspect attached file for lines longer than allowed by RFC,
                 // in which case we'll be using base64 encoding (so we can split
@@ -336,9 +334,7 @@ class Deliver {
             } elseif ($message->att_local_name) {
                 global $username, $attachment_dir;
                 $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-// added workaround for Troopers 2018 vuln. ( https://gist.github.com/hannob/3c4f86863c418930ad08853c1109364e )
-                $filename = base64_encode($message->att_local_name);
-// $filename = $message->att_local_name;
+                $filename = $message->att_local_name;
 
                 $file = fopen ($hashed_attachment_dir . '/' . $filename, 'rb');
 
@@ -515,9 +511,7 @@ class Deliver {
             if (!empty($message->att_local_name)) { // is this redundant? I have no idea
                 global $username, $attachment_dir;
                 $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-//  Troopers 2018 (#TR18) vuln fix:
-                $filename = $hashed_attachment_dir . '/' . base64_encode($message->att_local_name);
-//  $filename = $hashed_attachment_dir . '/' . $message->att_local_name;
+                $filename = $hashed_attachment_dir . '/' . $message->att_local_name;
 
                 // using 990 because someone somewhere is folding lines at
                 // 990 instead of 998 and I'm too lazy to find who it is

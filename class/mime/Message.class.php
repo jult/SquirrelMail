@@ -7,8 +7,9 @@
  *
  * @copyright 2003-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * === reverted to original because of patched compose.php ===
  * @version $Id: Message.class.php 14749 2018-01-16 23:36:07Z pdontthink $
- * @version $Id: Message.class.php 14750 2018-03-21 23:36:07Z jult dagbrown $
+ * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
  */
@@ -1111,17 +1112,12 @@ class Message {
      * Delete all attachments from this object from disk.
      * @since 1.4.6
      */
-
-
     function purgeAttachments() {
         if ($this->att_local_name) {
             global $username, $attachment_dir;
             $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-// fix against Troopers 2018 (#TR18) vuln https://gist.github.com/hannob/3c4f86863c418930ad08853c1109364e#gistcomment-2382528
-            if ( file_exists($hashed_attachment_dir . '/' . base64_encode($this->att_local_name) ) ) {
-                unlink($hashed_attachment_dir . '/' . base64_encode($this->att_local_name) );
-//          if ( file_exists($hashed_attachment_dir . '/' . $this->att_local_name) ) {
-//              unlink($hashed_attachment_dir . '/' . $this->att_local_name);
+            if ( file_exists($hashed_attachment_dir . '/' . $this->att_local_name) ) {
+                unlink($hashed_attachment_dir . '/' . $this->att_local_name);
             }
         }
         // recursively delete attachments from entities contained in this object
