@@ -167,7 +167,7 @@ if (! isset($color) || ! is_array($color)) {
     $color[0]  = '';  /*    TitleBar               */
     $color[1]  = '#990000';  /*                                   */
     $color[2]  = '#aa2200';  /*      Warning/Error Messages */
-    $color[4]  = '#ababaa';  /* greyish         Normal Background      */
+    $color[4]  = '';  /* greyish         Normal Background      */
     $color[7]  = '#00aa00';  /* green          Links                  */
     $color[8]  = '#000000';  /* black         Normal text            */
 }
