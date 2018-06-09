@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: personal.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: personal.php 14758 2018-04-19 07:41:12Z pdontthink $
  * @package squirrelmail
  */
 
@@ -129,7 +129,8 @@ function load_optpage_data_personal() {
         'save'    => 'save_option_signature'
     );
 
-    if ($edit_identity) {
+    $identities_count = getPref($data_dir, $username, 'identities', 0);
+    if ($identities_count > 1 || $edit_identity) {
         $identities_link_value = '<a href="options_identities.php">'
                                . _("Edit Advanced Identities")
                                . '</a> '

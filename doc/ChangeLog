@@ -119,6 +119,8 @@ Version 1.4.23 - SVN
     replying to after sending
   - Sanitize user-supplied attachment filenames (thanks to Florian
     Grunow for reporting this issue) [CVE-2018-8741]
+  - Allow users who cannot edit their email address but who have
+    multiple identities to edit all their identities
 
 Version 1.4.22 - 12 July 2011
 -----------------------------

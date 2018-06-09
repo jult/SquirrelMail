@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: page_header.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: page_header.php 14764 2018-04-19 20:26:50Z pdontthink $
  * @package squirrelmail
  */
 
@@ -244,13 +244,20 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
             else
                 $js .= "    var f = document.forms.length;\n".
                 "    var i = 0;\n".
+                "    var remembered_form = -1;\n".
                 "    var pos = -1;\n".
+                "    var remembered_pos = -1;\n".
                 "    while( pos == -1 && i < f ) {\n".
                 "        var e = document.forms[i].elements.length;\n".
                 "        var j = 0;\n".
                 "        while( pos == -1 && j < e ) {\n".
                 "            if ( document.forms[i].elements[j].type == 'text' ) {\n".
-                "                pos = j;\n".
+                "                if ( document.forms[i].elements[j].id.substring(0, 13) == '__lastfocus__' ) {\n".
+                "                    remembered_pos = j;\n".
+                "                    remembered_form = i;\n".
+                "                } else if ( document.forms[i].elements[j].id.substring(0, 11) != '__nofocus__' ) {\n".
+                "                    pos = j;\n".
+                "                }\n".
                 "            }\n".
                 "            j++;\n".
                 "        }\n".
@@ -258,6 +265,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                 "    }\n".
                 "    if( pos >= 0 ) {\n".
                 "        document.forms[i-1].elements[pos].focus();\n".
+                "    } else if ( remembered_pos >= 0 ) {\n".
+                "        document.forms[remembered_form].elements[remembered_pos].focus();\n".
                 "    }\n".
                 "}\n";
 
@@ -273,21 +282,30 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
              "function checkForm() {\n".
              "   var f = document.forms.length;\n".
              "   var i = 0;\n".
+             "   var remembered_form = -1;\n".
              "   var pos = -1;\n".
+             "   var remembered_pos = -1;\n".
              "   while( pos == -1 && i < f ) {\n".
              "       var e = document.forms[i].elements.length;\n".
              "       var j = 0;\n".
              "       while( pos == -1 && j < e ) {\n".
              "           if ( document.forms[i].elements[j].type == 'text' " .
-             "           || document.forms[i].elements[j].type == 'password' ) {\n".
-             "               pos = j;\n".
+             "            || document.forms[i].elements[j].type == 'password' ) {\n".
+             "               if ( document.forms[i].elements[j].id.substring(0, 13) == '__lastfocus__' ) {\n".
+             "                   remembered_pos = j;\n".
+             "                   remembered_form = i;\n".
+             "               } else if ( document.forms[i].elements[j].id.substring(0, 11) != '__nofocus__' ) {\n".
+             "                   pos = j;\n".
+             "               }\n".
              "           }\n".
              "           j++;\n".
              "       }\n".
-             "   i++;\n".
+             "       i++;\n".
              "   }\n".
              "   if( pos >= 0 ) {\n".
              "       document.forms[i-1].elements[pos].focus();\n".
+             "   } else if ( remembered_pos >= 0 ) {\n".
+             "       document.forms[remembered_form].elements[remembered_pos].focus();\n".
              "   }\n".
              "   $xtra\n".
              "}\n";
@@ -421,13 +439,20 @@ function compose_Header($color, $mailbox) {
             else
                 $js .= "var f = document.forms.length;\n".
                 "var i = 0;\n".
+                "var remembered_form = -1;\n".
                 "var pos = -1;\n".
+                "var remembered_pos = -1;\n".
                 "while( pos == -1 && i < f ) {\n".
                     "var e = document.forms[i].elements.length;\n".
                     "var j = 0;\n".
                     "while( pos == -1 && j < e ) {\n".
                         "if ( document.forms[i].elements[j].type == 'text' ) {\n".
-                            "pos = j;\n".
+                            "if ( document.forms[i].elements[j].id.substring(0, 13) == '__lastfocus__' ) {\n".
+                                "remembered_pos = j;\n".
+                                "remembered_form = i;\n".
+                            "} else if ( document.forms[i].elements[j].id.substring(0, 11) != '__nofocus__' ) {\n".
+                                "pos = j;\n".
+                            "}\n".
                         "}\n".
                         "j++;\n".
                     "}\n".
@@ -435,6 +460,8 @@ function compose_Header($color, $mailbox) {
                 "}\n".
                 "if( pos >= 0 ) {\n".
                     "document.forms[i-1].elements[pos].focus();\n".
+                "} else if ( remembered_pos >= 0 ) {\n".
+                    "document.forms[remembered_form].elements[remembered_pos].focus();\n".
                 "}\n".
             "}\n";
         $js .= "// -->\n".

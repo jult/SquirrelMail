@@ -5,7 +5,7 @@
  * This script creates separate page, that allows to review and modify
  * SquirrelMail configuration file.
  *
- * @version $Id: options.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: options.php 14763 2018-04-19 11:11:30Z pdontthink $
  * @author Philippe Mingo
  * @copyright (c) 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -244,6 +244,13 @@ foreach ( $defcfg as $key => $def ) {
 $cfgfile = SM_PATH . 'config/config.php';
 parseConfig( SM_PATH . 'config/config_default.php' );
 parseConfig( $cfgfile );
+// backward compatibility for IMAP/SMTP TLS
+if ($newcfg['$use_imap_tls'] === 'TRUE')
+    $newcfg['$use_imap_tls'] = '1';
+if ($newcfg['$use_smtp_tls'] === 'TRUE')
+    $newcfg['$use_smtp_tls'] = '1';
+// Test/debug
+// sm_print_r($newcfg);
 
 $colapse = array( 'Titles' => 'off',
                   'Group1' => getPref($data_dir, $username, 'adm_Group1', 'off' ),
@@ -606,6 +613,8 @@ echo '<tr bgcolor="'.$color[5].'"><th colspan="2"><input value="'.
     Write the options to the file.
 */
 
+// Testing/debug
+// $cfgfile = '/tmp/config.php';
 if ( $fp = @fopen( $cfgfile, 'w' ) ) {
     fwrite( $fp, "<?php\n".
     "/**\n".

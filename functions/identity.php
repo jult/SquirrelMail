@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: identity.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: identity.php 14766 2018-05-01 23:44:42Z pdontthink $
  * @package squirrelmail
  * @since 1.4.2
  */
@@ -66,14 +66,14 @@ function get_identities() {
  */
 function save_identities($identities) {
 
-    global $username, $data_dir, $domain;
+    global $username, $data_dir;
 
     if (empty($identities) || !is_array($identities)) {
         return;
     }
 
 
-    $num_cur = getPref($data_dir, $username, 'identities');
+    $num_cur = getPref($data_dir, $username, 'identities', 0);
     
     $cnt = count($identities);
 
@@ -111,10 +111,18 @@ function save_identities($identities) {
  * @param   array       $identities      Array of identities
  * @param   int         $id             Identity to modify
  * @param   string      $action         Action to perform
+ * @param   boolean     $override_edit_identity  For use by plugins
+ *                                               where the incoming
+ *                                               identities array is
+ *                                               trusted (OPTIONAL;
+ *                                               default FALSE)
  * @return  array
  */
-function sqfixidentities( $identities, $id, $action ) {
+function sqfixidentities( $identities, $id, $action, $override_edit_identity=FALSE ) {
 
+    global $edit_identity, $data_dir, $username,
+           $edit_name, $edit_reply_to;
+    $num_cur = (int)getPref($data_dir, $username, 'identities', 0);
     $fixed = array();
     $tmp_hold = array();
     $i = 0;
@@ -123,15 +131,52 @@ function sqfixidentities( $identities, $id, $action ) {
         return $fixed;
     }
 
+    if ($override_edit_identity)
+        $edit_identity_local = TRUE;
+    else
+        $edit_identity_local = $edit_identity;
+
+    // NOTE that $identities is untrusted user input at this point
+
+    // make sure no one is being sneaky trying to add identities when they shouldn't
+    if (!$edit_identity_local && $num_cur !== count($identities)) {
+        exit;
+    }
+    // only allow growing the identities list if action is "save" and the last ident is populated
+    // (the input form always has a blank set of inputs for adding a new identity)
+    // (but we assume when $override_edit_identities is used, a plugin is not passing in the
+    // identities array with a blank element on the end)
+    if (!$override_edit_identity && $edit_identity_local
+     && ($action !== 'save' || empty_identity(end($identities)))) {
+        array_pop($identities);
+    }
+    // make sure someone not trying to mess with index numbers
+    for ($x = 0; $x < $num_cur ; $x++) { // there could be one more when adding but that's ok
+        if (!isset($identities[$x]))
+            exit;
+    }
+
     foreach( $identities as $key=>$ident ) {
 
-        if (empty_identity($ident)) {
+        if ($edit_identity_local && empty_identity($ident)) {
             continue;
         }
+
+        // when user isn't allowed to edit some fields, make sure they are unchanged
+        $pref_index = ($key ? $key : '');
+        if (!$edit_identity_local && !$edit_name)
+            $ident['full_name'] = getPref($data_dir, $username, 'full_name' . $pref_index);
+        if (!$edit_identity_local)
+            $ident['email_address'] = getPref($data_dir, $username, 'email_address' . $pref_index);
+        if (!$edit_identity_local && !$edit_reply_to)
+            $ident['reply_to'] = getPref($data_dir, $username, 'reply_to' . $pref_index);
 
         switch($action) {
 
             case 'makedefault':
+
+                // can only get here if someone is trying to be sneaky
+                if ($num_cur < 2) exit;
 
                 if ($key == $id) {
                     $fixed[0] = $ident;
@@ -146,6 +191,9 @@ function sqfixidentities( $identities, $id, $action ) {
                 break;
 
             case 'move':
+
+                // can only get here if someone is trying to be sneaky
+                if ($num_cur < 2) exit;
 
                 if ($key == ($id - 1)) {
                     $tmp_hold = $ident;
@@ -165,6 +213,9 @@ function sqfixidentities( $identities, $id, $action ) {
                 break;
 
             case 'delete':
+
+                // can only get here if someone is trying to be sneaky
+                if (!$edit_identity_local) exit;
 
                 if ($key == $id) {
                     // inform plugins about deleted id
@@ -202,7 +253,7 @@ function sqfixidentities( $identities, $id, $action ) {
 /**
  * Function to test if identity is empty
  *
- * @param   array   $identity   Identitiy Array
+ * @param   array   $identity   Identity Array
  * @return  boolean
  */
 function empty_identity($ident) {

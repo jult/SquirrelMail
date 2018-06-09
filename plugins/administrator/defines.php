@@ -6,7 +6,7 @@
  * @author Philippe Mingo
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: defines.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: defines.php 14763 2018-04-19 11:11:30Z pdontthink $
  * @package plugins
  * @subpackage administrator
  */
@@ -117,9 +117,11 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                  'size' => 10,
                                                  'default' => 'detect' ),
                  '$use_imap_tls' => array( 'name' => _("Use TLS for IMAP Connections"),
-                                           'type' => SMOPT_TYPE_BOOLEAN,
-                                           'comment' => _("Requires PHP 4.3.x! Experimental."),
-                                           'default' => false ),
+                                           'type' => SMOPT_TYPE_NUMLIST,
+                                           'comment' => _("Requires PHP 4.3.x for TLS, 5.1.0+ for STARTTLS."),
+                                           'posvals' => array( 0 => _("No"),
+                                                               1 => _("Use TLS"),
+                                                               2 => _("Use STARTTLS"))),
                  '$imap_auth_mech' => array( 'name' => _("IMAP Authentication Type"),
                                              'type' => SMOPT_TYPE_STRLIST,
                                              'posvals' => array('login' => _("IMAP login"),
@@ -141,9 +143,11 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  '$smtpPort' => array( 'name' => _("SMTP Server Port"),
                                        'type' => SMOPT_TYPE_INTEGER ),
                  '$use_smtp_tls' => array( 'name' => _("Use TLS for SMTP Connections"),
-                                           'type' => SMOPT_TYPE_BOOLEAN,
-                                           'comment' => _("Requires PHP 4.3.x! Experimental."),
-                                           'default' => false ),
+                                           'type' => SMOPT_TYPE_NUMLIST,
+                                           'comment' => _("Requires PHP 4.3.x for TLS, 5.1.0+ for STARTTLS."),
+                                           'posvals' => array( 0 => _("No"),
+                                                               1 => _("Use TLS"),
+                                                               2 => _("Use STARTTLS"))),
                  '$smtp_auth_mech' => array( 'name' => _("SMTP Authentication Type"),
                                              'type' => SMOPT_TYPE_STRLIST,
                                              'posvals' => array('none' => _("No SMTP auth"),
