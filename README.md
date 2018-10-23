@@ -6,4 +6,4 @@ Note that the original source is written en updated mostly by Paul Lesniewski, n
 
 If you want to contribute to this here master (making SM more github sourced), feel free to use/comment/fork.
 
-I try and keep this sync with the latest Stable Snapshots from https://squirrelmail.org/download.php and its security-related patchwork (see https://security-tracker.debian.org/tracker/source-package/squirrelmail ).
+I'm keeping this sync with validated/self-tested Stable Snapshots from https://squirrelmail.org/download.php and security-related patchwork (see https://security-tracker.debian.org/tracker/source-package/squirrelmail ).
