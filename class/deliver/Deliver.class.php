@@ -10,6 +10,7 @@
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: Deliver.class.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: Deliver.class.php patched 2018-10-23 jult $
  * @package squirrelmail
  */
 
