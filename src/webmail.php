@@ -9,7 +9,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: webmail.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: webmail.php 14791 2018-10-13 22:55:29Z pdontthink $
  * @package squirrelmail
  */
 
@@ -72,11 +72,22 @@ set_up_language($my_language);
 // FIXME: should we use DENY instead?  We can also make this a configurable value, including giving the admin the option of removing this entirely in case they WANT to be framed by an external domain
 header('X-Frame-Options: SAMEORIGIN');
 
-global $browser_rendering_mode;
+global $browser_rendering_mode, $head_tag_extra;
 $output = ($browser_rendering_mode === 'standards' || $browser_rendering_mode === 'almost'
        ? '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">'
        : /* "quirks" */ '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">').
           "\n<html><head>\n"
+
+          // For adding a favicon or anything else that should be inserted in *ALL* <head> for *ALL* documents,
+          // define $head_tag_extra in config/config_local.php
+          // The string "###SM BASEURI###" will be replaced with the base URI for this SquirrelMail installation.
+          // When not defined, a default is provided that displays the default favicon.ico.
+          // If you override this and still want to use the default favicon.ico, you'll have to include the following
+          // following in your $head_tag_extra string:
+          // $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico" />...<YOUR CONTENT HERE>...';
+          //
+          . (empty($head_tag_extra) ? '<link rel="shortcut icon" href="' . sqm_baseuri() . 'favicon.ico" />'
+          : str_replace('###SM BASEURI###', sqm_baseuri(), $head_tag_extra))
 
           // prevent clickjack attempts using JavaScript for browsers that
           // don't support the X-Frame-Options header...

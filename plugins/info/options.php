@@ -1,7 +1,7 @@
 <?php
 
 /* options page for IMAP info plugin 
- * Copyright (c) 1999-2012 The SquirrelMail Project Team
+ * Copyright (c) 1999-2018 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *   
  * This is where it all happens :)
@@ -9,7 +9,7 @@
  * Written by: Jason Munro 
  * jason@stdbev.com
  * 
- * $Id: options.php 14248 2012-01-02 00:18:17Z pdontthink $
+ * $Id: options.php 14749 2018-01-16 23:36:07Z pdontthink $
  * 
  */
 
@@ -55,7 +55,8 @@ for($i = 0; $i <= 9; $i++){
 
 /* END GLOBALS */
 
-$imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+global $imap_stream_options; // in case not defined in config
+$imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0, $imap_stream_options);
 $caps_array = get_caps($imap_stream);
 $list = array (
                'TEST_0',
@@ -104,7 +105,8 @@ print "<br></td></tr></table></center><br>\n";
 if ($submit == 'submit') {
     $type = array();
     for ($i=0;$i<count($list);$i++) {
-        $type[$list[$i]] = $$list[$i];
+        $temp = $list[$i]; 
+        $type[$list[$i]] = $$temp;
     }
 }
 
@@ -179,4 +181,3 @@ if ($submit == 'submit') {
     print "</form></td></tr></table></center></body></html>";
     sqimap_logout($imap_stream);
     do_hook('info_bottom');
-?>

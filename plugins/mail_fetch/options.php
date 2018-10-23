@@ -5,9 +5,9 @@
  *
  * Setup of the mailfetch plugin.
  *
- * @copyright 1999-2012 The SquirrelMail Project Team
+ * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: options.php 14248 2012-01-02 00:18:17Z pdontthink $
+ * @version $Id: options.php 14749 2018-01-16 23:36:07Z pdontthink $
  * @package plugins
  * @subpackage mail_fetch
  */
@@ -28,6 +28,7 @@ sqgetGlobalVar('username',   $username,   SQ_SESSION);
 sqgetGlobalVar('key',        $key,        SQ_COOKIE);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
+global $imap_stream_options; // in case not defined in config
     
 if(!sqgetGlobalVar('mf_cypher', $mf_cypher, SQ_POST)) {
     $mf_cypher = '';
@@ -275,7 +276,7 @@ $mf_server = trim($mf_server);
                 html_tag( 'tr' ) .
                     html_tag( 'th', _("Store in Folder:"), 'right' ) .
                     html_tag( 'td', '', 'left' );
-        $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
+        $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0, $imap_stream_options);
         $boxes = sqimap_mailbox_list($imapConnection);
         echo '<select name="mf_subfolder">';
 
@@ -391,7 +392,7 @@ $mf_server = trim($mf_server);
                     html_tag( 'th', _("Store in Folder:"), 'right' ) .
                     html_tag( 'td', '', 'left' );
 
-        $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
+        $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0, $imap_stream_options);
         $boxes = sqimap_mailbox_list($imapConnection);
         echo '<select name="mf_subfolder">';
         $selected = 0;

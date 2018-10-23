@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: page_header.php 14764 2018-04-19 20:26:50Z pdontthink $
+ * @version $Id: page_header.php 14791 2018-10-13 22:55:29Z pdontthink $
  * @package squirrelmail
  */
 
@@ -62,7 +62,7 @@ function displayHtmlHeader($title='SquirrelMail', $xtra_param='', $do_hook=TRUE,
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
-    global $theme_css, $custom_css, $pageheader_sent, $browser_rendering_mode;
+    global $theme_css, $custom_css, $pageheader_sent, $browser_rendering_mode, $head_tag_extra;
 
     // prevent clickjack attempts
 // FIXME: should we use DENY instead?  We can also make this a configurable value, including giving the admin the option of removing this entirely in case they WANT to be framed by an external domain
@@ -75,7 +75,18 @@ function displayHtmlHeader($title='SquirrelMail', $xtra_param='', $do_hook=TRUE,
          : /* "quirks" */ '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">')) .
          "\n\n" . html_tag( 'html' ,'' , '', '', '' ) . "\n<head>\n" .
          "<meta name=\"robots\" content=\"noindex,nofollow\">\n" .
-         "<meta http-equiv=\"x-dns-prefetch-control\" content=\"off\">\n";
+         "<meta http-equiv=\"x-dns-prefetch-control\" content=\"off\">\n"
+
+    // For adding a favicon or anything else that should be inserted in *ALL* <head> for *ALL* documents,
+    // define $head_tag_extra in config/config_local.php
+    // The string "###SM BASEURI###" will be replaced with the base URI for this SquirrelMail installation.
+    // When not defined, a default is provided that displays the default favicon.ico.
+    // If you override this and still want to use the default favicon.ico, you'll have to include the following
+    // following in your $head_tag_extra string:
+    // $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico" />...<YOUR CONTENT HERE>...';
+    //
+       . (empty($head_tag_extra) ? '<link rel="shortcut icon" href="' . sqm_baseuri() . 'favicon.ico" />'
+       : str_replace('###SM BASEURI###', sqm_baseuri(), $head_tag_extra))
 
     // prevent clickjack attempts using JavaScript for browsers that
     // don't support the X-Frame-Options header...
@@ -84,7 +95,7 @@ function displayHtmlHeader($title='SquirrelMail', $xtra_param='', $do_hook=TRUE,
     // if not, log out immediately -- this is an attempt to do the same
     // thing that the X-Frame-Options does using JavaScript (never a good
     // idea to rely on JavaScript-based solutions, though)
-    echo '<script type="text/javascript" language="JavaScript">'
+       . '<script type="text/javascript" language="JavaScript">'
        . "\n<!--\n"
        . 'if (self != top) { try { if (document.domain != top.document.domain) {'
        . ' throw "Clickjacking security violation! Please log out immediately!"; /* this code should never execute - exception should already have been thrown since it\'s a security violation in this case to even try to access top.document.domain (but it\'s left here just to be extra safe) */ } } catch (e) { self.location = "'

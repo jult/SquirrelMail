@@ -5,9 +5,9 @@
  *
  * Fetch code.
  *
- * @copyright 1999-2012 The SquirrelMail Project Team
+ * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: fetch.php 14248 2012-01-02 00:18:17Z pdontthink $
+ * @version $Id: fetch.php 14749 2018-01-16 23:36:07Z pdontthink $
  * @package plugins
  * @subpackage mail_fetch
  */
@@ -29,6 +29,7 @@ sqgetGlobalVar('username',   $username,   SQ_SESSION);
 sqgetGlobalVar('key',        $key,        SQ_COOKIE);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
+global $imap_stream_options; // in case not defined in config
 /* end globals */
 
 function Mail_Fetch_Status($msg) {
@@ -151,7 +152,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
     }
 
     Mail_Fetch_Status(_("Opening IMAP server"));
-    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
+    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10, $imap_stream_options);
 
     // check if destination folder is not set, is not subscribed and is not \noselect folder
     if($mailfetch_subfolder == '' || 

@@ -6,6 +6,16 @@
  * This contains all the functions needed to send messages through
  * a delivery backend.
  *
+ * @author Marc Groot Koerkamp
+ * @copyright 1999-2018 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id: Deliver.class.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @package squirrelmail
+ */
+
+/**
+ * Deliver Class - called to actually deliver the message
+ *
  * This class is called by compose.php and other code that needs
  * to send messages.  All delivery functionality should be centralized
  * in this class.
@@ -13,15 +23,9 @@
  * Do not place UI code in this class, as UI code should be placed in templates
  * going forward.
  *
- * @author Marc Groot Koerkamp
- * @copyright 1999-2018 The SquirrelMail Project Team
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver.class.php 14749 2018-01-16 23:36:07Z pdontthink $
- * @version $Id: Deliver.class.php 14751 2018-04-07 21:46:01Z jult $
+ * @author  Marc Groot Koerkamp
  * @package squirrelmail
- *
  */
-
 class Deliver {
 
     /**
@@ -335,9 +339,8 @@ class Deliver {
                 global $username, $attachment_dir;
                 $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
                 $filename = $message->att_local_name;
-
                 $file = fopen ($hashed_attachment_dir . '/' . $filename, 'rb');
-
+                
                 while ($tmp = fread($file, 570)) {
                     $body_part = chunk_split(base64_encode($tmp));
                     // Up to 4.3.10 chunk_split always appends a newline,
@@ -502,7 +505,6 @@ class Deliver {
             $header[] = 'Content-Transfer-Encoding: ' . $mime_header->encoding . $rn;
         } else {
 
-
             // inspect attached file for lines longer than allowed by RFC,
             // in which case we'll be using base64 encoding (so we can split
             // the lines up without corrupting them) instead of 8bit unencoded...
@@ -592,12 +594,12 @@ class Deliver {
         /* This creates an RFC 822 date */
         $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
 
-        /* Create a message-id xxx Cleaned out needless branding */
+        /* Create a message-id */
         $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
         if (empty($rfc822_header->message_id)) {
             $message_id = '<'
                         . md5(GenerateRandomString(16, '', 7) . uniqid(mt_rand(),true))
-                        . '@' . $SERVER_NAME .'>';
+                        . '.squirrel@' . $SERVER_NAME .'>';
         }
 
         /* Make an RFC822 Received: line */
@@ -644,9 +646,8 @@ class Deliver {
           } else {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
-// remove auth username, needlessly revealing risky info
-// xx         if (!isset($hide_auth_header) || !$hide_auth_header)
-// xx         $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
+            if (!isset($hide_auth_header) || !$hide_auth_header)
+                $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
             $header[] = "        $date" . $rn;
           }
@@ -711,9 +712,8 @@ class Deliver {
                 $header[] = $s;
             }
         }
-
-        /* Identify SquirrelMail without version nr. needlessly easing exploitability */
-        $header[] = 'User-Agent: SquirrelMail' . $rn;
+        /* Identify SquirrelMail */
+        $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
@@ -1221,3 +1221,4 @@ class Deliver {
         return $ret;
     }
 }
+

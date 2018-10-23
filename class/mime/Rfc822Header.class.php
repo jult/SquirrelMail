@@ -7,7 +7,7 @@
  *
  * @copyright 2003-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Rfc822Header.class.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: Rfc822Header.class.php 14777 2018-09-19 15:51:42Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
@@ -24,6 +24,11 @@
  * @since 1.3.0
  */
 class Rfc822Header {
+    /**
+     * All headers, unparsed
+     * @var array
+     */
+    var $raw_headers = array();
     /**
      * Date header
      * @var mixed
@@ -151,6 +156,7 @@ class Rfc822Header {
         foreach ($hdr as $line) {
             $pos = strpos($line, ':');
             if ($pos > 0) {
+                $this->raw_headers[] = $line;
                 $field = substr($line, 0, $pos);
                 if (!strstr($field,' ')) { /* valid field */
                         $value = trim(substr($line, $pos+1));
@@ -320,6 +326,7 @@ class Rfc822Header {
                 $this->mlist('id', $value);
                 break;
             case 'x-spam-status':
+            case 'x-spam-score':
                 $this->x_spam_status = $this->parseSpamStatus($value);
                 break;
             case 'x-sm-flag-reply':
@@ -336,7 +343,6 @@ class Rfc822Header {
      */
     function getAddressTokens($address) {
         $aTokens = array();
-        $aAddress = array();
         $aSpecials = array('(' ,'<' ,',' ,';' ,':');
         $aReplace =  array(' (',' <',' ,',' ;',' :');
         $address = str_replace($aSpecials,$aReplace,$address);
@@ -782,45 +788,60 @@ class Rfc822Header {
     }
 
     /**
-     * Parses the X-Spam-Status header
+     * Parses the X-Spam-Status or X-Spam-Score header
      * @param string $value
      */
     function parseSpamStatus($value) {
         // Header value looks like this:
         // No, score=1.5 required=5.0 tests=MSGID_FROM_MTA_ID,NO_REAL_NAME,UPPERCASE_25_50 autolearn=disabled version=3.1.0-gr0
+        // Update circa 2018, this header can also be simply:
+        // No, score=1.5
+        // So we make the rest of the line optional (there are likely other permutations, so
+        // each element is made optional except the first two... maybe even that's not flexible enough)
+        //
+        // Also now allow parsing of X-Spam-Score header, whose value is just a float
 
         $spam_status = array();
 
-        if (preg_match ('/^(No|Yes),\s+score=(-?\d+\.\d+)\s+required=(-?\d+\.\d+)\s+tests=(.*?)\s+autolearn=(.*?)\s+version=(.+?)$/', $value, $matches)) {
+        if (preg_match ('/^(?:(No|Yes),\s+score=)?(-?\d+\.\d+)(?:\s+required=(-?\d+\.\d+))?(?:\s+tests=(.*?))?(?:\s+autolearn=(.*?))?(?:\s+version=(.+?))?$/i', $value, $matches)) {
+
             // full header
             $spam_status['bad_format'] = 0;
             $spam_status['value'] = $matches[0];
+
             // is_spam
-            if (isset($matches[1])
-                && strtolower($matches[1]) == 'yes') {
-                $spam_status['is_spam'] = true;
-            } else {
-                $spam_status['is_spam'] = false;
+            if (!empty($matches[1])) {
+                if (strtolower($matches[1]) == 'yes')
+                    $spam_status['is_spam'] = true;
+                else
+                    $spam_status['is_spam'] = false;
             }
 
             // score
-            $spam_status['score'] = $matches[2];
+            if (isset($matches[2]))
+                $spam_status['score'] = $matches[2];
 
             // required
-            $spam_status['required'] = $matches[3];
+            if (isset($matches[3]))
+               $spam_status['required'] = $matches[3];
 
             // tests
-            $tests = array();
-            $tests = explode(',', $matches[4]);
-            foreach ($tests as $test) {
-                $spam_status['tests'][] = trim($test);
+            if (isset($matches[4])) {
+                $tests = array();
+                $tests = explode(',', $matches[4]);
+                foreach ($tests as $test) {
+                    $spam_status['tests'][] = trim($test);
+                }
             }
 
             // autolearn
-            $spam_status['autolearn'] = $matches[5];
+            if (isset($matches[5]))
+                $spam_status['autolearn'] = $matches[5];
 
             // version
-            $spam_status['version'] = $matches[6];
+            if (isset($matches[6]))
+                $spam_status['version'] = $matches[6];
+
         } else {
             $spam_status['bad_format'] = 1;
             $spam_status['value'] = $value;

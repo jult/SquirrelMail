@@ -9,9 +9,12 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: view_text.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: view_text.php 14794 2018-10-20 14:27:38Z pdontthink $
  * @package squirrelmail
  */
+
+/** This is the view_text page */
+define('PAGE_NAME', 'view_text');
 
 /**
  * Path for SquirrelMail required files.

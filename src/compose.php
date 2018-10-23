@@ -13,7 +13,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: compose.php 14751 2018-04-04 03:00:42Z pdontthink $
+ * @version $Id: compose.php 14781 2018-09-23 22:14:24Z pdontthink $
  * @package squirrelmail
  */
 
@@ -299,11 +299,8 @@ if (sqsession_is_registered('session_expired_post')) {
      * extra check for username so we don't display previous post data from
      * another user during this session.
      */
-    if ($session_expired_post['username'] != $username) {
-        unset($session_expired_post);
-        sqsession_unregister('session_expired_post');
-        session_write_close();
-    } else {
+    if (!empty($session_expired_post['username']) 
+     && $session_expired_post['username'] == $username) {
         // these are the vars that we can set from the expired composed session
         $compo_var_list = array ('send_to', 'send_to_cc', 'body', 'mailbox',
             'startMessage', 'passed_body', 'use_signature', 'signature',
@@ -1871,7 +1868,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
 
 
         // copy message to sent folder
-        $move_to_sent = getPref($data_dir,$username,'move_to_sent');
+        $move_to_sent = getPref($data_dir,$username,'move_to_sent', $default_move_to_sent);
         if (isset($default_move_to_sent) && ($default_move_to_sent != 0)) {
             $svr_allow_sent = true;
         } else {

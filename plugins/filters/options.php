@@ -18,8 +18,8 @@
  *
  * Also view plugins/README.plugins for more information.
  *
- * @version $Id: options.php 14248 2012-01-02 00:18:17Z pdontthink $
- * @copyright (c) 1999-2012 The SquirrelMail Project Team
+ * @version $Id: options.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @copyright (c) 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package plugins
  * @subpackage filters
@@ -52,6 +52,7 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 sqgetGlobalVar('theid', $theid);
 sqgetGlobalVar('action', $action, SQ_GET);
+global $imap_stream_options; // in case not defined in config
 
 if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
@@ -154,7 +155,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
 
-        $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+        $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0, $imap_stream_options);
         $boxes = sqimap_mailbox_list($imapConnection);
 
         for ($a = 0, $cnt = count($boxes); $a < $cnt; $a++) {

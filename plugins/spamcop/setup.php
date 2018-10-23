@@ -2,10 +2,10 @@
 /** 
  *  setup.php -- SpamCop plugin           
  *
- *  Copyright (c) 1999-2012 The SquirrelMail Project Team
+ *  Copyright (c) 1999-2018 The SquirrelMail Project Team
  *  Licensed under the GNU GPL. For full terms see the file COPYING.
  *  
- *  $Id: setup.php 14248 2012-01-02 00:18:17Z pdontthink $                                                         
+ *  $Id: setup.php 14749 2018-01-16 23:36:07Z pdontthink $                                                         
  */
 
 /** Disable Quick Reporting by default */
@@ -121,7 +121,7 @@ function spamcop_options() {
 // When we send the email, we optionally trash it then too
 function spamcop_while_sending() {
    global $mailbox, $spamcop_delete, $auto_expunge, 
-      $username, $key, $imapServerAddress, $imapPort;
+      $username, $key, $imapServerAddress, $imapPort, $imap_stream_options;
 
    // load sqgetGlobalVar()
    include_once(SM_PATH . 'functions/global.php');
@@ -129,7 +129,7 @@ function spamcop_while_sending() {
    // check if compose.php is called by spamcop plugin
    if (sqgetGlobalVar('spamcop_is_composing' , $spamcop_is_composing)) {
        if ($spamcop_delete) {
-           $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+           $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0, $imap_stream_options);
            sqimap_mailbox_select($imapConnection, $mailbox);
            sqimap_msgs_list_delete($imapConnection, $mailbox, $spamcop_is_composing);
            if ($auto_expunge)

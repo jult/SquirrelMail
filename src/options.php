@@ -8,7 +8,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: options.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: options.php 14784 2018-10-08 17:31:53Z pdontthink $
  * @package squirrelmail
  * @subpackage prefs
  */
@@ -474,7 +474,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             break;
         default:
             $inside_hook_name = '';
-            $bottom_hook_name = '';
+            $bottom_hook_name = 'options_generic_bottom';
             $submit_name = 'submit';
     }
 

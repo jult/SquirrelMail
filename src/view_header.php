@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: view_header.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: view_header.php 14786 2018-10-09 00:53:29Z pdontthink $
  * @package squirrelmail
  */
 
@@ -129,6 +129,7 @@ function view_header($header, $mailbox, $color) {
             '</td></tr></table>'."\n" 
          )
     );
+    do_hook('view_header_bottom');
     echo '</body></html>';
 }
 

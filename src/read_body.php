@@ -8,7 +8,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: read_body.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: read_body.php 14783 2018-10-06 18:23:52Z pdontthink $
  * @package squirrelmail
  */
 
@@ -346,7 +346,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         unset ($deliver);
 
         // copy message to sent folder
-        $move_to_sent = getPref($data_dir,$username,'move_to_sent');
+        $move_to_sent = getPref($data_dir,$username,'move_to_sent', $default_move_to_sent);
         if (isset($default_move_to_sent) && ($default_move_to_sent != 0)) {
             $svr_allow_sent = true;
         } else {
@@ -592,7 +592,7 @@ function formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         if ($prev != -1) {
             $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
                    '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
-                   '&amp;startMessage='.$startMessage.'&amp;show_more=0';
+                   '&amp;startMessage='.$startMessage;
             $s .= '<a href="'.$uri.'">'._("Previous").'</a>';
         } else {
             $s .= _("Previous");
@@ -601,7 +601,7 @@ function formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         if ($next != -1) {
             $uri = $base_uri . 'src/read_body.php?passed_id='.$next.
                    '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
-                   '&amp;startMessage='.$startMessage.'&amp;show_more=0';
+                   '&amp;startMessage='.$startMessage;
             $s .= '<a href="'.$uri.'">'._("Next").'</a>';
         } else {
             $s .= _("Next");

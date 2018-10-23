@@ -8,7 +8,7 @@
  *
  * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: strings.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: strings.php 14769 2018-08-25 20:27:49Z pdontthink $
  * @package squirrelmail
  */
 
@@ -1323,7 +1323,17 @@ function sm_get_user_security_tokens($purge_old=TRUE)
 /**
   * Generates a security token that is then stored in
   * the user's preferences with a timestamp for later
-  * verification/use.
+  * verification/use (although session-based tokens
+  * are not stored in user preferences).
+  *
+  * NOTE: By default SquirrelMail will use a single session-based
+  *       token, but if desired, user tokens can have expiration
+  *       dates associated with them and become invalid even during
+  *       the same login session.  When in that mode, the note
+  *       immediately below applies, otherwise it is irrelevant.
+  *       To enable that mode, the administrator must add the
+  *       following to config/config_local.php:
+  *       $use_expiring_security_tokens = TRUE;
   *
   * NOTE: The administrator can force SquirrelMail to generate
   * a new token every time one is requested (which may increase
@@ -1354,8 +1364,23 @@ function sm_get_user_security_tokens($purge_old=TRUE)
 function sm_generate_security_token($force_generate_new=FALSE)
 {
 
-   global $data_dir, $username, $disable_security_tokens, $do_not_use_single_token;
+   global $data_dir, $username, $disable_security_tokens, $do_not_use_single_token,
+          $use_expiring_security_tokens;
    $max_generation_tries = 1000;
+
+   // if we're using session-based tokens, just return
+   // the same one every time (generate it if it's not there)
+   //
+   if (!$use_expiring_security_tokens)
+   {
+      if (sqgetGlobalVar('sm_security_token', $token, SQ_SESSION))
+         return $token;
+
+      // create new one since there was none in session
+      $token = GenerateRandomString(12, '', 7);
+      sqsession_register($token, 'sm_security_token');
+      return $token;
+   }
 
    $tokens = sm_get_user_security_tokens();
 
@@ -1395,6 +1420,9 @@ function sm_generate_security_token($force_generate_new=FALSE)
   * overrides that value using $max_token_age_days in
   * config/config_local.php
   *
+  * Session-based tokens of course are always reused and are
+  * valid for the lifetime of the login session.
+  *
   * WARNING: If the administrator has turned the token system
   *          off by setting $disable_security_tokens to TRUE in
   *          config/config.php or the configuration tool, this
@@ -1429,11 +1457,32 @@ function sm_validate_security_token($token, $validity_period=0, $show_error=FALS
 {
 
    global $data_dir, $username, $max_token_age_days,
+          $use_expiring_security_tokens,
           $disable_security_tokens;
 
    // bypass token validation?  CAREFUL!
    //
    if ($disable_security_tokens) return TRUE;
+
+   // if we're using session-based tokens, just compare
+   // the same one every time
+   //
+   if (!$use_expiring_security_tokens)
+   {
+      if (!sqgetGlobalVar('sm_security_token', $session_token, SQ_SESSION))
+      {
+         if (!$show_error) return FALSE;
+         logout_error(_("Fatal security token error; please log in again"));
+         exit;
+      }
+      if ($token !== $session_token)
+      {
+         if (!$show_error) return FALSE;
+         logout_error(_("The current page request appears to have originated from an untrusted source."));
+         exit;
+      }
+      return TRUE;
+   }
 
    // don't purge old tokens here because we already
    // do it when generating tokens

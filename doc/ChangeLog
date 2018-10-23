@@ -121,6 +121,16 @@ Version 1.4.23 - SVN
     Grunow for reporting this issue) [CVE-2018-8741]
   - Allow users who cannot edit their email address but who have
     multiple identities to edit all their identities
+  - Changed anti-CSRF security token lifetime to be session-based.
+  - Added favicon and ability for admins to use their own by setting
+    $head_tag_extra in config_local.php (see documented comments in,
+    for example, src/webmail.php)
+  - Altered hook types "do_hook_function" and "concat_hook_function"
+    such that the ultimate hook return value (in its current state,
+    as computed (or not) by the plugins that have executed previously)
+    is both globalized and passed as an additional argument to each
+    plugin.  This allows plugins to cooperate better and not overwrite
+    each other's return values.
 
 Version 1.4.22 - 12 July 2011
 -----------------------------
