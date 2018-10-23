@@ -594,12 +594,12 @@ class Deliver {
         /* This creates an RFC 822 date */
         $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
 
-        /* Create a message-id */
+        /* Create a message-id xxx */
         $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
         if (empty($rfc822_header->message_id)) {
             $message_id = '<'
                         . md5(GenerateRandomString(16, '', 7) . uniqid(mt_rand(),true))
-                        . '.squirrel@' . $SERVER_NAME .'>';
+                        . '@' . $SERVER_NAME .'>';
         }
 
         /* Make an RFC822 Received: line */
@@ -646,8 +646,8 @@ class Deliver {
           } else {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
-            if (!isset($hide_auth_header) || !$hide_auth_header)
-                $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
+//xxx       if (!isset($hide_auth_header) || !$hide_auth_header)
+//xxx           $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
             $header[] = "        $date" . $rn;
           }
@@ -712,8 +712,8 @@ class Deliver {
                 $header[] = $s;
             }
         }
-        /* Identify SquirrelMail */
-        $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
+        /* Identify SquirrelMail, no need to reveal version xxx */
+        $header[] = 'User-Agent: SquirrelMail/' . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
