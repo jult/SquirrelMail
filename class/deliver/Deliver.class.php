@@ -713,7 +713,7 @@ class Deliver {
             }
         }
         /* Identify SquirrelMail, no need to reveal version xxx */
-        $header[] = 'User-Agent: SquirrelMail/' . $rn;
+        $header[] = 'User-Agent: SquirrelMail' . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
