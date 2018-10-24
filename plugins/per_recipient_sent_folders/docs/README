@@ -1,0 +1,128 @@
+Per Recipient Sent Folders plugin for SquirrelMail
+==================================================
+Version 1.0.1, 2014/02/02
+
+
+Copyright (c) 2013-2014 Paul Lesniewski <paul@squirrelmail.org>
+
+
+
+Description
+===========
+
+This plugin helps associate recipients with the folders that
+messages sent to them should be stored in.  When replying to
+such a recipient, the custom sent folder selection (which is
+provided by the Variable Sent Folder plugin) is defaulted to
+the appropriate folder.  Recipient-to-folder associations
+can be created manually on the Folder Preferences screen or
+automatically by remembering what sent folder was used when
+sending messages.
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see the file COPYING for details).
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.23 or above
+
+  * Variable Sent Folder plugin version 1.0 or above
+
+
+
+Troubleshooting
+===============
+
+  * If changes to the configuration file don't seem to be having
+    any effect, ensure that there are not two Per Recipient Sent
+    Folders configuration files, one in the per_recipient_sent_folders
+    directory and one in the main SquirrelMail config directory (named
+    "config_per_recipient_sent_folders.php").  The one in the main
+    SquirrelMail config directory will always override the one in
+    the per_recipient_sent_folders directory.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+  
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+  
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Possibly useful to add a checkbox on the compose screen after
+    the Variable Sent Folder drop-down that says "save" or "save
+    for recipients" (which is default checked depending on the
+    pref setting for auto-saving).  This way one can choose not to
+    change an already associated sent folder setting for a recipient.
+    Note, however, that the Variable Sent Folder already adds another
+    checkbox for moving original message to same folder, so multiple
+    checkboxes can be too overwhelming/messy.  Also, implementing
+    this might be best done by adding another hook into the Variable
+    Sent Folder plugin instead of trying to work with a complicated
+    regex and relying on plugin order, etc
+
+  * It might be nice to have the folder associations listed with
+    address book entires, although adding an extra field on the
+    address book page is currently very difficult
+
+
+
+Change Log
+==========
+  
+  v1.0.1  2014/02/02  Paul Lesniewski <paul@squirrelmail.org>
+    * Minor fix for PHP notice
+  
+  v1.0  2014/01/20  Paul Lesniewski <paul@squirrelmail.org>
+    * Initial release
+

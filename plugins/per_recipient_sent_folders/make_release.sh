@@ -3,7 +3,7 @@
 
 # Generic shell script for building SquirrelMail plugin release
 #
-# Copyright (c) 2004-2012 Paul Lesniewski <paul@squirrelmail.org>
+# Copyright (c) 2004-2014 Paul Lesniewski <paul@squirrelmail.org>
 # Licensed under the GNU GPL. For full terms see the file COPYING.
 #
 
@@ -144,14 +144,6 @@ if [ ! -e docs/index.php ]; then
    echo "No docs/index.php file found.  Grabbing one from ../"
    cp ../index.php ./docs/
 fi
-if [ ! -e templates/index.php ]; then
-   echo "No templates/index.php file found.  Grabbing one from ../"
-   cp ../index.php ./templates/
-fi
-if [ ! -e templates/default/index.php ]; then
-   echo "No templates/default/index.php file found.  Grabbing one from ../"
-   cp ../index.php ./templates/default/
-fi
 if [ ! -e locale/index.php ]; then
    echo "No locale/index.php file found.  Grabbing one from ../"
    cp ../index.php ./locale/
@@ -159,15 +151,11 @@ fi
 
 
 
-# Make our own docs/.htaccess, templates/.htaccess and locale/.htaccess if needed
+# Make our own docs/.htaccess and locale/.htaccess if needed
 #
 if [ ! -e docs/.htaccess ]; then
    echo "No docs/.htaccess file found.  Creating..."
    echo "Deny from All" > ./docs/.htaccess
-fi
-if [ ! -e templates/.htaccess ]; then
-   echo "No templates/.htaccess file found.  Creating..."
-   echo "Deny from All" > ./templates/.htaccess
 fi
 if [ ! -e locale/.htaccess ]; then
    echo "No locale/.htaccess file found.  Creating..."

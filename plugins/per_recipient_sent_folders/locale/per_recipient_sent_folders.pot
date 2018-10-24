@@ -1,0 +1,37 @@
+# LANGUAGE (xx_XX) SquirrelMail Per Recipient Sent Folders
+# Copyright (c) 2000-2014 The Squirrelmail Project Team
+# This file is distributed under the same license as the SquirrelMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# $Id$
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: per_recipient_sent_folders 1.0\n"
+"Report-Msgid-Bugs-To: Paul Lesniewski <paul@squirrelmail.org>\n"
+"POT-Creation-Date: 2013-10-10 18:16-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: options.php:52
+msgid "Track Recipient To Sent Folder Associations When Sending"
+msgstr ""
+
+#: options.php:65
+msgid "Use Sent Folder For Single Recipients That Were Part Of A Previous Multiple-Recipient Message"
+msgstr ""
+
+#: options.php:77
+msgid "Recipient Sent Folders"
+msgstr ""
+
+#: options.php:102
+msgid "Address Book"
+msgstr ""
+
+#: options.php:186
+msgid "Invalid recipient email address"
+msgstr ""

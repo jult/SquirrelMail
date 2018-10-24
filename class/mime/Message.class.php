@@ -7,7 +7,6 @@
  *
  * @copyright 2003-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * === reverted to original because of patched compose.php ===
  * @version $Id: Message.class.php 14749 2018-01-16 23:36:07Z pdontthink $
  * @package squirrelmail
  * @subpackage mime

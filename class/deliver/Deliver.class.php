@@ -646,8 +646,8 @@ class Deliver {
           } else {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
-//xxx       if (!isset($hide_auth_header) || !$hide_auth_header)
-//xxx           $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
+          if (!isset($hide_auth_header) || !$hide_auth_header)
+// xxx      $header[] = "        (SquirrelMail authenticated user)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
             $header[] = "        $date" . $rn;
           }
@@ -713,7 +713,7 @@ class Deliver {
             }
         }
         /* Identify SquirrelMail, no need to reveal version xxx */
-        $header[] = 'User-Agent: SquirrelMail/' . $rn;
+        $header[] = 'User-Agent: SquirrelMail' . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
