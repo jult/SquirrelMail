@@ -9,7 +9,7 @@
  * @author Marc Groot Koerkamp
  * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver.class.php 14800 patched for obscurity 2019-03-02 03:03:03Z jult $
+ * @version $Id: Deliver.class.php 14801 patched for obscurity 2019-03-02 03:03:03Z jult $
  * @package squirrelmail github
  */
 
