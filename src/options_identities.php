@@ -5,9 +5,9 @@
  *
  * Display Identities Options
  *
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: options_identities.php 14757 2018-04-19 04:14:31Z pdontthink $
+ * @version $Id: options_identities.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  * @subpackage prefs
  * @since 1.1.3

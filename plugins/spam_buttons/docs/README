@@ -1,0 +1,353 @@
+Spam Buttons plugin for SquirrelMail
+====================================
+Ver 2.3.1, 2009/07/01
+
+
+Copyright (c) 2005-2009 Paul Lesniewski <paul@squirrelmail.org>
+
+
+
+Description
+===========
+
+This plugin will place "Spam" and/or "Not Spam" buttons on the 
+mailbox message list page as well as on a single message view
+page.  The action associated with the buttons (as well as the
+button text) can be configured to suit most any spam reporting
+system.  Reporting by email, reporting by executing a command 
+on the server, reporting by moving (or copying) the message to
+a designated folder and reporting by calling a custom-defined
+PHP function are all supported.  Any number of custom buttons
+may also be added, where the associated action is completely
+customizable (for instance, adding the message sender to a
+whitelist or blacklist).
+
+One implementation of a mechanism for accepting spam reports 
+sent as message attachments using Postfix can be found here:
+
+   http://gtmp.org/publications/sa-postfix-en
+   http://gtmp.org/doku.php/publications/sa-wrapper
+
+A copy of these pages are also saved herein - see: 
+
+   contrib/sa-postfix-en.html
+   contrib/sa-wrapper.html
+
+Also found in the contrib directory is a patch submitted by
+Dmitry Banchshikov <ubique@peterhost.ru> that adds an "Are
+you sure" JavaScript popup that appears when a user clicks
+on a spam or not spam button.  The patch only works when
+using SquirrelMail 1.4.x, however.  See contrib/confirm_action.diff
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see COPYING for details).
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software, please
+consider supporting Open Source development by donating to the authors
+or inquire about hiring them to consult on other projects.  Donation/
+wish list links for the author(s) are as follows:
+
+Paul Lesniewski: http://squirrelmail.org/wiki/DonatePaulLesniewski
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.0 or above (although please note
+    that report-by-email options may create problems in very
+    early versions of SquirrelMail 1.4.x)
+
+  * Compatibility plugin version 2.0.12 or above
+
+  * Working preconfigured spam filtering system - this plugin
+    is ONLY a front-end for YOUR spam filtering system!
+
+
+
+Configuration
+=============
+
+Be sure to configure the plugin to use reporting by email, by 
+moving to a folder OR reporting by shell command, but NOT more
+than one!
+
+Note that when configuring defaults for your users, where a
+"Spam" button should be shown in all folders except the actual 
+spam folder (where a "Not Spam" button should be shown instead),
+you can define a value for $sb_suppress_spam_button_folder
+and $sb_show_not_spam_button_folder, both being the name of the
+spam folder.
+
+If you are uncertain how to specify folder names for any of the 
+report-by-move or move-after-report or other settings that 
+require exact IMAP style folder naming, you can look in the main
+SquirrelMail configuration file and as a guide, folders are 
+usually named such as by putting together $default_folder_prefix
+and $trash_folder.  The other way to find correct folder names
+is to visit the SquirrelMail Folders or Folder Options page in
+your browser, then view the HTML page source and see how the
+folders are named in the value attributes of the folder select
+drop-down widgets.
+
+Please see the plugin's configuration file for more details
+about the various plugin configuration settings.
+
+
+
+Troubleshooting
+===============
+
+  * If you have problems getting reporting to work, please
+    first verify that you have correctly installed and configured
+    your anti-spam system to correctly accept spam reports using
+    the mechanism you configured in this plugin.  This plugin IS 
+    NOT RESPONSIBLE for providing the actual reporting functionality 
+    in your mail server.  You MUST first have a *fully functioning* 
+    spam reporting system on your mail server BEFORE you attempt 
+    to use this plugin.
+
+  * Make sure the plugin is configured correctly by browsing to
+    http://your-squirrelmail-location/src/configtest.php
+
+  * If you experience errors (see your web server error log) that
+    begin with "Fatal error: Call to undefined function load_config()
+    in....", you are missing the Compatibility plugin.  See the
+    Requirements section above.
+
+  * In order to help debug any problems, please use the $sb_debug
+    flag in the configuration file and include any output it 
+    generates (along with the configuration settings you are using)
+    in any help requests.
+
+  * If you do not find that the user-configurable options for 
+    deleting or moving messages after report are showing up on
+    Options->Display Preferences, please ensure that your reporting
+    method is NOT report-by-move-to-folder.
+    
+  * When using the report-by-move-to-folder functionality, the 
+    spam buttons/links will not show when viewing message 
+    attachments, since attachments cannot be moved.  Likewise,
+    delete-after-report and move-after-report will be ignored
+    when reporting message attachments.
+
+  * When the user or administrator has enabled BOTH delete-after-
+    report and move-after-report, move-after-report will take
+    precedence, and delete-after-report will be ignored.
+    
+  * Reporting message attachments may not work reliably unless
+    using SquirrelMail 1.4.11+ or 1.5.2+.
+    
+  * It has been reported that when using Sendmail to send messages
+    in the main SquirrelMail configuration ($useSendmail) along
+    with the report-by-email method (bounce only), reported messages
+    do not appear to reach their destination.  The problem may lie
+    with how Sendmail treats what looks like a duplicated message.
+    If you experience this issue, it is recommended that you choose
+    a different reporting method.
+
+  * When using SpamAssassin and you want to make sure the spam/ham 
+    counts are correctly increasing when a report is submitted, run 
+    sa-learn on the command line with the --dump option and it will 
+    show you the total spam and ham for the specified user.  Those 
+    totals will change when you click the spam/ham buttons (unless 
+    your plugin configuration is incorrect).  For example:
+
+       sa-learn --username=jose@example.org --dump | head
+
+  * If you are using the report-by-shell-commmand method, you can 
+    see more debugging output from the command by adding 
+
+       2> /tmp/spam_buttons.log
+
+    to the end of your shell command (note that you may also need 
+    to increase the verbosity of the command, usually by using the 
+    -D option with the SpamAssassin family of commands).
+
+  * If changes to the configuration file don't seem to be showing
+    in the user interface, first check that you have not overridden
+    the configuration settings with user preference settings that
+    are shown on the Options->Display Preferences page.  Otherwise,
+    ensure that there are not two Spam Buttons configuration files,
+    one in the spam_buttons directory and one in the main
+    SquirrelMail config directory (named "config_spam_buttons.php").
+    The one in the main SquirrelMail config directory will always
+    override the one in the spam_buttons directory.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in 
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+    
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal 
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Allow more than one reporting type at once?  This is not too
+    hard to implement when using report-by-email, report-by-shell-
+    command and/or report-by-custom-function, but NOT when using
+    report-by-move-to-folder because it might redirect the browser
+    when it is done reporting, etc.  Also, would need to figure
+    out what to do with the $note return value - just use the *last*
+    one?  If implemented, need to relax configtest check.
+
+  * Re-mark previously unread messages as unread after reporting
+
+  * It is possible that use with UW (or dovecot?) will cause 
+    "connection dropped" IMAP errors when reporting from the
+    message view screen -- IMAP server reports "* BYE Lost mailbox lock"
+    which is probably due to other IMAP commands within this
+    plugin that "corrupt" the IMAP connection state as far as
+    UW is concerned... (only if report by email?  have to do with
+    putting mail in the sent folder?) -- this needs more research
+    and may be related only to old versions of SM
+ 
+  * Implement "dont_wait" functionality (see functions.php, search
+    for "dont_wait")?  Fork a new process and don't block the user
+    experience waiting for slow spam reporting process to do its
+    work.  Questions come up: should this feature be considered 
+    incompatible with the "reselect" or "report/delete" or "report/move"
+    functionalities?  Those (as well as innocent user actions) might
+    introduce race conditions.
+    Update: one idea is to first make a copy of the target message(s)
+    into, say, the attachment dir, from whence the child process can
+    then, free of concerns of a race condition, do the learn task and
+    then delete the message.  This is similar to how the report-by-shell
+    code already does it, saving off a temporary copy of the message in
+    the attachment dir, so much of the needed code is already written.
+ 
+  * If more than one message is being reported and the method is report-
+    by-shell-command, it can be faster, at least for some applications,
+    to have the target messages in a certain directory and just run 
+    the command once on the dir (not the files inside it).  This is 
+    specific to that reporting type, so not a high priority at this time.
+ 
+  * Offer an option that allows admins to indicate that multiple message
+    reports should be done in one fell swoop: for report-by-shell-command,
+    dump all messages to a single file and report it once... for report-by-
+    email, all messages are attached to the same spam report (although for
+    bounce functionality, I don't think there is any way to accomodate 
+    this.
+
+
+
+Change Log
+==========
+
+  v2.3.1  2009/07/01  Paul Lesniewski <paul@squirrelmail.org>
+    * Fixed regression in version 2.3 that resulted in the loss
+      of correct pagination information when using buttons on the
+      message list screen
+
+  v2.3  2009/05/18  Paul Lesniewski <paul@squirrelmail.org>
+    * Updated for compatibility with SquirrelMail 1.4.18
+
+  v2.2.1  2009/01/31  Paul Lesniewski <paul@squirrelmail.org>
+    * Added check for patch in configtest for SquirrelMail versions
+      that require it
+    * Added some documentation about error that occurs when
+      Compatibility plugin is missing
+    * Correctly handle plural forms of success message for custom
+      reporting mechanism with ngettext
+    * Minor fix to accomodate Dovecot issue with UIDs that can be
+      bigger than normal integer values
+
+  v2.2  2008/06/04  Paul Lesniewski <paul@squirrelmail.org>
+    * Added ability to add any number of extra custom buttons/links,
+      such as whitelist or blacklist, etc.  See configuration file for
+      details
+    * Added new report method: custom PHP callback - sample
+      implementation is included, but is ultimately your reponsibility
+    * Fixed possible PHP notices caused by unmigrated prefs (v2.0->v2.1+)
+    * Fine-tuned some internal logic for when buttons are shown or not
+    * Slightly better, more efficient header inspection
+    * Fix bug in report-by-email-attachment functionality for 1.4.14+
+      and 1.5.2+
+    * Added ability to decide if spam reports sent as email attachments
+      should be stored in user's sent folder or not
+    * Added ability to store configuration file in main SquirrelMail
+      config directory (must be named "config_spam_buttons.php")
+
+  v2.1  2008/01/01  Paul Lesniewski <paul@squirrelmail.org>
+    * Fixed issue where buttons would not appear upon initial login
+    * Added button "inclusion" options (in contrast to the other
+      button "suppression" options)
+    * Both "inclusion" and "suppression" options can contain lists
+      of more than one folder
+    * Fix for report-by-email-attachment functionality so it remains
+      compatible with 1.4.14+ and 1.5.2+
+    * Translators note some new strings have been added
+    * Fixed report-by-move functionality in 1.5.0+
+    * Completed some internal code reorganization
+    * Added ability to move to previous/next message from message view 
+      after report-by-move or delete/move after report (instead of 
+      returning to message list page)
+    * Made move-after-report functionality work correctly when
+      report-by-copy is enabled (Thanks to Herman van Rink)
+    * Added auto-creation of non-existing folders (Thanks to Herman 
+      van Rink)
+    * Added patch for 1.5.1, although 1.5.1 is still not officially
+      supported - please upgrade to 1.5.2!
+
+  v2.0  2007/09/05  Paul Lesniewski <paul@squirrelmail.org>
+    * Added tag-and-delete functionality (user or admin-configurable)
+    * Added tag-and-move functionality (user or admin-configurable)
+    * Added report-by-move-to-folder functionality
+    * All move functionalities can be changed to copy instead
+    * Added email address, username and domain substitutions for the
+      report-by-email method
+    * Suppress spam/ham buttons when in certain (configurable) folders
+    * Suppress spam/ham buttons depending on if a message was tagged
+      as spam by an anti-spam scanner (scans message headers)
+    * Updated to comply with newest SquirrelMail plugin requirements
+    * Added compatibility with SquirrelMail 1.5.2
+    * May no longer be compatible with SquirrelMail 1.5.0 or 1.5.1 (untested);
+      please upgrade if you are using SquirrelMail development code
+
+  v1.0.1  2005/03/11  Paul Lesniewski <paul@squirrelmail.org>
+    * Fixed some cut n paste typos
+    * Fixed internationalization issues
+    * Fixed support for IMAP servers without UID support
+    * Help people who enter "false" instead of false when overriding $useSendmail
+
+  v1.0  08/03/2005  Paul Lesniewski <paul@squirrelmail.org>
+    * Initial release
+

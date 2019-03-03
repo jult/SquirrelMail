@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
 # conf.pl
 #
-# Copyright (c) 1999-2018 The SquirrelMail Project Team
+# Copyright (c) 1999-2019 The SquirrelMail Project Team
 # Licensed under the GNU GPL. For full terms see COPYING.
 #
 # A simple configure script to configure SquirrelMail
 #
-# $Id: conf.pl 14749 2018-01-16 23:36:07Z pdontthink $
+# $Id: conf.pl 14808 2019-02-27 03:25:06Z pdontthink $
 ############################################################              
 $conf_pl_version = "1.4.0";
 
@@ -388,6 +388,9 @@ $browser_rendering_mode = 'quirks'      if ( !$browser_rendering_mode );
 $use_transparent_security_image = 'true' if ( !$use_transparent_security_image );
 $check_mail_mechanism = 'meta'          if ( !$check_mail_mechanism );
 $display_imap_login_error = 'false'     if ( !$display_imap_login_error );
+$allow_svg_display = 'false'            if ( !$allow_svg_display );
+$block_svg_download = 'false'           if ( !$block_svg_download );
+$fix_broken_base64_encoded_messages = 'false' if ( !$fix_broken_base64_encoded_messages );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -590,6 +593,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "20. Security image               : $WHT" . (lc($use_transparent_security_image) eq 'true' ? 'Transparent' : 'Textual') . "$NRM\n";
         print "21. Auto check mail mechanism    : $WHT$check_mail_mechanism$NRM\n";
         print "22. Display login error from IMAP: $WHT$display_imap_login_error$NRM\n";
+        print "23. Show inline SVG objects      : $WHT$allow_svg_display$NRM\n";
+        print "24. Block downloading SVG objects: $WHT$block_svg_download$NRM\n";
+        print "25. Fix broken base64 messages   : $WHT$fix_broken_base64_encoded_messages$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -813,6 +819,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 20 ) { $use_transparent_security_image = command320(); }
             elsif ( $command == 21 ) { $check_mail_mechanism     = command321(); }
             elsif ( $command == 22 ) { $display_imap_login_error = command322(); }
+            elsif ( $command == 23 ) { $allow_svg_display        = command323(); }
+            elsif ( $command == 24 ) { $block_svg_download       = command324(); }
+            elsif ( $command == 25 ) { $fix_broken_base64_encoded_messages = command325(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2744,6 +2753,89 @@ sub command322 {
 
 
 
+# allow_svg_display (since 1.4.23)
+sub command323 {
+    print "Some email messages might contain SVG images or animations, however\n";
+    print "the power and dynamic nature of SVG objects may represent security or\n";
+    print "privacy vulnerabilities.\n";
+    print "\n";
+    print "Enabling this option will cause SquirrelMail to display any SVG objects\n";
+    print "included inline in email messages when they are viewed in HTML format.\n";
+    print "\n";
+
+    if ( lc($allow_svg_display) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Show inline SVG objects? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $allow_svg_display = <STDIN>;
+    if ( ( $allow_svg_display =~ /^y\n/i ) || ( ( $allow_svg_display =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $allow_svg_display = 'true';
+    } else {
+        $allow_svg_display = 'false';
+    }
+    return $allow_svg_display;
+}
+
+
+
+# block_svg_download (since 1.4.23)
+sub command324 {
+    print "Some email messages might contain SVG image or animation attachments,\n";
+    print "however even when downloaded, the power and dynamic nature of SVG\n";
+    print "objects may represent security or privacy vulnerabilities.\n";
+    print "\n";
+    print "Enabling this option will cause SquirrelMail to hide download links\n";
+    print "for any SVG objects attached to email messages, whereas disabling it\n";
+    print "will allow users to download such attachments as they see fit.\n";
+    print "\n";
+
+    if ( lc($block_svg_download) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Hide download links for SVG objects? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $block_svg_download = <STDIN>;
+    if ( ( $block_svg_download =~ /^y\n/i ) || ( ( $block_svg_download =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $block_svg_download = 'true';
+    } else {
+        $block_svg_download = 'false';
+    }
+    return $block_svg_download;
+}
+
+
+
+# fix_broken_base64_encoded_messages (since 1.4.23)
+sub command325 {
+    print "Some email messages might contain base64-encoded parts, and a very\n";
+    print "small number of unknown servers have been seen sending such\n";
+    print "messages in a malformed but recoverable manner.\n";
+    print "\n";
+    print "Enabling this option will cause SquirrelMail to detect and correct\n";
+    print "such messages at a slight cost in processing power.  Chances are\n";
+    print "somewhat low that your users would ever receive such messages.\n";
+    print "\n";
+
+    if ( lc($fix_broken_base64_encoded_messages) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Fix broken base64-encoded messages? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $fix_broken_base64_encoded_messages = <STDIN>;
+    if ( ( $fix_broken_base64_encoded_messages =~ /^y\n/i ) || ( ( $fix_broken_base64_encoded_messages =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $fix_broken_base64_encoded_messages = 'true';
+    } else {
+        $fix_broken_base64_encoded_messages = 'false';
+    }
+    return $fix_broken_base64_encoded_messages;
+}
+
+
+
 ####################################################################################
 #### THEMES ####
 sub command41 {
@@ -3790,6 +3882,9 @@ sub save_data {
 
     # boolean
         print CF "\$display_imap_login_error = $display_imap_login_error;\n";
+        print CF "\$allow_svg_display = $allow_svg_display;\n";
+        print CF "\$block_svg_download = $block_svg_download;\n";
+        print CF "\$fix_broken_base64_encoded_messages = $fix_broken_base64_encoded_messages;\n";
 
         print CF "\$session_name = '$session_name';\n";
 

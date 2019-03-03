@@ -5,9 +5,9 @@
  * Name:        Blue on Blue
  * Date:        December 29, 2005
  * Theme Name:  "Blue on Blue"
- * @copyright 2005-2018 The SquirrelMail Project Team
+ * @copyright 2005-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: blue_on_blue.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: blue_on_blue.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

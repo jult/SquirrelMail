@@ -1,0 +1,58 @@
+Installing Startup Folder
+=========================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 2.0 version of the Startup 
+   Folder plugin.
+
+  $ cd plugins
+  $ tar -zxvf startup_folder-2.0-1.4.0.tar.gz
+
+2) If you want to change the default behavior of the plugin,
+   change into the startup_folder directory, copy 
+   config.sample.php to config.php and edit config.php,
+   making adjustments as you deem necessary.
+
+  ----- optional -----
+  $ cd startup_folder
+  $ cp config.sample.php config.php
+  $ vi config.php
+  ----- optional -----
+
+3) Then go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and exit.
+
+  $ cd ../../config/
+  $ ./conf.pl
+
+4) Translations are not included in this package.  To get a
+   translation, download the language pack needed from:
+
+       http://www.squirrelmail.org/download.php
+
+
+
+Upgrading Startup Folder
+========================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 2.0 version of the Startup 
+   Folder plugin.
+
+  $ cd plugins
+  $ tar -zxvf startup_folder-2.0-1.4.0.tar.gz
+
+2) Change into the startup_folder directory, check your config.php
+   file against the new version, to see if there are any new
+   settings that you must add to your config.php file.  (This
+   step only applies if you have created a config.php file
+   under step 2 above when you first installed the plugin.)
+
+  $ diff -u config.php config.sample.php
+
+   Or simply replace your config.php file with the provided sample
+   and reconfigure the plugin from scratch (see step 2 under the
+   installation procedure above).
+
+

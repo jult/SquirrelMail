@@ -5,9 +5,9 @@
  * Date: 2004/09/20
  *
  * @author Paul Lesniewski
- * @copyright 2004-2018 The SquirrelMail Project Team
+ * @copyright 2004-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: simple_green_theme.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: simple_green_theme.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

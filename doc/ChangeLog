@@ -131,6 +131,9 @@ Version 1.4.23 - SVN
     is both globalized and passed as an additional argument to each
     plugin.  This allows plugins to cooperate better and not overwrite
     each other's return values.
+  - Updated SVG handling, closing several related vulnerabilities
+    (#2831) [CVE-2018-14950] [CVE-2018-14951] [CVE-2018-14952]
+    [CVE-2018-14953] [CVE-2018-14954] [CVE-2018-14955]
 
 Version 1.4.22 - 12 July 2011
 -----------------------------

@@ -4,7 +4,7 @@
 /**
   * SquirrelMail Quick Save Plugin
   * Copyright (c) 2001-2002 Ray Black <allah@accessnode.net>
-  * Copyright (c) 2003-2007 Paul Lesniewski <paul@squirrelmail.org>
+  * Copyright (c) 2003-2010 Paul Lesniewski <paul@squirrelmail.org>
   * Licensed under the GNU GPL. For full terms see the file COPYING.
   *
   * @package plugins
@@ -91,7 +91,7 @@ function quicksave_info()
              ),
              'summary' => 'Automatically saves messages as they are being composed to prevent accidental loss due to leaving the compose screen or browser/computer crashes.',
              'details' => 'This plugin automatically saves messages as they are being composed in order to prevent accidental loss of message content due to having browsed away from the compose screen or more serious problems such as browser or computer crashes.  When a message appears to have been lost and is available for recovery, the user will be prompted about whether or not the recovery should proceed.',
-             'version' => '2.4.2',
+             'version' => '2.4.5',
              'required_sm_version' => '1.2.9',
              'requires_configuration' => 0,
              'requires_source_patch' => 0,

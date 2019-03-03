@@ -1,0 +1,189 @@
+# <your language> SquirrelMail Mark Read Plugin Translation File
+# Copyright (c) 2008 The Squirrelmail Development Team
+# This file is distributed under the same license as the SquirrelMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: mark_read\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-16 20:22-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: SquirrelMail Language Team <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "All messages in folder have been marked as read"
+msgstr ""
+
+msgid "Messages could not be marked as read"
+msgstr ""
+
+msgid "All messages in folder have been marked as unread"
+msgstr ""
+
+msgid "Messages could not be marked as unread"
+msgstr ""
+
+msgid "read"
+msgstr ""
+
+msgid "Read"
+msgstr ""
+
+msgid "read all"
+msgstr ""
+
+msgid "Read All"
+msgstr ""
+
+msgid "read all messages"
+msgstr ""
+
+msgid "Read All Messages"
+msgstr ""
+
+#, php-format
+msgid "read all (%d)"
+msgstr ""
+
+#, php-format
+msgid "Read All (%d)"
+msgstr ""
+
+#, php-format
+msgid "read all (%d) messages"
+msgstr ""
+
+#, php-format
+msgid "Read All (%d) Messages"
+msgstr ""
+
+msgid "unread"
+msgstr ""
+
+msgid "Unread"
+msgstr ""
+
+msgid "unread all"
+msgstr ""
+
+msgid "Unread All"
+msgstr ""
+
+msgid "unread all messages"
+msgstr ""
+
+msgid "Unread All Messages"
+msgstr ""
+
+#, php-format
+msgid "unread all (%d)"
+msgstr ""
+
+#, php-format
+msgid "Unread All (%d)"
+msgstr ""
+
+#, php-format
+msgid "unread all (%d) messages"
+msgstr ""
+
+#, php-format
+msgid "Unread All (%d) Messages"
+msgstr ""
+
+msgid "This will mark ALL messages in this folder as having been read.\\n\\nAre you sure you want to continue?"
+msgstr ""
+
+msgid "This will mark ALL messages in this folder as NOT having been read.\\n\\nAre you sure you want to continue?"
+msgstr ""
+
+#, php-format
+msgid "This will mark ALL %d messages in this folder as having been read.\\n\\nAre you sure you want to continue?"
+msgstr ""
+
+#, php-format
+msgid "This will mark ALL %d messages in this folder as NOT having been read.\\n\\nAre you sure you want to continue?"
+msgstr ""
+
+msgid "Mark ALL messages in this folder as read - are you sure?"
+msgstr ""
+
+msgid "Mark ALL messages in this folder as unread - are you sure?"
+msgstr ""
+
+#, php-format
+msgid "Mark ALL %d messages in this folder as read - are you sure?"
+msgstr ""
+
+#, php-format
+msgid "Mark ALL %d messages in this folder as unread - are you sure?"
+msgstr ""
+
+msgid "Mark all messages in this folder as read"
+msgstr ""
+
+msgid "Mark all messages in this folder as having been read"
+msgstr ""
+
+#, php-format
+msgid "Mark all %d messages in this folder as read"
+msgstr ""
+
+#, php-format
+msgid "Mark all %d messages in this folder as having been read"
+msgstr ""
+
+msgid "Mark all messages in this folder as unread"
+msgstr ""
+
+msgid "Mark all messages in this folder as having been unread"
+msgstr ""
+
+#, php-format
+msgid "Mark all %d messages in this folder as unread"
+msgstr ""
+
+#, php-format
+msgid "Mark all %d messages in this folder as having been unread"
+msgstr ""
+
+msgid "Mark-As-Read Links/Buttons"
+msgstr ""
+
+msgid "Mark-As-Read Links"
+msgstr ""
+
+msgid "Mark-As-Read Buttons"
+msgstr ""
+
+msgid "Read links next to the folder name mark all messages in the folders as having been read."
+msgstr ""
+
+msgid "Confirm read"
+msgstr ""
+
+msgid "Toggle Special Folders"
+msgstr ""
+
+msgid "Toggle All"
+msgstr ""
+
+msgid "Unread links next to the folder name mark all messages in the folders as having been unread."
+msgstr ""
+
+msgid "Confirm unread"
+msgstr ""
+
+msgid "Read buttons on the message list page mark all messages in the folder as having been read."
+msgstr ""
+
+msgid "Unread buttons on the message list page mark all messages in the folder as having been unread."
+msgstr ""
+
+msgid "Save"
+msgstr ""

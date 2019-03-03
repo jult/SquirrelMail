@@ -1,0 +1,10 @@
+--- ../../functions/mailbox_display.php.orig	2007-09-12 05:14:46.000000000 -0700
++++ ../../functions/mailbox_display.php	2007-09-12 05:14:41.000000000 -0700
+@@ -714,6 +714,7 @@
+             getMbxList($imapConnection);  
+             echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";   
+             echo getButton('SUBMIT', 'attache',_("Forward")) . "\n";   
++            do_hook('mailbox_display_buttons');
+ 
+   echo "      </small></td>\n"
+          . html_tag( 'td', '', 'right', '', 'nowrap' );

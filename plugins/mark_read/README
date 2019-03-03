@@ -1,0 +1,206 @@
+Mark Read plugin for SquirrelMail
+=================================
+Ver 2.0.1, 2009/01/01
+
+
+Copyright (c) 2004-2005 Dave Kliczbor <maligree@gmx.de>
+Copyright (c) 2003-2009 Paul Lesniewski <paul@squirrelmail.org>
+Copyright (c) 2004 Ferdie Ferdsen <ferdie.ferdsen@despam.de>
+
+
+
+Description
+===========
+
+This plugin places "read" and/or "unread" links next to any of
+the folders in the folder list, or "Read All" and/or "Unread All"
+buttons on the mailbox listing page.  These buttons or links will
+mark all messages in the associated folder as having been read
+or unread.
+
+If enabled by the administrator, users can control the
+appearance and behavior of these links and buttons by
+navigating to the "Folders" page in the SquirrelMail
+interface.
+
+
+
+RPC Interface
+=============
+
+This plugin can be used via the SquirrelMail RPC interface (as of
+SquirrelMail 1.5.2+).  It handles the following commands:
+
+  mark_read_read_all   - marks all messages in the given folder
+                         (specified by the "mailbox" argument in
+                         the RPC request) as read
+  mark_read_unread_all - marks all messages in the given folder
+                         (specified by the "mailbox" argument in
+                         the RPC request) as unread
+   
+Error codes that may be returned:
+
+  503 - mark_read_read_all failed
+  504 - mark_read_unread_all failed
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see COPYING for details).
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software, please
+consider supporting Open Source development by donating to the authors
+or inquire about hiring them to consult on other projects.  Donation/
+wish list links for the author(s) are as follows:
+
+Paul Lesniewski: https://sourceforge.net/donate/index.php?user_id=508228
+
+
+
+Requirements
+============
+
+ * SquirrelMail 1.2 or above
+
+ * Compatibility plugin version 2.0.12 or above
+
+
+
+Troubleshooting
+===============
+
+  * If a (un)read link is not showing next to some of the folders
+    for which it is configured, make sure those folders have one
+    or more messages in them (otherwise, the link will not be
+    displayed).
+
+  * If a (un)read link is not showing next to the trash folder
+    make sure you are running SquirrelMail version 1.4.16 or above;
+    previous versions do not allow appending links after the trash
+    folder.
+
+  * If changes to the configuration file don't seem to be showing
+    in the user interface, first check that you have not overridden
+    the configuration settings with user preference settings that
+    are shown on the Folders page.  Otherwise, ensure that you are
+    editing the correct configuration file.  If one is located in
+    the main SquirrelMail config directory (named
+    "config_mark_read.php"), it will always be used.  Otherwise,
+    "config.php" in the mark_read plugin directory will be used.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Re-add features in version 1.4.2 that were removed in version
+    2.0, but only if someone can justify that they are actually
+    necessary
+
+
+
+Change Log
+==========
+
+  v2.0.1  2009/01/01  Paul Lesniewski <paul@squirrelmail.org>
+   * Update for minor change in SquirrelMail RPC API
+
+  v2.0  2008/07/19  Paul Lesniewski <paul@squirrelmail.org>
+   * Allow configuration file to be stored in main SquirrelMail
+     config directory
+   * Updated for compatibility with SquirrelMail 1.5.2+
+   * Added RPC-enabled call to this plugin (1.5.2+)
+   * Added ability to show "Read All" or "Unread All" buttons on
+     the mailbox list page, as well as confirmation popups for
+     all actions this plugin performs
+   * Complete code re-write and cleanup
+   * Removed needless options (link text/style)
+   * Removed function that displays link at folder list bottom
+     to mark all *folders* as (un)read
+   * Please note that the configuration system for this plugin has
+     been rewritten and is incompatible with previous versions.
+     Also, any user preferences for previous versions are no longer
+     used.
+
+  v1.4.2  2007/02/16  Paul Lesniewski <paul@squirrelmail.org>
+   * Removed requirement for Compatibility plugin
+   * No longer include config.php file; moved to config.sample.php
+     (however, administrator configuration is NOT required)
+   * Moved translations to SquirrelMail locale directory
+   * Some misc updating for new plugin specs (possibly not complete)
+
+  v1.4.1  2005/03/06  Dave Kliczbor <maligree@gmx.de>
+   * Included updated svedish translation by Fredrik Jervfors
+   * Included espanol translation by AngelD
+   (minor release to update language packs)
+
+  v1.4  2005/02/27  Dave Kliczbor <maligree@gmx.de>
+   * Updated german translation
+   * minor bugfixes
+
+  v1.3  2004/08/08  Ferdie Ferdsen <ferdie.ferdsen@despam.de>
+   * Added some visual tweaks, like
+     -shortened display, "r/u" instead of "read/unread",
+     -display in brackets and display a separator, user can choose from a pulldown-menu,
+      i.e (read|unread), (ru), {r\u}, [read-unread], etc...
+     -some other tweaks...
+   * Workaround for a small bug: when the special folder 'Sent' was in the mark_read-list,
+     the locale'd version of the 'Trash'-folder was not shown properly in the left frame.
+   * Removed the swedish translation due to changes in the localisaton-file (which is
+     still existent, for your localisation purposes)
+
+  v1.2  2004/02/12  Dave Kliczbor <maligree@gmx.de>
+   * Added i18n support
+   * Added german (de_DE) translation
+   * Added swedish (sv_SE) translation (by Fredrik Jervfors)
+
+  v1.1  (unknown)  Dave Kliczbor <maligree@gmx.de>
+   * Added the ability to mark s.th. as unread
+   * Added some configuration abilities
+   * Shortened the displayed link
+   * Added tooltips to each link
+
+  v1.0  (unknown)  Dave Kliczbor <maligree@gmx.de>
+   * First version of the Mark Read plugin
+     Based on Empty Folders 1.0 (most code has been copied)
+

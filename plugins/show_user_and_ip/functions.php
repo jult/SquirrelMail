@@ -35,7 +35,7 @@ function sui_show_ui()
 		textdomain('show_user_and_ip');
 
 		echo '<p><div align="' . $sui_align . '"><font size="' . $sui_font_size . '">' . "\n"
-		   . '  ' . "\n";
+		   . '  <hr>' . "\n";
 		if ( $show_user_on_left_pane )
 		{
 			echo '  <strong>' . _("Your username:") . '</strong><br>' . "\n"
@@ -45,7 +45,7 @@ function sui_show_ui()
 			echo '  <br><br>' . "\n";
 		if ( $show_ip_on_left_pane )
 		{
-			echo '  <strong>' . _("Your public IP:") . '</strong><br>' . "\n"
+			echo '  <strong>' . _("Your IP address:") . '</strong><br>' . "\n"
 	  		   . $_SERVER['REMOTE_ADDR'] . "\n";
 		}
 		if ( $show_host_on_left_pane )
@@ -54,12 +54,12 @@ function sui_show_ui()
 			if ( $sui_host_left != $_SERVER['REMOTE_ADDR'] )
 			{
 				if ( $show_user_on_left_pane || $show_ip_on_left_pane )
-					echo '  <br>' . "\n";
+					echo '  <br><br>' . "\n";
 				echo '  <strong>' . _("Your Hostname:") . '</strong><br>' . "\n"
 		  		   . $sui_host_left . "\n";
 			}
 		}
-		echo '' . "\n"
+		echo '<hr>' . "\n"
 		   . '</font></div></p>' . "\n";
 
 		bindtextdomain('squirrelmail', SM_PATH . 'locale');
@@ -138,16 +138,16 @@ function sui_show_last()
 			$sui_last_host_formatted = ""; 
 
 		if ( strlen($motd) > 0 )
-			$sui_motd_append_before = "";
+			$sui_motd_append_before = "<br><br>";
 		else
 			$sui_motd_append_before = "";
 
 		if ( $sui_motd_greet_with_welcome )
-			$sui_motd_greet = _("") . " ";
+			$sui_motd_greet = _("Welcome,") . " ";
 		else
-			$sui_motd_greet = "";
+			$sui_motd_greet = "<strong>" . _("INFO:") . "</strong> ";
 
-		$sui_append_motd = sprintf(_("Your last connection was from <strong>%s%s</strong> on <strong>%s</strong>."), $sui_last_ip, $sui_last_host_formatted, $sui_display_date);
+		$sui_append_motd = sprintf(_("your last connection was from <strong>%s%s</strong> on <strong>%s</strong>."), $sui_last_ip, $sui_last_host_formatted, $sui_display_date);
 
 		$motd .= $sui_motd_append_before . $sui_motd_greet . $sui_append_motd;
 

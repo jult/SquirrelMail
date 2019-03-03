@@ -1,0 +1,22 @@
+/*******************************************************************************
+
+    Author ......... Wolf Bergenheim
+    Contact ........ wolf@bergenheim.net
+    Home Site ...... http://wolf.bergenheim.net/src
+    Program ........ Compose special characters
+    Version ........ 0.1
+    Purpose ........ Use special characters while composing
+
+*******************************************************************************/
+
+----[ Installation
+
+    Install just like any other plugin, just untar it in the plugin directory,
+    it will create a directory called todo.
+    Run conf.pl and add it to your list, and you are rolling
+
+----[ Changelog
+
+     --- 0.1 ---
+	 	 Initial release.
+

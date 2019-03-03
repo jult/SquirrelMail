@@ -1,0 +1,105 @@
+Identity Folders plugin for SquirrelMail
+========================================
+Version 1.0, 2014/01/20
+
+
+Copyright (c) 2013-2014 Paul Lesniewski <paul@squirrelmail.org>
+
+
+
+Description
+===========
+
+This plugin allows users to specify a folder that will
+serve as the default sent message location when replying
+to messages sent to any of the identities configured on
+the advanced identities screen.  Keep in mind that this
+plugin only sets the default folder selection for the
+custom sent folder drop-down list (which is provided by
+the Variable Sent Folder plugin), and only does so when
+replying to messages that were sent to a pre-configured
+identity.  The Per Recipient Sent Folders plugin may
+be more useful depending on your needs.
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see the file COPYING for details).
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.0 or above
+
+  * Variable Sent Folder plugin version 1.0 or above
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+  
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+  
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+  
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Currently, it's assumed the mail folder input is only used for
+    the Variable Sent Folder hook (custom sent folder default), but
+    in the future, if it's used for something else, we should have
+    a user option (checkbox?) to enable the ability to use this folder
+    as the default sent folder (either put that option right next to
+    the folder select on the idents page or on the display prefs or
+    folder prefs page)... when we make such a change, remove the text
+    from the idents page folder select "(default folder for sent messages)"
+
+
+
+Change Log
+==========
+  
+  v1.0  2014/01/20  Paul Lesniewski <paul@squirrelmail.org>
+    * Initial release
+

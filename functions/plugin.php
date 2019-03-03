@@ -7,9 +7,9 @@
  *
  * Documentation on how to write plugins might show up some time.
  *
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: plugin.php 14793 2018-10-14 18:25:11Z pdontthink $
+ * @version $Id: plugin.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  */
 
@@ -67,22 +67,23 @@ function do_hook ($name) {
  * @return mixed the return value of the hook function
  */
 function do_hook_function($name,$parm=NULL) {
-    global $squirrelmail_plugin_hooks, $hook_return_value;
-    $hook_return_value = NULL;
+    $return_value_variable_name = 'hook_return_value_' . $name;
+    global $squirrelmail_plugin_hooks, $$return_value_variable_name;
+    $$return_value_variable_name = NULL;
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
         foreach ($squirrelmail_plugin_hooks[$name] as $function) {
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
-                $hook_return_value = $function($parm, $hook_return_value);
+                $$return_value_variable_name = $function($parm, $$return_value_variable_name);
             }
         }
     }
 
     /* Variable-length argument lists have a slight problem when */
     /* passing values by reference. Pity. This is a workaround.  */
-    return $hook_return_value;
+    return $$return_value_variable_name;
 }
 
 /**
@@ -94,22 +95,23 @@ function do_hook_function($name,$parm=NULL) {
  * @return string a concatenation of the results of each plugin function
  */
 function concat_hook_function($name,$parm=NULL) {
-    global $squirrelmail_plugin_hooks, $hook_return_value;
-    $hook_return_value = '';
+    $return_value_variable_name = 'hook_return_value_' . $name;
+    global $squirrelmail_plugin_hooks, $$return_value_variable_name;
+    $$return_value_variable_name = '';
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
         foreach ($squirrelmail_plugin_hooks[$name] as $function) {
             /* Concatenate results from hook. */
             if (function_exists($function)) {
-                $hook_return_value .= $function($parm, $hook_return_value);
+                $$return_value_variable_name .= $function($parm, $$return_value_variable_name);
             }
         }
     }
 
     /* Variable-length argument lists have a slight problem when */
     /* passing values by reference. Pity. This is a workaround.  */
-    return $hook_return_value;
+    return $$return_value_variable_name;
 }
 
 /**

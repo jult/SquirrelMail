@@ -1,0 +1,22 @@
+Additional suggestions are welcome, as if this plugin isn't
+complicated enough.  :-)
+
+-- (Suggested by Phil Grainger)  The Folder Table part of the proon
+   form is a bit daunting.  If someone has a lot of folders, they
+   probably don't want to automatically prune most of them anyhow.  An
+   interface that showed just the folders of interest for pruning (and
+   allowing additions) would be simpler, especially for technical
+   novices.  I think it might be a good alternative to the current
+   Folder Table UI, maybe having a novice and advanced mode for
+   displaying and manipulating that information.
+
+-- (Suggested by Jeff Smith)  Allow pruning into other folders besides
+   Trash.  He envisions using this to do a simple hierarchical
+   storage management of his messages.  Recent messages are in INBOX,
+   messages more than a month old go to a folder like INBOX.200507.
+   He might then manually put really old folders offline.  Moving to a
+   (different-from-Trash) existing folder maybe just needs a column
+   with a folder name drop-down for the destination.  Creating a new
+   folder with some automatic naming scheme is a bit trickier unless
+   it's limited to a small number of fixed schemes (e.g., the by-month
+   example).

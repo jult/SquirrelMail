@@ -6,9 +6,9 @@
  * This file contains functions needed to extract email address headers from
  * mime messages.
  *
- * @copyright 2003-2018 The SquirrelMail Project Team
+ * @copyright 2003-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: AddressStructure.class.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: AddressStructure.class.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2

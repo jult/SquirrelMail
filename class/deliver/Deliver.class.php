@@ -7,10 +7,10 @@
  * a delivery backend.
  *
  * @author Marc Groot Koerkamp
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver.class.php 14749 pdontthink - patched 2018-10-23 jult $
- * @package squirrelmail
+ * @version $Id: Deliver.class.php 14800 patched for obscurity 2019-03-02 03:03:03Z jult $
+ * @package squirrelmail github
  */
 
 /**
@@ -594,11 +594,12 @@ class Deliver {
         /* This creates an RFC 822 date */
         $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
 
-        /* Create a message-id xxx */
+        /* Create a message-id */
         $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
         if (empty($rfc822_header->message_id)) {
             $message_id = '<'
                         . md5(GenerateRandomString(16, '', 7) . uniqid(mt_rand(),true))
+// moved out vanity ID next line xx
                         . '@' . $SERVER_NAME .'>';
         }
 
@@ -616,22 +617,6 @@ class Deliver {
         }
         $header = array();
 
-        /**
-         * SquirrelMail header
-         *
-         * This Received: header provides information that allows to track
-         * user and machine that was used to send email. Don't remove it
-         * unless you understand all possible forging issues or your
-         * webmail installation does not prevent changes in user's email address.
-         * See SquirrelMail bug tracker #847107 for more details about it.
-         *
-         * Add hide_squirrelmail_header as a candidate for config_local.php
-         * (must be defined as a constant:  define('hide_squirrelmail_header', 1);
-         * to allow completely hiding SquirrelMail participation in message
-         * processing; This is dangerous, especially if users can modify their
-         * account information, as it makes mapping a sent message back to the
-         * original sender almost impossible.
-         */
         $show_sm_header = ( defined('hide_squirrelmail_header') ? ! hide_squirrelmail_header : 1 );
 
         // FIXME: The following headers may generate slightly differently between the message sent to the destination and that stored in the Sent folder because this code will be called before both actions.  This is not necessarily a big problem, but other headers such as Message-ID and Date are preserved between both actions
@@ -647,7 +632,7 @@ class Deliver {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
           if (!isset($hide_auth_header) || !$hide_auth_header)
-// xxx      $header[] = "        (SquirrelMail authenticated user)" . $rn;
+// moved out dumb security risk xx :     $header[] = "        (SquirrelMail authenticated user)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
             $header[] = "        $date" . $rn;
           }
@@ -712,7 +697,7 @@ class Deliver {
                 $header[] = $s;
             }
         }
-        /* Identify SquirrelMail, no need to reveal version xxx */
+        /* Identify SquirrelMail, weird idea to purposely reveal version, kicked it out xx */
         $header[] = 'User-Agent: SquirrelMail' . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
@@ -1068,25 +1053,6 @@ class Deliver {
     }
 
     /**
-     * function mimeBoundary - calculates the mime boundary to use
-     *
-     * This function will generate a random mime boundary base part
-     * for the message if the boundary has not already been set.
-     *
-     * @return string $mimeBoundaryString random mime boundary string
-     */
-    function mimeBoundary () {
-        static $mimeBoundaryString;
-
-        if ( !isset( $mimeBoundaryString ) ||
-            $mimeBoundaryString == '') {
-            $mimeBoundaryString = '----=_' . date( 'YmdHis' ) . '_' .
-            mt_rand( 10000, 99999 );
-        }
-        return $mimeBoundaryString;
-    }
-
-    /**
      * function timezone - Time offset for correct timezone
      *
      * @return string $result with timezone and offset
@@ -1125,6 +1091,25 @@ class Deliver {
             $result = sprintf ("%s%02d%02d", $sign, $diff_hour, $diff_minute);
         }
         return ($result);
+    }
+
+    /**
+     * function mimeBoundary - calculates the mime boundary to use
+     *
+     * This function will generate a random mime boundary base part
+     * for the message if the boundary has not already been set.
+     *
+     * @return string $mimeBoundaryString random mime boundary string
+     */
+    function mimeBoundary () {
+        static $mimeBoundaryString;
+
+        if ( !isset( $mimeBoundaryString ) ||
+            $mimeBoundaryString == '') {
+            $mimeBoundaryString = '----=_' . date( 'YmdHis' ) . '_' .
+            mt_rand( 10000, 99999 );
+        }
+        return $mimeBoundaryString;
     }
 
     /**
@@ -1221,4 +1206,3 @@ class Deliver {
         return $ret;
     }
 }
-

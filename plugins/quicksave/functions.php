@@ -4,7 +4,7 @@
 /**
   * SquirrelMail Quick Save Plugin
   * Copyright (c) 2001-2002 Ray Black <allah@accessnode.net>
-  * Copyright (c) 2003-2007 Paul Lesniewski <paul@squirrelmail.org>
+  * Copyright (c) 2003-2010 Paul Lesniewski <paul@squirrelmail.org>
   * Licensed under the GNU GPL. For full terms see the file COPYING.
   *
   * @package plugins
@@ -511,6 +511,9 @@ function quicksave_compose_functions_do()
                $message_body_location_test = 'if (document.getElementsByTagName("iframe").item(0).contentDocument.getElementsByTagName("iframe").item(0).contentDocument.body)';
                $message_body_location_restore_test = 'if (0)';
                $message_body_html = 'document.getElementsByTagName("iframe").item(0).contentDocument.getElementsByTagName("iframe").item(0).contentDocument.body.innerHTML';
+// supposedly these work for updated fckeditor versions
+//               $message_body_location_test = 'if(document.getElementById("body___Frame").contentDocument.getElementById("xEditingArea").getElementsByTagName("iframe")[0].contentDocument.body)';
+//               $message_body_html = 'document.getElementById("body___Frame").contentDocument.getElementById("xEditingArea").getElementsByTagName("iframe")[0].contentDocument.body.innerHTML';
             }
 
          }
@@ -1049,7 +1052,7 @@ EOS;
    //
    function quicksave_encrypt(str)
    {
-      pwd = '$username';
+      var pwd = '$username';
       if (pwd == null || pwd.length <= 0) {
          alert('$error_no_encrypt_pwd');
          return null;
@@ -1058,8 +1061,36 @@ EOS;
       for(var i=0; i<pwd.length; i++) {
          prand += pwd.charCodeAt(i).toString();
       }
-      var sPos = Math.floor(prand.length / 5);
-      var mult = parseInt(prand.charAt(sPos) + prand.charAt(sPos*2) + prand.charAt(sPos*3) + prand.charAt(sPos*4) + prand.charAt(sPos*5));
+
+      var i = 0;
+      var sPos = 0;
+      var char = '';
+      var mult = '';
+      var found_non_zero = false;
+
+      var divisor = 5;
+ 
+      while (divisor > 1)
+      {
+         mult = '';
+         sPos = Math.floor(prand.length / divisor);
+         found_non_zero = false;
+         for (i = 1; i <= divisor; i++)
+         {
+            char = prand.charAt(sPos > 0 ? sPos * i - 1 : 0);
+            if (char != '0' && char != '')
+            {
+               found_non_zero = true;
+            }
+            mult += char;
+         }
+
+         if (found_non_zero) break;
+
+         divisor = divisor - 1;
+      }
+      mult = parseInt(mult, 10);
+
       var incr = Math.ceil(pwd.length / 2);
       var modu = Math.pow(2, 31) - 1;
       if(mult < 2) {
@@ -1100,7 +1131,7 @@ EOS;
    //
    function quicksave_decrypt(str)
    {
-      pwd = '$username';
+      var pwd = '$username';
       if(str == null || str.length < 5) {
          alert('$error_encrypt_salt_not_found');
          return;
@@ -1113,8 +1144,36 @@ EOS;
       for(var i=0; i<pwd.length; i++) {
          prand += pwd.charCodeAt(i).toString();
       }
-      var sPos = Math.floor(prand.length / 5);
-      var mult = parseInt(prand.charAt(sPos) + prand.charAt(sPos*2) + prand.charAt(sPos*3) + prand.charAt(sPos*4) + prand.charAt(sPos*5));
+
+      var i = 0;
+      var sPos = 0;
+      var char = '';
+      var mult = '';
+      var found_non_zero = false;
+
+      var divisor = 5;
+ 
+      while (divisor > 1)
+      {
+         mult = '';
+         sPos = Math.floor(prand.length / divisor);
+         found_non_zero = false;
+         for (i = 1; i <= divisor; i++)
+         {
+            char = prand.charAt(sPos > 0 ? sPos * i - 1 : 0);
+            if (char != '0' && char != '')
+            {
+               found_non_zero = true;
+            }
+            mult += char;
+         }
+
+         if (found_non_zero) break;
+
+         divisor = divisor - 1;
+      }
+      mult = parseInt(mult, 10);
+
       var incr = Math.round(pwd.length / 2);
       var modu = Math.pow(2, 31) - 1;
       var salt = parseInt(str.substring(str.length - 8, str.length), 16);

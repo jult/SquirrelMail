@@ -8,7 +8,7 @@
  * Use standard PHP syntax, see config.php for examples.
  *
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: config_local.php 18 2018-03-16 10:23:07Z jult $
+ * @version $Id: config_local.php 18 2019-03-01 09:09:09Z jult $
  */
 
 $config_use_color = 2;
@@ -60,7 +60,7 @@ $default_use_mdn          = true;
 $edit_identity            = true;
 $edit_name                = true;
 $hide_auth_header         = false;
-$allow_thread_sort        = false;
+$allow_thread_sort        = true;
 $allow_server_sort        = true;
 $allow_charset_search     = true;
 $uid_support              = true;
@@ -80,7 +80,7 @@ $config_location_base     = '';
 $disable_plugins          = false;
 
 $session_name          = 'SQMSESSID';
-$only_secure_cookies     = true;
+$only_secure_cookies     = false;
 $disable_security_tokens = false;
 $use_transparent_security_image = true;
 $use_iframe = false;
@@ -95,10 +95,10 @@ $browser_rendering_mode  = 'quirks';
 $max_token_age_days = 2;
 $newmail_allowsound = true;
 
-$user_theme_default = 53;
+$user_theme_default = 55;
 $theme_css = 'jultcoolbig';
-$theme_default = 53;
-$theme[52]['PATH'] = SM_PATH . 'themes/forestnight.php';
-$theme[52]['NAME'] = 'Forest Night (jult)';
-$theme[53]['PATH'] = SM_PATH . 'themes/jult_dark.php';
-$theme[53]['NAME'] = 'jult dark';
+$theme_default = 55;
+$theme[54]['PATH'] = SM_PATH . 'themes/forestnight.php';
+$theme[54]['NAME'] = 'Forest Night (jult)';
+$theme[55]['PATH'] = SM_PATH . 'themes/jult_dark.php';
+$theme[55]['NAME'] = 'jult dark';

@@ -1,6 +1,6 @@
 Compatibility plugin for SquirrelMail
 =====================================
-Ver 2.0.15, 2009/10/31
+Ver 2.0.16, 2009/12/06
 
 
 Copyright (c) 2004-2009 Paul Lesniewski <paul@squirrelmail.org>
@@ -256,6 +256,10 @@ TODO
 
 Change Log
 ==========
+
+  v2.0.16  2009/12/06  Paul Lesniewski  <paul@squirrelmail.org>
+    * Added security token functions sm_get_user_security_tokens(),
+      sm_generate_security_token(), and sm_validate_security_token() 
 
   v2.0.15  2009/10/31  Paul Lesniewski  <paul@squirrelmail.org>
     * Updated check_plugin_dependencies()

@@ -9,9 +9,9 @@
  * Problem: $color[9] is used for background and for disabled links.
  *
  * @author Tomas Kuliavas
- * @copyright 2003-2018 The SquirrelMail Project Team
+ * @copyright 2003-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: minimal_bw.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: minimal_bw.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

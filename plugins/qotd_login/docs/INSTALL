@@ -1,0 +1,78 @@
+Installing The Quote of the Day at Login Plugin
+===============================================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 1.0 version of the Quote of the
+   Day at Login plugin.
+
+  $ cd plugins
+  $ tar -zxvf qotd_login-1.0-1.4.0.tar.gz
+
+2) If you do not want to change the default behavior of this
+   plugin, skip to step four.
+
+3) (OPTIONAL) Decide if you want to store the plugin
+   configuration file in the plugin directory or in the
+   main SquirrelMail config directory.
+
+   A) To store the configuration file in the plugin directory,
+      change into the qotd_login directory and copy the example
+      configuration file to config.php and edit config.php, making
+      adjustments as you deem necessary.
+
+     ----- optional -----
+     $ cd qotd_login
+     $ cp config_example.php config.php
+     $ vi config.php
+     ----- optional -----
+
+   B) To store the configuration file in the main SquirrelMail
+      config directory, change into the qotd_login directory
+      and copy the example configuration file to
+      ../../config/config_qotd_login.php and edit
+      ../../config/config_qotd_login.php, making adjustments
+      as you deem necessary.
+
+     ----- optional -----
+     $ cd qotd_login
+     $ cp config_example_sql.php ../../config/config_qotd_login.php
+     $ vi ../../config/config_qotd_login.php
+     ----- optional -----
+
+4) Then go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and exit.
+
+  $ cd ../../config/
+  $ ./conf.pl
+
+
+
+Upgrading The Quote of the Day at Login Plugin
+==============================================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 1.0 version of the Quote of the
+   Day at Login plugin.
+
+  $ cd plugins
+  $ tar -zxvf qotd_login-1.0-1.4.0.tar.gz
+
+2) Change into the qotd_login directory and check your
+   config.php file against the new version to see if
+   there are any new settings that you must add to your
+   config.php file.
+
+  $ diff -u config.php config_example.php
+
+   If you store your configuration file in the main SquirrelMail
+   config directory, adjust this command as follows:
+
+  $ diff -u ../../config/config_qotd_login.php config_example.php
+
+   Or simply replace your configuration file with the provided
+   example and reconfigure the plugin from scratch (see step three
+   under the installation procedure above).
+
+
+

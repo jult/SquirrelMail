@@ -1,0 +1,160 @@
+Folder Synchronization plugin for SquirrelMail
+==============================================
+Ver 1.0, 2011/04/21
+
+
+Copyright (c) 2011-2011 Paul Lesniewski <paul@squirrelmail.org>
+Copyright (c) 2003 Nick Bartos <>
+Copyright (c) 2002 Jimmy Conner <jimmy@advcs.org>
+Copyright (c) 2002 Jay Guerette <JayGuerette@pobox.com>
+
+
+
+Description
+===========
+
+This plugin automatically synchronizes the folder list and
+the message list.  This can be used, when the folder list
+is configured to automatically refresh itself (SquirrelMail
+does this by default), to ensure that the message list always
+shows newest incoming messages.
+
+The administrator can set defaults for whether refreshes
+containing new message totals in the folder list should trigger
+a refresh of the message list screen and whether, conversely,
+actions in the message list screen or viewing of a message that
+change the number of (un)read messages should trigger a refresh
+of the folder list screen.  The administrator can choose if
+users should also be able to override the default settings.
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see the file COPYING for details).
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.0 or above
+  * JavaScript support in end-user browsers
+
+
+
+Troubleshooting
+===============
+
+  * If changes to the configuration file don't seem to be having
+    any effect, ensure that there are not two Folder Synchronization
+    configuration files, one in the folder_synch directory and
+    one in the main SquirrelMail config directory (named
+    "config_folder_synch.php").  The one in the main SquirrelMail
+    config directory will always override the one in the
+    folder_synch directory.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+  * Some plumbing is in place for compatibility with SquirrelMail
+    version 1.5.2+; need to finish it
+
+
+
+Change Log
+==========
+
+  v1.0  2011/04/21  Paul Lesniewski <paul@squirrelmail.org>
+    * Complete cleanup, update and re-write
+    * Synchronization now includes total message count
+      (instead of only unread message count)
+    * Message list checkboxes now preserved across message
+      list refreshes (SquirrelMail 1.4.13+)
+    * Options now moved to "Folder Preferences" options page
+    * Options are now properly localized
+    * Added a configuration file where the administrator has
+      the abiltiy to control default user settings and can
+      control whether or not users can change the defaults for
+      themselves
+    * Allow configuration file to be stored in main SquirrelMail
+      configuration directory if desired
+
+  v0.8  2003/06/17  Nick Bartos
+    * Changed option names in pref file back to old values.
+      Now right side should not be refreshed when reading a
+      message. Also a few javascript fixes to prevent errors
+      from happening
+    * Fast loading SquirrelMail compatible, versioning compatible
+    * This should now work with SquirrelMail 1.4
+    * Also unneeded refreshes should be reduced, you should now
+      only get a refresh when the number of new messages in the
+      folder you are viewing change.
+
+  v0.6  2002/12/04  Jimmy Conner <jimmy@advcs.org>
+    * Fixed the JavaScript routines to count the number of
+      messages (even when there are over 9 in a folder)
+    * Now counts the messages whether in Seen/Unseen mode or
+      just Seen mode
+    * Disables JavaScript if not displaying number of messages
+    * Fixes for the JavaScript errors that it threw up
+    * Removed old debug code that logged errors to the apache logs
+    * Removed a little unneccesary code 
+
+  v0.5  2002/01/15  Jay Guerette <JayGuerette@pobox.com>
+    * If you are using IE 5+, NS 6+, or some other Mozilla 4+ Gecko-
+      based browser, an enhanced new-mail detection routine will kick
+      in, to almost eliminate unnecessary screen refreshes of the
+      message list display.  It will typically only refresh the message
+      list when the unread mail counts in the folder list change.
+    * This version has many code tweaks and optimizations from user feedback
+

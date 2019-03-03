@@ -26,7 +26,7 @@
   * string  $body_contents        The pre-formatted (length-trimmed) body 
   *                               contents (might be empty)
   *
-  * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+  * @copyright &copy; 1999-2010 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail

@@ -1,0 +1,121 @@
+Startup Folder plugin for SquirrelMail
+======================================
+Ver 2.1, 2007/11/28
+
+
+Copyright (c) 2003-2004 Scott Heavner <sdh@po.cwru.edu>
+Copyright (c) 2004-2007 Paul Lesniewski <paul@squirrelmail.org>
+
+
+Description
+===========
+
+This plugin allows the user to change the mail folder that is
+displayed when first logging in.  It also allows certain plugin
+pages to be displayed instead of a mail folder.
+
+A new option is added to the "Folder Preferences" page (which
+is found on the "Options" menu) where the "Startup Location" 
+can be changed.  If the administrator has added some plugin 
+startup locations in the configuration file, the user is also
+allowed to choose from a list of "other" (plugin) startup 
+locations.  
+
+The administrator may also set the startup location
+and disallow users from overriding it, in which case no 
+interface options are added to SquirrelMail.
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see COPYING for details).
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software, please
+consider supporting Open Source development by donating to the authors
+or inquire about hiring them to consult on other projects.  Donation
+links for the author(s) are as follows:
+
+Paul Lesniewski: https://sourceforge.net/donate/index.php?user_id=508228
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.0 or above (although please note
+    that some versions of SquirrelMail in the 1.4 series were
+    broken such that this plugin would not work (1.4.6 - 1.4.10))
+
+  * Compatibility plugin version 2.0.7 or above, unless using 
+    SquirrelMail 1.4.10+ or 1.5.2+
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+ * Suggestions welcome
+
+
+
+Change Log
+==========
+
+  v2.1 2007/11/28
+    * Updated to work with at least SquirrelMail 1.4.11 and later
+    * Updated to work with at least SquirrelMail 1.5.2 and later
+
+  v2.0 2004/03/08
+    * Added ability to start with a plugin instead of a mail folder
+    * Changed hook usage so redirection isn't such a hack
+    * Added functionality to let the admin specify default behavior 
+      in the config file 
+    * Fully internationalized
+
+  v1.0.2 2003/06/22
+    * Final cleanup before release [Paul's suggestions]
+
+  v1.0.1 2003/06/22
+    * Migrate to new coding guidlines minimalist setup.php + version info
+
+  v1.0 2003/06/14
+    * Initial version
+

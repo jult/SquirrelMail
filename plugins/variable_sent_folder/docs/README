@@ -1,0 +1,144 @@
+Variable Sent Folder plugin for SquirrelMail
+============================================
+Version 1.0, 2014/01/20
+
+
+Copyright (c) 2013-2014 Paul Lesniewski <paul@squirrelmail.org>
+Copyright (c) 2002-2003 Robin Rainton <robin@rainton.com>
+
+
+
+Description
+===========
+
+This plugin places a drop-down selector on the message
+compose screen that allows users to select which folder
+to save the sent message into.  When replying, it also
+allows the user to move the original message to the same
+folder if desired.
+
+The default value for the folder selection drop-down
+can be modified by other plugins, such as the Per
+Recipient Sent Folders plugin.
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software,
+please consider supporting Open Source development by
+donating to the authors or inquire about hiring them to
+consult on other projects.  Donation/wish list links for
+the author(s) are as follows:
+
+Paul Lesniewski: https://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see the file COPYING for details).
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.4.6 or above
+
+  * Compatibility plugin version 2.0.5 or above
+
+
+
+Troubleshooting
+===============
+
+  * If changes to the configuration file don't seem to be having
+    any effect, ensure that there are not two Variable Sent Folder
+    configuration files, one in the variable_sent_folder directory
+    and one in the main SquirrelMail config directory (named
+    "config_variable_sent_folder.php").  The one in the main
+    SquirrelMail config directory will always override the one in
+    the variable_sent_folder directory.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+  
+  * Read the Troubleshooting section herein.
+  
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+  
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+  
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+Plugin Authors' Usage Guide
+===========================
+
+As of version 1.0, this plugin provides a hook that other plugins can
+use to specify the default value of the custom sent folder drop-down
+widget that appears on the compose screen.  The hook is named
+"custom_sent_folder" and plugins using it must specify a properly
+formatted IMAP folder name in the global variable named
+$variable_sent_folder_custom_sent_folder_default (the hook return
+value is not used because in SquirrelMail 1.4.x, it is not shared
+between plugins on the same hook).  Please note that you should
+consider if other plugins are using this hook whether or not you
+may wish to respect their custom folder default value (check it
+first!) over yours.  You can refer to the Identity Folders plugin
+as an example of how to use this hook.
+
+
+
+Change Log
+==========
+  
+  v1.0  2014/01/20  Paul Lesniewski <paul@squirrelmail.org>
+    * General re-write, fixed several small issues, etc.
+    * Added configuration files
+    * Added support for SquirrelMail 1.5.2+
+    * Added compatibility with the Sent Subfolders plugin
+    * Added the custom_sent_folder hook that allows other plugins to
+      specify the default for the folder drop-down list
+    * Added checkbox that allows for original messages (when replying)
+      to be moved to the same folder as the sent message
+  
+  v0.4  2003/07/19  Robin Rainton <robin@rainton.com>
+    * Fixed folder when replying
+
+  v0.3  2003/01/21  Robin Rainton <robin@rainton.com>
+    * Removed default folder prefix
+    * Fixed bug with register_globals off
+
+  v0.2  2002/11/05  Robin Rainton <robin@rainton.com>
+    * Works with register_globals on or off
+
+  v0.4  2002/05/25  Robin Rainton <robin@rainton.com>
+    * Initial release
+

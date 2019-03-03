@@ -6,9 +6,9 @@
  * This is the code for the left bar. The left bar shows the folders
  * available, and has cookie information.
  *
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: left_main.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: left_main.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  */
 

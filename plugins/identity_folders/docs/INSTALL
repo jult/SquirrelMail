@@ -1,0 +1,36 @@
+Installing The Identity Folders Plugin
+======================================
+
+1) Start with untaring the file into the plugins directory.
+   Here is an example for the 1.0 version of the Identity
+   Folders plugin.
+
+  $ cd plugins
+  $ tar -zxvf identity_folders-1.0-1.4.0.tar.gz
+
+2) Then go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and exit.
+
+  $ cd ../../config/
+  $ ./conf.pl
+
+3) Also please verify that you have the "Variable Sent Folder"
+   plugin installed.
+
+4) Translations are not included in this package.  To get a
+   translation, download the language pack needed from:
+
+      http://www.squirrelmail.org/download.php
+
+
+
+Upgrading The Identity Folders Plugin
+=====================================
+
+1) Untar the file into the plugins directory.  Here is an
+   example for the 1.0 version of the Identity Folders plugin.
+
+  $ cd plugins
+  $ tar -zxvf identity_folders-1.0-1.4.0.tar.gz
+

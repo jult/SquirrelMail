@@ -47,9 +47,9 @@
  *                                      NOT to quote identifiers by setting
  *                                      this to "none"
  *
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: db_prefs.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: db_prefs.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  * @subpackage prefs
  * @since 1.1.3

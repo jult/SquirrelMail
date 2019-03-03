@@ -1,0 +1,196 @@
+Change SQL Password plugin for SquirrelMail
+===========================================
+Version 3.3, 2005/11/11
+
+Authors: Mark Motley <mmotley@la-mirada.net>
+         Simon Annetts <simon@ateb.co.uk>
+         Thijs Kinkhorst <thijs@kinkhorst.com>
+         Paul Lesneiwski <pdontthink@angrynerds.com>
+         Dustin Anders <dustin@unixfun.com>
+         ... and friends
+
+
+
+Description
+===========
+
+This plugin allows the user to change their password 
+from the comfort of their webmail interface when it's 
+stored in a SQL database. 
+
+This plugin supports passwords that are stored using
+plaintext, MD5 hash, encrypted MD5 hash, PHP crypt(),
+and MySQL encrypt() and password() functions.  For 
+instructions on how to get SquirrelMail to use a combination 
+of SQL and PAM for authentication (and MD5), please check 
+out the README at http://jeffco.net/downloads/squirrelmail -- 
+this information is also distributed with this plugin in
+the "jeffco" directory.
+
+This plugin also supports forcing users to change passwords 
+on startup, based on a flag set in the user database.
+
+Finally, if you have SSL configured for your web server 
+(mod_ssl/apache_ssl, etc), you can force the passwords to 
+be submitted over an encrypted connection.  Please note 
+that it is possible to enable HTTPS connections for changing
+passwords only for certain users, domains or service levels
+by overriding the relevant settings in the Virtual Host
+Login (vlogin) plugin.  Details about which settings to
+use in vlogin are given in the configuration file.
+
+
+
+Requirements
+============
+
+ * Compatibility plugin version 2.0.4 and up
+ * Pear DB library
+ * SquirrelMail 1.2.8-ish
+
+
+
+Tips
+====
+
+This information is from circa 2003 or older, so may very
+well be outdated.
+
+Amongst many other IMAP servers that can authenticate users in
+a SQL database, Cyrus IMAP with the MySQL SASL patch is one.
+Under this model, a table is created with userid and (optionally) 
+encrypted password columns.  Cyrus SASL authenticates users 
+via this table.  
+
+The SASL-mysql patch for Cyrus SASL can be obtained from:
+http://www.dmzs.com/~dmz/projects/cyrus/
+
+I recommend you modify the patch and turn on encryption on the
+password.  Do this by changing this section:
+
++ //#define QUERY_STRING    "select %s from %s where %s = '%s' and %s = password('%s')"
++ #define QUERY_STRING    "select %s from %s where %s = '%s' and %s = '%s'"
+
+Just unremark the first line and remark the second.  If you do this,
+make sure you set the $password_encryption configuration setting to 
+MYSQLPWD.  If you use unencrypted passwords (standard patch), set it 
+to NONE and it will use plaintext passwords.
+
+
+
+Security
+========
+
+Since the SQL login username and password are being stored in plaintext
+in the configuration file, it is strongly advised that at the minimum 
+you pay attention to the ownership and permissions on that file!  An 
+example would be (where "apache" is the name of the group under which
+your web server runs; substitute as appropriate):
+
+   # chown root:apache config.php; chmod 640 config.php
+
+
+
+Known Issues
+============
+
+ * The use of the (as of this time) new sqsetcookie function may be what is
+   causing occasional "must be logged in" errors after changing the password.
+   The user should just log in again with the new password.
+
+
+
+Help Requests
+=============
+
+Help requests are welcome at my personal email address, but I
+request that you first post to the SquirrelMail Plugins mailing
+list, where you'll get faster help from more people and other
+people with the same problem will be able to see how your issue
+was resolved.  If you don't get good answers that way, you may
+try emailing me directly.
+
+Info about the SquirrelMail Plugins mailing list can be found
+on the SquirrelMail web site.  It is currently located at:
+
+http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+squirrelmail-plugins@lists.sourceforge.net
+
+
+
+Change Log
+==========
+
+  3.3  2005/11/11  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Aging code 90% re-written and cleaned out
+   * Now compatible with newest release (2.0.4) of Compatibility plugin
+   * No longer MySQL-specific; supports any SQL-compliant database
+     (Plugin name has changed; please be sure to remove all traces
+     of "change_mysqlpass" from the plugins directory as well as the
+     plugins list in your SquirrelMail configuration file!)
+   * Queries are custom defined in configuration file for more
+     flexibility with oddball systems
+   * Correctly internationalized output
+
+  3.2.5  (never released)  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added abiltiy to query by user without domain part of address.
+   * Some other updates that I can't remember.
+
+  3.2  2003/04/12  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added ability to specify a cleartext password field that will
+     get updated along with the encrypted password field - use at
+     your own risk!
+   * Updated for new plugin version reporting API.
+
+  3.1  2003/03/31  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Fixed errors some people were having after a successful password 
+     change in SM 1.4 (thanks to Chris Hilts <tassium@squirrelmail.org>).
+
+  3.0  2003/03/25  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added a register_globals=Off fix.
+   * New setup.php format for better overall SquirrelMail performance.
+   * Updated for compatibility with SquirrelMail 1.4.
+        
+  2.1  2002/11/14  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added functionality that allows a 2nd database field to be
+     used to construct the user ID with which to query the database
+     for password update.
+   * Updated for compatibility with Update Plugins plugin.
+   * All output strings have been internationalized (as of now,
+     there is not a change_mysqlpass domain (if someone thinks this is
+     appropriate, it can be done easily), so the translations
+     should be updated in the squirrelmail domain -- see the .po
+     file in the change_mysqlpass directory for the strings you need to
+     translate).
+
+  2.0  2002/10/08  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Fixed session cookie for password changed.
+   * Added MD5crypt read/write support from mysql table.
+   * Added capability to force users to change password after login.
+
+  1.5.1  2002/09/03  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Theme colors now load properly (thanks to Chris Symons).
+   * Fix for sites that already serve all pages in https (thanks
+     to Michael Goepper).
+
+  1.4  2002/08/31  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Added SSL option for submitting passwords over encrypted
+     connections.  
+   * Added cancel button.  
+   * Fixed report-back mechanism indicating success or failure 
+     on main options page.
+
+  1.3  (not released)  Paul Lesneiwski <pdontthink@angrynerds.com>
+   * Autofocus cursor into first password field.
+   * Fixed bug where resetting cookie had been failing.
+
+  1.2  2002/08/05 Thijs Kinkhorst <thijs@kinkhorst.com>
+   * Register_globals = off compatible.
+
+  1.1  2002/05/04 Thijs Kinkhorst <thijs@kinkhorst.com>
+   * Support databases which contain the password encrypted with
+   * UNIX crypt(). Code cleaned. Use new Plugin hooks.
+
+  1.0  2001/03/30  Tyler Akins
+   * Initial Release
+

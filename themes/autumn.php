@@ -6,9 +6,9 @@
  * Theme Name:   'Autumn'
  *
  * Theme posted on SquirrelMail tracker #1377525
- * @copyright 2005-2018 The SquirrelMail Project Team
+ * @copyright 2005-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: autumn.php 14749 2018-01-16 23:36:07Z pdontthink $
+ * @version $Id: autumn.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

@@ -6,9 +6,9 @@
   * This page is used as a place holder for custom plugin 
   * pages that are accessed directly by the client.
   *
-  * @copyright 2006-2018 The SquirrelMail Project Team
+  * @copyright 2006-2019 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: demo.php 14749 2018-01-16 23:36:07Z pdontthink $
+  * @version $Id: demo.php 14800 2019-01-08 04:27:15Z pdontthink $
   * @package plugins
   * @subpackage demo
   */

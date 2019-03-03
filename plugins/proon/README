@@ -1,0 +1,128 @@
+PROON
+
+((Originally inspired by -- and used mildly as a starting point -- the
+auto_prune_sent plugin.  It had a good idea that I liked and I just 
+generalized it to do more things.  I also ripped off SM and PHP tricks
+from lots of other plugins and SM source files.  Many thanks also to
+Paul Lesneiwski for various helpful comments on release candidates of
+this plugin.))
+
+This plug-in can automatically prune any of your folders of old messages.
+"Old" is configured per user, per folder.  It can also prune folders by total
+size and by total message count.  "Automatic" means at login time and,
+via a per-user setting, at a recurring interval while logged in.
+
+After installing the plugin, navigate Options -> Folder Preferences ->
+Options for Pruning Folders.  Or, click the "Pruning..." button under
+your list of folders in the left pane.  Here is an extract from the
+on-screen help for that page:
+
+----------------
+
+Pruning means the deletion of messages either because they are older
+than a certain date or to bring a folder to within a certain total
+size limit or number of messages.
+
+    * Pruning first considers message dates (if there is a
+    user-specified date span value for that folder). A message's date
+    is the time since it was received by the mail server (this
+    so-called 'internal date' is preserved if you move a message
+    between folders). Messages are deleted if they have an internal
+    date older than the age indicated by the date span value.
+
+    * Pruning next considers total folder size (if there is a
+    user-specified folder size span). If the folder is over that size
+    limit, additional messages are pruned until the folder is at or
+    below it.
+
+    * Pruning finally considers the number of messages in the folder
+    (if there is a user-specified count span). If a folder has more
+    than that many messages, additional messages are pruned until the
+    folder is at or below the limit.
+
+In all those pruning cases, unread messages are normally protected and
+not pruned. That protection can be removed on a folder-by-folder
+basis. (Saved 'sent' messages start life as 'read'.)  Pruning behavior
+may be flexibly controlled using a variety of other user preferences.
+
+----------------
+
+Installation
+============
+
+* This was tested a lot in my environment, which is SM 1.4.4/1.4.5.  I
+  think it will probably work OK with any 1.4.x, but I haven't tried it.
+
+* Uncompress this archive in the plugins directory of your SquirrelMail
+  installation. (You probably have done this already to get to this
+  document!)
+
+* Copy site-config.php.sample to site-config.php and edit to taste for local
+  site preferences.  You can skip this step if you don't need to change any
+  of the defaults found in site-config.php.sample.  You can also just
+  copy/set just the things you're interested in for site-config.php.
+  Do not edit site-config.php.sample directly, as changes will be lost
+  if you upgrade proon later.
+
+* Proon reads its translated strings from the main SM locale
+  directory, using the "proon" text domain.  If this version of proon
+  contains (in proon/locale) any translations of interest to you,
+  check to see if they are already in the SM locale directory.
+  Otherwise, you can copy them there (you will probably have to
+  restart your web server for it to properly use the proon.mo file).
+
+* Run conf.pl, and select 8 (plugins).  Select proon, save, and you're done.
+  However, if you were previously running the 'auto_prune_sent' plugin
+  and/or the 'empty_trash' plugin, you probably want to disable them when
+  you enable this one.
+
+* If you are installing this to replace auto_prune_sent, proon can
+  help you a bit by converting the user preference
+  'auto_prune_sent_threshold' to the equivalent proon setting for the
+  Sent folder.  There is an item for this in the site-config file, but
+  it is disabled by default.  [Why is it disabled?  If you used to run
+  auto_prune_sent but stopped, your users may have old, stale values
+  for 'auto_prune_sent_threshold' which they have long forgotten.
+  Suddenly enabling pruning of the Sent folder could be a surprising
+  loss of archived email for such users.]  If you enable the automatic
+  conversion, the auto_prune_sent_threshold preference can be deleted
+  after the conversion.  I'd say the best policy is to tell your users
+  what's going on.  If you don't enable the conversion and users were
+  using auto_prune_sent to manage the Sent folder and maybe even keep
+  their account within quota, they may not realize that isn't
+  happening any more.  If the conversion happens, the user is taken to
+  the proon settings form, but they aren't required to do anything there
+  (I expect a reasonable percentage will just click something else to
+  make it go away.)
+
+* (There is no similar conversion for the empty_trash plugin because
+  it has only per-site settings.  If you are replacing the empty_trash
+  plugin, I think telling your users what's going on is the only
+  reasonable course.  You can do the essence of what empty_trash does via
+  proon site settings for the Trash folder.)
+
+Support
+=======
+
+proon plugin written by Bill Carpenter <bill-squirrelmail@carpenter.org>.
+
+I'd prefer that problem reports or comments be sent to the SM plugins
+mailing list <squirrelmail-plugins@lists.sourceforge.net>.  If you email
+me directly and don't request otherwise, I'll likely CC: the list with
+any replies.
+
+There is a proon.pot file for localizaton in the locale subdirectory.  The
+default locale is en_US.  If you create a translation and send it to me,
+I'll include it in an update to the plugin as a convenience, but it
+would be better to add your translation to the main SM localization
+project.
+
+ChangeLog
+=========
+
+See file "ChangeLog.txt".
+
+TODO
+====
+
+See file "TODO.txt".

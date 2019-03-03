@@ -1,0 +1,354 @@
+QuickSave plugin for SquirrelMail
+=================================
+Ver 2.4.5, 2010/02/03
+
+
+Copyright (c) 2001-2003 Ray Black <allah@accessnode.net>
+Copyright (c) 2003-2010 Paul Lesniewski <paul@squirrelmail.org>
+
+
+
+Description
+===========
+
+This plugin automatically saves email messages as users compose
+them.  This prevents messages from being accidentally wiped out 
+by refreshing the browser window or otherwise leaving the compose 
+page.  Users shouldn't ever know that it's installed unless 
+they've lost a message and it can be recovered.
+
+Cookies are used as the storage method for saving the values from
+the compose form, and an asynchronous JavaScript (aka AJAX) auto-save 
+mechanism is under development (and will alleviate the storage limit 
+that the cookie mechanism imposes).  
+
+Recovery happens no matter how the user leaves the compose screen,
+including completely refreshing the whole window (as in a Netscape 
+window resize) or even closing the browser.  However, the cookie RFC
+restricts the size and number of cookies allowed per domain, and thus
+long messages will only be partially recovered until the AJAX mechanism
+is implemented.
+
+Cookies are kept on a per-user basis, and are encrypted as best they 
+can be using JavaScript.  They are persistent, the time for which is
+configurable (see below).  Older systems can be noticably slow when
+encrypting the user's email, and because encrypted messages need more
+storage space, using encryption will cut down on the length of any
+messages that may be recovered.  Therefore, the default is no 
+encryption -- the user can increase encryption levels by going to 
+Options->Display Preferences.
+
+This plugin does work with 'compose in new window', but PLEASE BE SURE
+NOT TO DOWNLOAD the 'compose in new window' plugin, since it has already
+been made part of the SquirrelMail core -- if you download that plugin,
+which is out of date, QuickSave will not function properly.  
+
+QuickSave also works with the HTML Mail plugin, although it can be a 
+bit quirky, which is unavoidable when writing HTML-formatted emails.
+
+This plugin also will not recover attachments (although this is on the
+TODO list for future development).
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see COPYING for details).
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software, please
+consider supporting Open Source development by donating to the authors
+or inquire about hiring them to consult on other projects.  Donation
+links for the author(s) are as follows:
+
+Paul Lesniewski: http://squirrelmail.org/donate_paul_lesniewski.php
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.2.9 or above
+  * Compatibility plugin version 2.0.7 or above
+
+
+
+Optional Configuration
+======================
+
+Cookies are kept on users' machines for a default of one hour (the
+rationale being that they know when they lose a message, and shouldn't 
+need more than an hour to recover it; QuickSave is not a replacement 
+for "Save Draft" functionality), but you can change this as desired by
+changing the values for $quicksave_cookie_days, $quicksave_cookie_hours,
+and/or $quicksave_cookie_minutes in config.php.
+
+config.php also contains settings for restricting the amount of data 
+stored in cookies; values are about maxed out for IE6, default security 
+and privacy settings...  If you experience blank recoveries or "must 
+be logged in" messages, you can adjust these downward (the main value 
+you'll want to change is $maxSingleCookieLength).
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+TODO
+====
+
+   * Add routine to check for no user activity, and after some
+     configured value of time (several minutes? zero to disable
+     functionality), auto-click the "Save Draft" button -- this
+     will save the full message w/out an AJAX solution, but three
+     problems: how to delete draft if user eventually sends the
+     message, not to mention the fact that when saved, the compose
+     screen seems to come back empty and how to recover draft 
+     instead of cookie when user later returns... also will too 
+     many drafts build up?  Maybe that's OK (a good thing)?
+   * AJAX-ify the storage mechanism (storage limits don't apply!)
+   * Provice RPC interface to functions such as whether or not 
+     a recoverable message exists (which returns the message data?)
+     and for saving the message (same as above item?)
+   * Recover attachments by snagging the attachment file names
+     from the compose session, although note to end users that
+     if the file gets cleaned up (ie., by cron) before the
+     recovery, the attachment will be lost
+   * Possibly allow message saving to happen when user stops typing?
+   * Show "message saved" on screen after every save?  This 
+     might be best left for advanced templates and possibly only
+     after the above item is implemented, if at all
+   * If a message that was a reply to another is recovered, I
+     think the fact that it is a reply is lost... is there a
+     way to recover the reply ID?  How about for forwards or
+     resumed drafts?
+   * If a message is waiting to be recovered, and the user goes
+     to the compose screen by doing something such as replying,
+     forwarding, or resuming a draft, I think after the recovery
+     is chosen by the user, the reply ID or forward ID or fact
+     that the draft is being resumed might still be the same, 
+     when in fact the message now being edited is perhaps unrelated
+     to the original action.  Is there a way to clear out that 
+     information?  Worst case scenario is that a saved draft is
+     then lost.
+   * There is a nice DES encryption mechanism here:
+     http://www.tero.co.uk/des/code.php
+     but it might be too CPU intensive for repeated use in the
+     way this plugin works
+
+
+
+Change Log
+==========
+
+  2.4.5  2010/02/03  Paul Lesniewski <paul@squirrelmail.org>
+   * Minor fix for rare PHP notices in login routine
+
+  2.4.4  2010/01/25  Paul Lesniewski <paul@squirrelmail.org>
+   * Bug fix in moderate encryption routine that would render
+     plugin functionality unusable for certain usernames.
+     Although related to the same code, this is a DIFFERENT
+     fix from what was done in version 2.4.3.
+
+  2.4.3  2009/12/08  Paul Lesniewski <paul@squirrelmail.org>
+   * Bug fix in moderate encryption routine that would render
+     plugin functionality unusable for certain usernames.
+     Thanks to Wolfgang Breyha.
+
+  2.4.2  2007/08/26  Paul Lesniewski <paul@squirrelmail.org>
+   * Don't offer recovery when SquirrelMail does it natively
+   * Fix fatal error upon login under 1.5.2+
+
+  2.4.1  2007/08/01  Paul Lesniewski <paul@squirrelmail.org>
+   * Add message recovery alert upon login in MOTD at top of message list
+   * Trim and do not recover whitespace-only messages
+   * Added additional compatibility fix for Restrict Senders 
+     and Censor plugins
+   * Clean up SquirrelMail's incomplete compose message cache when
+     cancel button is clicked
+
+  2.4  2007/04/05  Paul Lesniewski <paul@squirrelmail.org>
+   * Removed hidden form storage mechanism
+   * Default save frequency changed to five seconds and is
+     configurable by the administrator
+   * Recovery decision made more reliably on server in PHP 
+     rather than by the client side script
+   * Added ability for admin to configure defaults for save 
+     frequency and encryption and turn off display options
+     if desired
+   * Allow admin to indicate that the beginning of the 
+     message body should be shown in recovery alerts
+   * Save-draft patch no longer needed
+   * Fixed error popups that occurred when moderate 
+     encryption was enabled
+   * Correct internationalization
+   * Recovery much more reliable when using HTML Mail plugin 
+     (only unreliable recovery seems to be with HTMLArea 
+     editor under Gecko browsers)
+   * Lots of general cleanup
+   * Uses new sq_change_text_domain() for correct i18n
+   * Reduced added code by about 5kb
+
+  2.3  2003/09/12  Paul Lesniewski <paul@squirrelmail.org>
+   * Updated for new SM version reporting API.
+   * Updated for compatibility with HTML Mail plugin...
+     note that it is quirky in this context (IE sometimes
+     takes a couple minutes to start saving, no idea
+     why except that this much javascript can bring
+     down the most stable of browsers...).  For best
+     results, please make sure that QuickSave is
+     installed *AFTER* the HTML Mail plugin!
+
+[2003.Mar.13]
+   2.2: Fix for javascript problem with comparing multi-
+        line message bodies that was crashing quicksave
+        and causing browser errors.
+        Fixed false recover alerts when cookie only saved
+        part of a long body (see below, nothing we can
+        do about RFC-imposed cookie limits).
+
+[2003.Mar.04]
+   2.1: Minor (optional) fix in the form of a source code
+        patch is included if you don't like the "auto-
+        draft recovery" "feature" (bug) where QuickSave
+        gives false recover alerts after the "Save Draft"
+        button is pressed.
+
+[2003.Mar.01]
+   2.0: Added encryption of cookie data and made cookies
+        persistent and per-user; that is users can recover
+        messages even if their browser crashes, and they
+        won't ever get their stored messages mixed up with
+        another users'.
+        Encryption is not unbreakable, however!
+        Encryption is turned off by default, because it
+        slows down message composing somewhat (depending
+        on the computer and level of encryption) and reduces
+        the length of saved messages considerably.  Users
+        can enable the desired level of encryption from
+        the Options-->Display Preferences screen.
+        The sysadmin may can configure the length of time
+        that cookies are kept on users' machines - see
+        config.php for the appropriate settings.
+        config.php also contains settings for restricting
+        the amount of data stored in cookies; values are
+        about maxed out for IE6, default security settings...
+        If you experience blank recoveries or "must be
+        logged in" messages, you can adjust these downward
+        (the main value you'll want to change is
+        $maxSingleCookieLength).
+        Also fixed false recovery alert when adding a
+        signature or getting addresses or attachments;
+        there isn't a good way to avoid attempted recovery
+        when "Save Draft" is pressed, but I say it's good
+        enough for now (sort of like auto-draft recovery ;->)
+        Included in these changes are fixes for problems
+        introduced in version 1.2.0 that prevented recovery
+        between login sessions.
+        Updated to work with SquirrelMail 1.4.
+        Finally, setup.php is in a new format, which helps
+        speed up overall SquirrelMail performance.
+
+[2003.Feb.11]
+ 1.2.0: Added user controls for quicksave frequency (and the
+        option to turn it off).
+        Changed functionality so that quicksave will not think
+        the message has been sent until it is really sent,
+        instead of turning itself off when the "Send" button
+        is pressed.
+        Fix for signatures with quotation marks in them that
+        was causing javascript errors.
+
+[2002.Nov.12]
+ 1.1.4: When "Compose In New Window" is turned on, the CANCEL
+        button will now close the window (complements Bruce
+        <itsbruce@uklinux.net>).
+
+[2002.Nov.03]
+ 1.1.3: User signatures are recognized as being different from a
+        message body with actual message text in it, so false
+        alerts when using a signature have been fixed.  (Lots of
+        thanks to Nick Tan <nick@wehi.edu.au> for helping track
+        down and test this!)
+        All output strings have been internationalized (as of now,
+        there is not a quicksave domain (if someone thinks this is
+        appropriate, it can be done easily), so the translations
+        should be updated in the squirrelmail domain -- see the .po
+        file in the quicksave directory for the strings you need to
+        translate).
+        Updated for compatibility with the Plugin Update plugin.
+
+[2002.Aug.10]
+ 1.1.2: Very minor changes: new pop-up text when restoring message and
+        fix such that quicksave doesn't try to restore messages that
+        had no content (if user accidentally presses "Compose" twice).
+
+[2002.May.10]
+ 1.1.1: Added a ton more javascript fixes, focused around the problems we
+        had when the Compose page was in its own window. So, to put it best,
+        QuickSave should now be fully compliant with both the New Window
+        and Compose In New Window plugins. Also added a fix for folks like
+        myself who use the pagination feature (thanks to Cor Bosman for
+        that). Finally, the Cancel button now pseudo-intelligently returns
+        you to the message list if you'd clicked 'Compose', or back to
+        your message if you'd clicked Forward or Reply (or Reply All).
+
+[2002.Mar.06]
+ 1.1.0: Javascript bug fixes for our IE friends, plus fixes for all those
+        wierd folks out there not using short tags and asp-style prints.
+        (thanks to Seth Randall for making this update really easy)
+
+[2001.Apr.30]
+ 1.0.0: Minor bug fixes to the old, form-based storage system. That's not
+        the big thing, though. We now use cookies as the primary storage
+        system. If cookies are being refused (then Squirrel shouldn't
+        work, but I digress), then we still have all the old functionality
+        of the 0.x releases.
+
+ 0.6: IE over-save bug FINALLY fixed (thanks DJ!), cancel button added
+        to Compose's button row, plus cleaned up recovery process.
+
+ 0.4, 0.5: not officially released. Attempted fixed for IE's annoying
+        over-save bug (didn't fix it). With 0.5, canceling works better.
+
+ 0.3: only fields which have values will be saved and/or restored.
+
+ 0.2: bug fixes, requirements updated.
+
+ 0.1: initial release (duh).
+
+
+

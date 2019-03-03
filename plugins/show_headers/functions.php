@@ -21,16 +21,16 @@ function parse_showheader($imapConnection,$id, $passed_ent_id) {
   for ($i=1; $i < count($read); $i++) {
     $line = htmlspecialchars($read[$i]);
     switch (true) {
-      case (preg_match("^&gt;", $line)):
+      case (eregi("^&gt;", $line)):
         $second[$i] = $line;
         $first[$i] = '&nbsp;';
         $cnum++;
         break;
-      case (preg_match("^[ |\t]", $line)):
+      case (eregi("^[ |\t]", $line)):
         $second[$i] = $line;
         $first[$i] = '';
         break;
-      case (preg_match("^([^:]+):(.+)", $line, $regs)):
+      case (eregi("^([^:]+):(.+)", $line, $regs)):
         $first[$i] = $regs[1] . ':';
         $second[$i] = $regs[2];
         $cnum++;
@@ -174,7 +174,7 @@ function show_headers_display() {
       if (preg_match("/" . $search . "/i", $header[0])) {
         $found[] = '<tr><td align="right">' . $header[0] . 
                     '&nbsp;</td><td align="left">' . 
-                    preg_replace("(<br[^>]*>)|(\r)|(\n)", "", decodeHeader($header[1],false,false,true)) .
+                    eregi_replace("(<br[^>]*>)|(\r)|(\n)", "", decodeHeader($header[1],false,false,true)) .
                     '</td></tr>';
       }
     }   

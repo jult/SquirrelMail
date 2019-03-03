@@ -4,7 +4,7 @@
 /**
   * SquirrelMail Quick Save Plugin
   * Copyright (c) 2001-2002 Ray Black <allah@accessnode.net>
-  * Copyright (c) 2003-2007 Paul Lesniewski <paul@squirrelmail.org>
+  * Copyright (c) 2003-2010 Paul Lesniewski <paul@squirrelmail.org>
   * Licensed under the GNU GPL. For full terms see the file COPYING.
   *
   * @package plugins
@@ -23,9 +23,10 @@
 function quicksave_init()
 {
 
-   if (!@include_once (SM_PATH . 'plugins/quicksave/config.php'))
-      if (!@include_once (SM_PATH . 'plugins/quicksave/config.sample.php'))
-         return FALSE;
+   if (!@include_once (SM_PATH . 'config/config_quicksave.php'))
+      if (!@include_once (SM_PATH . 'plugins/quicksave/config.php'))
+         if (!@include_once (SM_PATH . 'plugins/quicksave/config_default.php'))
+            return FALSE;
 
    return TRUE;
 

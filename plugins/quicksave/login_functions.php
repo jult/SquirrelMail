@@ -4,7 +4,7 @@
 /**
   * SquirrelMail Quick Save Plugin
   * Copyright (c) 2001-2002 Ray Black <allah@accessnode.net>
-  * Copyright (c) 2003-2007 Paul Lesniewski <paul@squirrelmail.org>
+  * Copyright (c) 2003-2010 Paul Lesniewski <paul@squirrelmail.org>
   * Licensed under the GNU GPL. For full terms see the file COPYING.
   *
   * @package plugins
@@ -306,9 +306,9 @@ function decrypt_medium($value)
    for ($i = 0; $i < $length; $i++) 
    {
       $temp[$i] = ord($value{$i});
-      $temp2[$i] = ord($value{($i + 1)});
+      $temp2[$i] = isset($value{($i + 1)}) ? ord($value{($i + 1)}) : 0;
       //temp[$i] = uniord($value{$i});
-      //temp2[$i] = uniord($value{($i + 1)});
+      //temp2[$i] = isset($value{($i + 1)}) ? uniord($value{($i + 1)}) : 0;
    }
 
    for ($i = 0; $i < $length; $i = $i + 2) 
@@ -456,9 +456,28 @@ function decrypt_moderate($value)
 //      $prand .= uniord($pwd{$i});
    }
 
-   $sPos = floor(strlen($prand) / 5);
-   $mult = $prand{$sPos} . $prand{($sPos * 2)} . $prand{($sPos * 3)}
-         . $prand{($sPos * 4)} . $prand{($sPos * 5)};
+   $divisor = 5;
+
+   while ($divisor > 1)
+   {
+      $mult = '';
+      $sPos = floor(strlen($prand) / $divisor);
+      $found_non_zero = FALSE;
+      for ($i = 1; $i <= $divisor; $i++)
+      {
+         $char = $prand{($sPos > 0 ? $sPos * $i - 1 : 0)};
+         if ($char != '0' && $char != '')
+         {
+            $found_non_zero = TRUE;
+         }
+         $mult .= $char;
+      }
+
+      if ($found_non_zero) break;
+
+      $divisor--;
+   }
+
    $incr = round(strlen($pwd) / 2);
    $modu = pow(2, 31) - 1;
    $salt = base_convert(substr($value, strlen($value) - 8), 16, 10);
@@ -489,8 +508,9 @@ function decrypt_moderate($value)
 
       // manual rounding.  yuck
       //
-      $prand = $prand{0} . '.' . substr($prand, 1, 14)
-             . ($prand{16} > 4 ? $prand{15} + 1 : $prand{15});
+      if (isset($prand{16}))
+         $prand = $prand{0} . '.' . substr($prand, 1, 14)
+                . ($prand{16} > 4 ? $prand{15} + 1 : $prand{15});
    }
 
    while (strlen($prand) > 10)

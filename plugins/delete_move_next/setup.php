@@ -7,10 +7,10 @@
  *   deletes or moves currently displayed message and displays
  *   next or previous message.
  *
- * Copyright (c) 1999-2018 The SquirrelMail Project Team
+ * Copyright (c) 1999-2019 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * $Id: setup.php 14782 2018-10-06 17:44:38Z pdontthink $
+ * $Id: setup.php 14800 2019-01-08 04:27:15Z pdontthink $
  * @package plugins
  * @subpackage delete_move_next
  */
@@ -279,7 +279,7 @@ function delete_move_next_moveNextForm($next) {
             ' <select name="targetMailbox">';
     get_move_target_list(); 
     echo    '</select> '.
-            '<input type="submit" value="' . _("Move") . '">'.
+            '<input type="submit" id="moveBtn" value="' . _("Move") . '">'.
             '</small>'.
            '</form>'.
          '</td>'.
@@ -303,7 +303,7 @@ function delete_move_next_moveRightMainForm() {
             ' <select name="targetMailbox">';
     get_move_target_list(); 
     echo    ' </select> ' .
-            '<input type=submit value="' . _("Move") . '">'.
+            '<input type=submit id="moveBtn" value="' . _("Move") . '">'.
             '</small>'.
          '</form>' .
          '</td>'.

@@ -11,9 +11,9 @@
  *    - Send mail
  *    - Save As Draft
  *
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: compose.php 14781 2018-09-23 22:14:24Z pdontthink $
+ * @version $Id: compose.php 14802 2019-02-23 07:09:00Z pdontthink $
  * @package squirrelmail
  */
 
@@ -55,7 +55,8 @@ sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
 // compose_messages only useful in SESSION when a forward-as-attachment 
 // has been preconstructed for us and passed in via that mechanism; once 
 // we have it, we can clear it from the SESSION
-sqsession_unregister('compose_messages');
+// -- No, this is useful in other scenarios, too -- removing:
+// sqsession_unregister('compose_messages');
 
 /** SESSION/POST/GET VARS */
 sqgetGlobalVar('send', $send, SQ_POST);
@@ -155,8 +156,12 @@ function replyAllString($header) {
      * 1) Remove the addresses we'll be sending the message 'to'
      */
     $url_replytoall_avoid_addrs = '';
-    if (isset($header->reply_to)) {
+    if (isset($header->reply_to) && is_array($header->reply_to) && count($header->reply_to)) {
         $excl_ar = $header->getAddr_a('reply_to');
+    } else if (is_object($header->reply_to)) { /* unneccesarry, just for failsafe purpose */
+        $excl_ar = $header->getAddr_a('reply_to');
+    } else {
+        $excl_ar = $header->getAddr_a('from');
     }
     /**
      * 2) Remove our identities from the CC list (they still can be in the
@@ -720,7 +725,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         $use_signature, $composesession, $data_dir, $username,
         $username, $key, $imapServerAddress, $imapPort, $imap_stream_options,
         $composeMessage, $body_quote, $strip_sigs, $do_not_reply_to_self;
-    global $languages, $squirrelmail_language, $default_charset;
+    global $languages, $squirrelmail_language, $default_charset, $compose_messages;
 
     /*
      * Set $default_charset to correspond with the user's selection
@@ -1246,6 +1251,7 @@ function showInputForm ($session, $values=false) {
         echo addHidden('session', $session);
     }
 
+    // NB: passed_id is set to empty string elsewhere, so this ALWAYS gets added, which is better anyway IMO
     if (isset($passed_id)) {
         echo addHidden('passed_id', $passed_id);
     }
@@ -1653,7 +1659,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
         $username, $popuser, $usernamedata, $identity, $idents, $data_dir,
         $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
-        $domain, $action, $default_move_to_sent, $move_to_sent;
+        $domain, $action, $default_move_to_sent, $move_to_sent, $session, $compose_messages;
     global $imapServerAddress, $imapPort, $imap_stream_options, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
@@ -1828,6 +1834,9 @@ function deliverMessage(&$composeMessage, $draft=false) {
             sqimap_logout($imap_stream);
             unset ($imap_deliver);
             $composeMessage->purgeAttachments();
+//TODO: completely unclear if should be using $compose_session instead of $session below
+            unset($compose_messages[$session]);
+            sqsession_register($compose_messages,'compose_messages');
             return $succes;
         } else {
             $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."),
@@ -1895,6 +1904,9 @@ function deliverMessage(&$composeMessage, $draft=false) {
             unset ($imap_deliver);
         }
         $composeMessage->purgeAttachments();
+//TODO: completely unclear if should be using $compose_session instead of $session below
+        unset($compose_messages[$session]);
+        sqsession_register($compose_messages,'compose_messages');
         sqimap_logout($imap_stream);
     }
     return $succes;

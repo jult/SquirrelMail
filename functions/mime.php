@@ -6,9 +6,9 @@
  * This contains the functions necessary to detect and decode MIME
  * messages.
  *
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: mime.php 14780 2018-09-21 17:24:58Z pdontthink $
+ * @version $Id: mime.php 14806 2019-02-27 02:04:45Z pdontthink $
  * @package squirrelmail
  */
 
@@ -429,7 +429,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 
 
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
-    global $where, $what, $startMessage, $color, $passed_ent_id;
+    global $where, $what, $startMessage, $color, $passed_ent_id, $block_svg_download;
     static $ShownHTML = 0;
 
     $att_ar = $message->getAttachments($exclude_id);
@@ -445,6 +445,9 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $header = $att->header;
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);
+        if ($block_svg_download && strpos($type1, 'svg') === 0)
+            continue;
+
         $name = '';
         $links['download link']['text'] = _("Download");
         $links['download link']['href'] = SM_PATH .
@@ -637,7 +640,7 @@ function decodeBody($body, $encoding) {
  * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
  */
 function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
-    global $languages, $squirrelmail_language,$default_charset;
+    global $languages, $squirrelmail_language,$default_charset, $fix_broken_base64_encoded_messages;
     if (is_array($string)) {
         $string = implode("\n", $string);
     }
@@ -694,6 +697,13 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
             switch ($encoding)
             {
                 case 'B':
+                    // fix broken base64-encoded strings (remove end = padding,
+                    // change any = to + in middle of string, add padding back
+                    // to the end)
+                    if ($fix_broken_base64_encoded_messages) {
+                        $encoded_string_minus_padding = strtr(rtrim($res[4], '='), '=', '+');
+                        $res[4] = str_pad($encoded_string_minus_padding, strlen($res[4]), '=');
+                    }
                     $replace = base64_decode($res[4]);
                     if ($can_be_encoded) {
                         // string is converted from one charset to another. sanitizing depends on $htmlsave
@@ -1676,7 +1686,9 @@ function sq_fixatts($tagname,
         /**
          * Use white list based filtering on attributes which can contain url's
          */
-        else if ($attname == 'href' || $attname == 'src' || $attname == 'background') {
+        else if ($attname == 'href' || $attname == 'xlink:href' || $attname == 'src'
+              || $attname == 'poster' || $attname == 'formaction'
+              || $attname == 'background' || $attname == 'action') {
             sq_fix_url($attname, $attvalue, $message, $id, $mailbox);
             $attary{$attname} = $attvalue;
         }
@@ -1984,7 +1996,7 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
      * be set to relative and move itself anywhere it wants to,
      * displaying content in areas it shouldn't be allowed to touch.
      */
-    $match   = Array('/\/\*.*\*\//',
+    $match   = Array('/\/\*.*\*\//', // removes /* blah blah */
                     '/expression/i',
                     '/behaviou*r/i',
                     '/binding/i',
@@ -2308,14 +2320,13 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
     require_once(SM_PATH . 'functions/url_parser.php');  // for $MailTo_PReg_Match
 
     global $attachment_common_show_images, $view_unsafe_images,
-           $has_unsafe_images;
+           $has_unsafe_images, $allow_svg_display;
     /**
      * Don't display attached images in HTML mode.
      */
     $attachment_common_show_images = false;
     $tag_list = Array(
             false,
-            "object",
             "meta",
             "html",
             "head",
@@ -2324,25 +2335,28 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
             "frame",
             "iframe",
             "plaintext",
-            "marquee"
+            "marquee",
             );
 
     $rm_tags_with_content = Array(
             "script",
+            "object",
             "applet",
             "embed",
             "title",
             "frameset",
             "xmp",
-            "xml"
+            "xml",
             );
+    if (!$allow_svg_display)
+        $rm_tags_with_content[] = 'svg';
 
     $self_closing_tags =  Array(
             "img",
             "br",
             "hr",
             "input",
-            "outbind"
+            "outbind",
             );
 
     $force_tag_closing = true;
@@ -2354,7 +2368,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                 "/^on.*/i",
                 "/^dynsrc/i",
                 "/^data.*/i",
-                "/^lowsrc.*/i"
+                "/^lowsrc.*/i",
                 )
             );
 

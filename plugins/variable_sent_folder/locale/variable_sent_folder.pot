@@ -1,0 +1,80 @@
+# LANGUAGE (xx_XX) SquirrelMail Variable Sent Folder Plugin Translation
+# Copyright (c) 2000-2014 The Squirrelmail Project Team
+# This file is distributed under the same license as the SquirrelMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# $Id$
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: variable_sent_folder 1.0\n"
+"Report-Msgid-Bugs-To: Paul Lesniewski <paul@squirrelmail.org>\n"
+"POT-Creation-Date: 2013-12-07 16:13-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: functions.php:211
+msgid "Save Sent Message In:"
+msgstr ""
+
+#: functions.php:215
+msgid "Do not Save"
+msgstr ""
+
+#: functions.php:230
+msgid "Also move original"
+msgstr ""
+
+#: functions.php:284
+msgid "Custom Sent Folder"
+msgstr ""
+
+#: functions.php:289
+msgid "Enable Custom Sent Folder Selector"
+msgstr ""
+
+#: functions.php:294
+msgid "Off"
+msgstr ""
+
+#: functions.php:295
+msgid "Only when replying"
+msgstr ""
+
+#: functions.php:296
+msgid "Only when composing new"
+msgstr ""
+
+#: functions.php:297
+msgid "Always on"
+msgstr ""
+
+#: functions.php:301
+msgid "Sent Folder"
+msgstr ""
+
+#: functions.php:304
+msgid "Default Custom Sent Folder"
+msgstr ""
+
+#: functions.php:309
+#, php-format
+msgid "\"%s\" as defined above"
+msgstr ""
+
+#: functions.php:310
+msgid "Current folder being viewed"
+msgstr ""
+
+#: functions.php:317
+msgid ""
+"For Replies, Default To Move Original Message To Same Folder As Sent Message"
+msgstr ""
+
+#: functions.php:325
+#, php-format
+msgid "Only Move Original When Not Saving To \"%s\" Defined Above"
+msgstr ""

@@ -1,0 +1,118 @@
+# <your language> SquirrelMail Change SQL Password Plugin Translation File
+# Copyright (c) 2005 The Squirrelmail Development Team
+# This file is distributed under the same license as the SquirrelMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-11 23:06-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Could not find Pear DB library"
+msgstr ""
+
+msgid "Could not make database connection"
+msgstr ""
+
+#, c-format
+msgid "DATABASE ERROR: could not lookup force change password flag: %s"
+msgstr ""
+
+#, c-format
+msgid "Force change password query result is: %s<br />Query was: %s<br /><br />"
+msgstr ""
+
+msgid "Change Password"
+msgstr ""
+
+msgid "Use this to change your email password."
+msgstr ""
+
+msgid "Password changed successfully.<br />Please use your new password to log in from now on."
+msgstr ""
+
+msgid "Password change cancelled.<br />Your password has NOT been changed."
+msgstr ""
+
+msgid "Periodically, we ask that you change your password.  This is done to help maintain good security for your email account."
+msgstr ""
+
+msgid "Change Password - Secure"
+msgstr ""
+
+msgid "Old Password"
+msgstr ""
+
+msgid "New Password"
+msgstr ""
+
+msgid "Verify New Password"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+#, c-format
+msgid "DATABASE ERROR: could not lookup salt: %s"
+msgstr ""
+
+#, c-format
+msgid "Password query result is: %s<br />Query was: %s<br /><br />"
+msgstr ""
+
+msgid "You must type in your old password"
+msgstr ""
+
+msgid "Your old password is not correct"
+msgstr ""
+
+#, c-format
+msgid "DATABASE ERROR: could not lookup old password: %s"
+msgstr ""
+
+msgid "Your old password does not match"
+msgstr ""
+
+msgid "You must type in a new password"
+msgstr ""
+
+#, c-format
+msgid "Your new password is too short.  It must be at least %s characters long"
+msgstr ""
+
+#, c-format
+msgid "Your new password is too long.  It must be no more than %s characters long"
+msgstr ""
+
+msgid "Please include at least one digit in your new password"
+msgstr ""
+
+msgid "Please include at least one upper-case letter in your new password"
+msgstr ""
+
+msgid "Please include at least one lower-case letter in your new password"
+msgstr ""
+
+msgid "Please include at least one non-alphanumeric character (such as @, - or _) in your new password"
+msgstr ""
+
+msgid "You must also type in your new password in the verify box"
+msgstr ""
+
+msgid "Your new password does not match the verify password"
+msgstr ""
+
+msgid "Your new password must be different than your old password"
+msgstr ""
+
+#, c-format
+msgid "DATABASE ERROR: could not update password: %s"
+msgstr ""
