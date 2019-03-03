@@ -80,7 +80,6 @@ $config_location_base     = '';
 $disable_plugins          = false;
 
 $session_name          = 'SQMSESSID';
-$only_secure_cookies     = false;
 $disable_security_tokens = false;
 $use_transparent_security_image = true;
 $use_iframe = false;
