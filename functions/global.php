@@ -454,7 +454,8 @@ function sqsession_destroy() {
  */
 
 function sqsession_is_active() {
-    sqsession_start();
+    if (session_status() === PHP_SESSION_NONE)
+        sqsession_start();
 }
 
 /**

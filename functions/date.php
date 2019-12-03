@@ -87,7 +87,7 @@ function getGMTSeconds($stamp, $tzc) {
     }
     $hh = substr($tzc,1,2);
     $mm = substr($tzc,3,2);
-    $iTzc = ($hh * 60 + $mm) * 60;
+    $iTzc = ((int) $hh * 60 + (int) $mm) * 60;
     if ($neg) $iTzc = -1 * (int) $iTzc;
     /* stamp in gmt */
     $stamp -= $iTzc;

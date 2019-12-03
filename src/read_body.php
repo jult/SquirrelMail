@@ -763,6 +763,8 @@ sqgetGlobalVar('mailbox',       $mailbox);
 
 if ( sqgetGlobalVar('passed_id', $temp) ) {
     $passed_id = (int) $temp;
+} else {
+    $passed_id = 0;
 }
 if ( sqgetGlobalVar('sort', $temp) ) {
     $sort = (int) $temp;

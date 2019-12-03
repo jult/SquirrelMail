@@ -39,6 +39,8 @@ sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
 sqgetGlobalVar('absolute_dl',$absolute_dl,  SQ_GET);
 if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
     $passed_id = (int) $temp;
+} else {
+    $passed_id = 0;
 }
 
 global $default_charset;
