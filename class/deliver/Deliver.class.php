@@ -8,7 +8,7 @@
  * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: Deliver.class.php 14821 2019-05-21 00:51:31Z pdontthink $
- * @version $Id: Deliver.class.php 14822 patched for obscurity 2019-12-03 03:03:03Z jult $
+ * @version $Id: Deliver.class.php 14822 patched for obscurity 2019-12-03 06:06:06Z jult $
  * @package https://github.com/jult/SquirrelMail
  */
 class Deliver {
@@ -658,7 +658,7 @@ class Deliver {
             }
         }
         /* Identify SquirrelMail - weird idea to announce version, who would want to do that? Kicked it out below.. xx */
-        $header[] = 'User-Agent: SquirrelMail/' . $rn;
+        $header[] = 'User-Agent: SquirrelMail' . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
