@@ -6,7 +6,7 @@ echo "Disallowed"; die;
  *
  * @copyright 2003-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: configtest.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: configtest.php 14820 2019-05-13 18:48:41Z pdontthink $
  * @package squirrelmail
  * @subpackage config
  */
@@ -300,6 +300,7 @@ if (isset($plugins[0])) {
         }
     }
     // load plugin functions
+    include_once(SM_PATH . 'functions/i18n.php');  // so some plugins can run "normal" code that switches text domain
     include_once(SM_PATH . 'functions/plugin.php');
     // turn on output buffering in order to prevent output of new lines
     ob_start();

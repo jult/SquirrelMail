@@ -5,7 +5,7 @@
  *
  * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: global.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: global.php 14815 2019-04-16 09:52:45Z pdontthink $
  * @package squirrelmail
  */
 
@@ -463,7 +463,8 @@ function sqsession_is_active() {
  * (IE6 only)
  * Note that as sqsession_is_active() no longer discriminates as to when
  * it calls this function, session_start() has to have E_NOTICE suppression
- * (thus the @ sign).
+ * (thus the @ sign).  Update: with PHP7.2+, session_set_cookie_params() is
+ * similarly affected.
  *
  * @return void
  *
@@ -473,7 +474,7 @@ function sqsession_is_active() {
 function sqsession_start() {
     global $base_uri;
 
-    session_set_cookie_params (0, $base_uri);
+    @session_set_cookie_params (0, $base_uri);
     @session_start();
     // could be: sq_call_function_suppress_errors('session_start');
     $session_id = session_id();

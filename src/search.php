@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: search.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: search.php 14812 2019-03-27 07:32:26Z pdontthink $
  * @package squirrelmail
  * @subpackage search
  */
@@ -375,7 +375,7 @@ if ($saved_count > 0) {
             echo html_tag( 'tr', '', '', $color[4] );
         }
         echo html_tag( 'td', sm_encode_html_special_chars(imap_utf7_decode_local($saved_attributes['saved_folder'][$i + 1])), 'left', '', 'width="35%"' )
-        . html_tag( 'td', sm_encode_html_special_chars($saved_attributes['saved_what'][$i + 1]), 'left' )
+        . html_tag( 'td', sm_encode_html_special_chars($saved_attributes['saved_what'][$i + 1]), 'left', '', 'width="35%"' )
         . html_tag( 'td', sm_encode_html_special_chars($saved_attributes['saved_where'][$i + 1]), 'center' )
         . html_tag( 'td', '', 'right' )
         .   '<a href="search.php'
@@ -424,7 +424,7 @@ if ($recent_count > 0) {
             if (isset($attributes['search_what'][$i]) &&
                 !empty($attributes['search_what'][$i])) {
             echo html_tag( 'td', sm_encode_html_special_chars(imap_utf7_decode_local($attributes['search_folder'][$i])), 'left', '', 'width="35%"' )
-               . html_tag( 'td', sm_encode_html_special_chars($attributes['search_what'][$i]), 'left' )
+               . html_tag( 'td', sm_encode_html_special_chars($attributes['search_what'][$i]), 'left', '', 'width="35%"' )
                . html_tag( 'td', sm_encode_html_special_chars($attributes['search_where'][$i]), 'center' )
                . html_tag( 'td', '', 'right' )
                .   "<a href=\"search.php?count=$i&amp;submit=save&amp;smtoken=" . sm_generate_security_token() . '">'

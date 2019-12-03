@@ -698,7 +698,7 @@ $config_location_base = '';
  * @global bool $only_secure_cookies
  * @since 1.5.2 and 1.4.16
  */
-$only_secure_cookies = true;
+$only_secure_cookies = false;
 
 /**
  * Secure Forms

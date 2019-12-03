@@ -1,77 +1,18 @@
 <?php
-
 /**
  * Deliver.class.php
  *
- * This contains all the functions needed to send messages through
- * a delivery backend.
+ * This contains all the functions needed to send messages through a delivery backend.
  *
  * @author Marc Groot Koerkamp
  * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver.class.php 14801 patched for obscurity 2019-03-02 03:03:03Z jult $
- * @package squirrelmail github
- */
-
-/**
- * Deliver Class - called to actually deliver the message
- *
- * This class is called by compose.php and other code that needs
- * to send messages.  All delivery functionality should be centralized
- * in this class.
- *
- * Do not place UI code in this class, as UI code should be placed in templates
- * going forward.
- *
- * @author  Marc Groot Koerkamp
- * @package squirrelmail
+ * @version $Id: Deliver.class.php 14821 2019-05-21 00:51:31Z pdontthink $
+ * @version $Id: Deliver.class.php 14822 patched for obscurity 2019-12-03 03:03:03Z jult $
+ * @package https://github.com/jult/SquirrelMail
  */
 class Deliver {
 
-    /**
-     * function mail - send the message parts to the SMTP stream
-     *
-     * @param Message  $message      Message object to send
-     *                               NOTE that this is passed by
-     *                               reference and will be modified
-     *                               upon return with updated
-     *                               fields such as Message ID, References,
-     *                               In-Reply-To and Date headers.
-     * @param resource $stream       Handle to the outgoing stream
-     *                               (when FALSE, nothing will be
-     *                               written to the stream; this can
-     *                               be used to determine the actual
-     *                               number of bytes that will be 
-     *                               written to the stream)
-     * @param string   $reply_id     Identifies message being replied to
-     *                               (OPTIONAL; caller should ONLY specify
-     *                               a value for this when the message
-     *                               being sent is a reply)
-     * @param string   $reply_ent_id Identifies message being replied to
-     *                               in the case it was an embedded/attached
-     *                               message inside another (OPTIONAL; caller
-     *                               should ONLY specify a value for this 
-     *                               when the message being sent is a reply)
-     * @param resource $imap_stream  If there is an open IMAP stream in 
-     *                               the caller's context, it should be
-     *                               passed in here.  This is OPTIONAL,
-     *                               as one will be created if not given,
-     *                               but as some IMAP servers may baulk
-     *                               at opening more than one connection
-     *                               at a time, the caller should always
-     *                               abide if possible.  Currently, this
-     *                               stream is only used when $reply_id
-     *                               is also non-zero, but that is subject
-     *                               to change.
-     * @param mixed    $extra        Any implementation-specific variables
-     *                               can be passed in here and used in
-     *                               an overloaded version of this method
-     *                               if needed.
-     *
-     * @return integer The number of bytes written (or that would have been
-     *                 written) to the output stream.
-     *
-     */
     function mail(&$message, $stream=false, $reply_id=0, $reply_ent_id=0, 
                   $imap_stream=NULL, $extra=NULL) {
 
@@ -592,15 +533,23 @@ class Deliver {
         $rn = "\r\n";
 
         /* This creates an RFC 822 date */
-        $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
+        $now = time();
+        $now_date = date('D, j M Y H:i:s ', $now) . $this->timezone();
+        // TODO: Do we really want to preserve possibly old date?  Date header should always have "now"... but here is not where this decision should be made -- the caller really should blank out $rfc822_header->date even for drafts being re-edited or sent
+        if (!empty($rfc822_header->date) && $rfc822_header->date != -1)
+            $message_date = date('D, j M Y H:i:s ', $rfc822_header->date) . $this->timezone();
+        else {
+            $message_date = $now_date;
+            $rfc822_header->date = $now;
+        }
 
         /* Create a message-id */
         $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
         if (empty($rfc822_header->message_id)) {
             $message_id = '<'
                         . md5(GenerateRandomString(16, '', 7) . uniqid(mt_rand(),true))
-// moved out vanity ID next line xx
                         . '@' . $SERVER_NAME .'>';
+// moved out vanity ID ^^^^^^
         }
 
         /* Make an RFC822 Received: line */
@@ -617,6 +566,22 @@ class Deliver {
         }
         $header = array();
 
+        /**
+         * SquirrelMail header
+         *
+         * This Received: header provides information that allows to track
+         * user and machine that was used to send email. Don't remove it
+         * unless you understand all possible forging issues or your
+         * webmail installation does not prevent changes in user's email address.
+         * See SquirrelMail bug tracker #847107 for more details about it.
+         *
+         * Add hide_squirrelmail_header as a candidate for config_local.php
+         * (must be defined as a constant:  define('hide_squirrelmail_header', 1);
+         * to allow completely hiding SquirrelMail participation in message
+         * processing; This is dangerous, especially if users can modify their
+         * account information, as it makes mapping a sent message back to the
+         * original sender almost impossible.
+         */
         $show_sm_header = ( defined('hide_squirrelmail_header') ? ! hide_squirrelmail_header : 1 );
 
         // FIXME: The following headers may generate slightly differently between the message sent to the destination and that stored in the Sent folder because this code will be called before both actions.  This is not necessarily a big problem, but other headers such as Message-ID and Date are preserved between both actions
@@ -631,10 +596,10 @@ class Deliver {
           } else {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
-          if (!isset($hide_auth_header) || !$hide_auth_header)
-// moved out dumb security risk xx :     $header[] = "        (SquirrelMail authenticated user)" . $rn;
+            if (!isset($hide_auth_header) || !$hide_auth_header)
+// moved out silly security risk xx                $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
-            $header[] = "        $date" . $rn;
+            $header[] = "        $now_date" . $rn;
           }
         }
 
@@ -659,12 +624,7 @@ class Deliver {
             $rfc822_header->references = $references;
         }
 
-        if (!empty($rfc822_header->date) && $rfc822_header->date != -1) {
-            $header[] = 'Date: '. $rfc822_header->date . $rn;
-        } else {
-            $header[] = "Date: $date" . $rn;
-            $rfc822_header->date = $date;
-        }
+        $header[] = "Date: $message_date" . $rn;
 
         $header[] = 'Subject: '.encodeHeader($rfc822_header->subject) . $rn;
 
@@ -697,8 +657,8 @@ class Deliver {
                 $header[] = $s;
             }
         }
-        /* Identify SquirrelMail, weird idea to purposely reveal version, kicked it out xx */
-        $header[] = 'User-Agent: SquirrelMail' . $rn;
+        /* Identify SquirrelMail - weird idea to announce version, who would want to do that? Kicked it out below.. xx */
+        $header[] = 'User-Agent: SquirrelMail/' . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
@@ -821,6 +781,11 @@ class Deliver {
       */
     function foldLine($header, $soft_wrap=78, $indent='', $hard_wrap=998) {
 
+        // allow folding after the initial colon and space?
+        // (only supported if the header name is within the $soft_wrap limit)
+        //
+        $allow_fold_after_header_name = FALSE;
+
         // the "hard" token list can be altered if desired,
         // for example, by adding ":"
         // (in the future, we can take optional arguments
@@ -852,7 +817,26 @@ class Deliver {
 
         $CRLF = "\r\n";
 
+        // switch that helps compact the last line, pasting it at the
+        // end of the one before if the one before is already over the
+        // soft limit and it wouldn't go over the hard limit
+        //
+        $pull_last_line_up_if_second_to_last_is_already_over_soft_limit = FALSE;
+
+
+        // ----- end configurable behaviors -----
+
+
         $folded_header = '';
+
+        // if we want to prevent a wrap right after the
+        // header name, make note of the position here
+        //
+        if (!$allow_fold_after_header_name
+         && ($header_name_end_pos = strpos($header, ':'))
+         && strlen($header) > $header_name_end_pos + 1
+         && in_array($header{$header_name_end_pos + 1}, $whitespace))
+            $header_name_end_pos++;
 
         // if using an indent string, reduce wrap limits by its size
         //
@@ -874,6 +858,13 @@ class Deliver {
                 //
                 if ($pos = strrpos($soft_wrapped_line, $token))
                 {
+
+                    // make sure proposed fold isn't forbidden
+                    //
+                    if (!$allow_fold_after_header_name
+                     && $pos === $header_name_end_pos)
+                        continue;
+
                     $new_fold = substr($header, 0, $pos);
 
                     // make sure proposed fold doesn't create a blank line
@@ -935,8 +926,24 @@ class Deliver {
             // what is left is no more than the hard wrap limit, we'll
             // simply take the whole thing
             //
-            if (strlen($header) <= strlen($hard_wrapped_line))
+            if (strlen($header) <= $hard_wrap) {
+
+                // if the header has been folded at least once before now,
+                // let's see if we can add the remaining chunk to the last
+                // fold (this is mainly just aesthetic)
+                //
+                if ($pull_last_line_up_if_second_to_last_is_already_over_soft_limit
+                 && strlen($folded_header)
+                 // last fold is conveniently in $new_fold
+                 && strlen($new_fold) + strlen($header) <= $hard_wrap) {
+                    // $last_fold = substr(substr($folded_header, 0, -(strlen($CRLF) + strlen($indent))), 
+                    // remove CRLF and indentation and paste the rest of the header on
+                    $folded_header = substr($folded_header, 0, -(strlen($CRLF) + strlen($indent))) . $header;
+                    $header = '';
+                }
+
                 break;
+            }
 
             // otherwise, we can't quit yet - look for a "hard" token
             // as close to the end of the hard wrap limit as possible
@@ -1001,7 +1008,9 @@ class Deliver {
                     // and add a space after the fold if not immediately
                     // followed by a whitespace character in the next part
                     //
-                    $folded_header .= substr($header, 0, $pos + 1) . $CRLF;
+                    // $new_fold is used above, it's assumed we update it upon every fold action
+                    $new_fold = substr($header, 0, $pos + 1);
+                    $folded_header .= $new_fold . $CRLF;
 
                     // don't go beyond end of $header, though
                     //
@@ -1024,7 +1033,9 @@ class Deliver {
             // finally, we just couldn't find anything to fold on, so we
             // have to just cut it off at the hard limit
             //
-            $folded_header .= $hard_wrapped_line . $CRLF;
+            // $new_fold is used above, it's assumed we update it upon every fold action
+            $new_fold = $hard_wrapped_line;
+            $folded_header .= $new_fold . $CRLF;
 
             // is there more?
             //
@@ -1050,6 +1061,25 @@ class Deliver {
 
 
         return $folded_header;
+    }
+
+    /**
+     * function mimeBoundary - calculates the mime boundary to use
+     *
+     * This function will generate a random mime boundary base part
+     * for the message if the boundary has not already been set.
+     *
+     * @return string $mimeBoundaryString random mime boundary string
+     */
+    function mimeBoundary () {
+        static $mimeBoundaryString;
+
+        if ( !isset( $mimeBoundaryString ) ||
+            $mimeBoundaryString == '') {
+            $mimeBoundaryString = '----=_' . date( 'YmdHis' ) . '_' .
+            mt_rand( 10000, 99999 );
+        }
+        return $mimeBoundaryString;
     }
 
     /**
@@ -1091,25 +1121,6 @@ class Deliver {
             $result = sprintf ("%s%02d%02d", $sign, $diff_hour, $diff_minute);
         }
         return ($result);
-    }
-
-    /**
-     * function mimeBoundary - calculates the mime boundary to use
-     *
-     * This function will generate a random mime boundary base part
-     * for the message if the boundary has not already been set.
-     *
-     * @return string $mimeBoundaryString random mime boundary string
-     */
-    function mimeBoundary () {
-        static $mimeBoundaryString;
-
-        if ( !isset( $mimeBoundaryString ) ||
-            $mimeBoundaryString == '') {
-            $mimeBoundaryString = '----=_' . date( 'YmdHis' ) . '_' .
-            mt_rand( 10000, 99999 );
-        }
-        return $mimeBoundaryString;
     }
 
     /**
@@ -1206,3 +1217,4 @@ class Deliver {
         return $ret;
     }
 }
+

@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: page_header.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: page_header.php 14835 2019-11-26 18:51:38Z pdontthink $
  * @package squirrelmail
  */
 
@@ -237,6 +237,19 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
             $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
              "var alreadyFocused = false;\n" .
+             "function cursorToTop(element) {\n" .
+             "    if (typeof element.selectionStart == 'number')\n" .
+             // also works:
+             // "        element.setSelectionRange(0, 0);\n" .
+             "        element.selectionStart = element.selectionEnd = 0;\n" .
+             "    else if (typeof element.createTextRange != 'undefined') {\n" .
+             "        var selectionRange = element.createTextRange();\n" .
+             // also works, but maybe more recent?:
+             // "        selectionRange.collapse(true);\n" .
+             "        selectionRange.moveStart('character', 0);\n" .
+             "        selectionRange.select();\n" .
+             "    }\n" .
+             "}\n" .
              "function checkForm() {\n" .
              "\n    if (alreadyFocused) return;\n";
 
@@ -244,7 +257,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
             if (strpos($action, 'reply') !== FALSE && $reply_focus)
             {
                 if ($reply_focus == 'select') $js .= "document.forms['compose'].body.select();}\n";
-                else if ($reply_focus == 'focus') $js .= "document.forms['compose'].body.focus();}\n";
+                else if ($reply_focus == 'focus') $js .= "document.forms['compose'].body.focus(); cursorToTop(document.forms['compose'].body);}\n";
                 else if ($reply_focus == 'none') $js .= "}\n";
             }
             // no reply focus also applies to composing new messages
@@ -290,7 +303,9 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         default:
             $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
+             "var alreadyFocused = false;\n" .
              "function checkForm() {\n".
+             "   if (alreadyFocused) return;\n".
              "   var f = document.forms.length;\n".
              "   var i = 0;\n".
              "   var remembered_form = -1;\n".

@@ -1,3 +1,0 @@
-# For the Vixie Cron, 
-# Run this once every 5 minutes
-*/5 * * * * /usr/local/sbin/fetchmailloop.sh

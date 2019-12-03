@@ -134,6 +134,12 @@ Version 1.4.23 - SVN
   - Updated SVG handling, closing several related vulnerabilities
     (#2831) [CVE-2018-14950] [CVE-2018-14951] [CVE-2018-14952]
     [CVE-2018-14953] [CVE-2018-14954] [CVE-2018-14955]
+  - Added IMAP ID command (RFC2971), sent after every login - use
+    by setting $imap_id_command_args in config/config_local.php
+    (see notes in functions/imap_general.php for more details)
+  - Fixed PHP7 warnings (#2847)
+  - Added handling for RCDATA and RAWTEXT elements in HTML sanitizer
+    [CVE-2019-12970]
 
 Version 1.4.22 - 12 July 2011
 -----------------------------

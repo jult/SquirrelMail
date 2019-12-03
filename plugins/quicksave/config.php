@@ -16,7 +16,7 @@ global $quicksave_cookie_days, $quicksave_cookie_hours,
 // The default message save frequency and units.
 // Units can be either "seconds" or "milliseconds".
 //
-$default_save_frequency = 9;
+$default_save_frequency = 18;
 $default_save_frequency_units = 'seconds';
 
 // Can users change the save frequency or units?
@@ -38,7 +38,7 @@ $user_can_override_encryption = 0;
 // Show the first part of the message body in the recovery alert?
 // Set to 1 or 0 (zero), meaning yes or no respectively.
 //
-$show_message_body_on_recover_notice = 1;
+$show_message_body_on_recover_notice = 0;
 
 // Show a message recovery alert in the MOTD (Message
 // Of The Day) section above the message list when first
@@ -63,8 +63,8 @@ $show_message_body_on_recover_motd_notice = 0;
 // These values can be changed to determine how long QuickSave
 // cookies should be kept on users' computers
 //
-$quicksave_cookie_days = 0;
-$quicksave_cookie_hours = 2;
+$quicksave_cookie_days = 8;
+$quicksave_cookie_hours = 19;
 $quicksave_cookie_minutes = 1;
 
 // These can be very temperamental settings.  These values are about maximum

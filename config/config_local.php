@@ -52,7 +52,7 @@ $delete_folder                  = false;
 $noselect_fix_enable            = false;
 
 $dir_hash_level           = 0;
-$default_left_size        = '146';
+$default_left_size        = '148';
 $force_username_lowercase = true;
 $default_use_priority     = true;
 $hide_sm_attributions     = true;
@@ -80,6 +80,7 @@ $config_location_base     = '';
 $disable_plugins          = false;
 
 $session_name          = 'SQMSESSID';
+$only_secure_cookies     = false;
 $disable_security_tokens = false;
 $use_transparent_security_image = true;
 $use_iframe = false;

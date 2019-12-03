@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: attachment_common.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: attachment_common.php 14817 2019-04-27 05:03:19Z pdontthink $
  * @package squirrelmail
  */
 
@@ -105,8 +105,9 @@ function register_attachment_common($type, $func) {
 function attachment_common_link_text(&$Args) {
 
     global $squirrelmail_attachments_finished_handling;
-    if (!empty($squirrelmail_attachments_finished_handling[$Args[7]])) return;
-    $squirrelmail_attachments_finished_handling[$Args[7]] = TRUE;
+    // TODO: The two lines below used to only depend on $Args[7] (the so-called "display filename") but that prevents attachments with the same name from having "View" links, which makes no sense.... however, was there originally some use case where this made sense??  For now, I've added the entity ID to make it unique
+    if (!empty($squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]])) return;
+    $squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]] = TRUE;
 
     /* If there is a text attachment, we would like to create a "View" button
        that links to the text attachment viewer.
@@ -142,8 +143,9 @@ function attachment_common_link_text(&$Args) {
 function attachment_common_link_message(&$Args) {
 
     global $squirrelmail_attachments_finished_handling;
-    if (!empty($squirrelmail_attachments_finished_handling[$Args[7]])) return;
-    $squirrelmail_attachments_finished_handling[$Args[7]] = TRUE;
+    // TODO: The two lines below used to only depend on $Args[7] (the so-called "display filename") but that prevents attachments with the same name from having "View" links, which makes no sense.... however, was there originally some use case where this made sense??  For now, I've added the entity ID to make it unique
+    if (!empty($squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]])) return;
+    $squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]] = TRUE;
 
     $Args[1]['attachment_common']['href'] = SM_PATH . 'src/read_body.php?startMessage=' .
         $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
@@ -158,8 +160,9 @@ function attachment_common_link_message(&$Args) {
 function attachment_common_link_html(&$Args) {
 
     global $squirrelmail_attachments_finished_handling;
-    if (!empty($squirrelmail_attachments_finished_handling[$Args[7]])) return;
-    $squirrelmail_attachments_finished_handling[$Args[7]] = TRUE;
+    // TODO: The two lines below used to only depend on $Args[7] (the so-called "display filename") but that prevents attachments with the same name from having "View" links, which makes no sense.... however, was there originally some use case where this made sense??  For now, I've added the entity ID to make it unique
+    if (!empty($squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]])) return;
+    $squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]] = TRUE;
 
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
@@ -178,8 +181,9 @@ function attachment_common_link_html(&$Args) {
 function attachment_common_link_image(&$Args) {
 
     global $squirrelmail_attachments_finished_handling;
-    if (!empty($squirrelmail_attachments_finished_handling[$Args[7]])) return;
-    $squirrelmail_attachments_finished_handling[$Args[7]] = TRUE;
+    // TODO: The two lines below used to only depend on $Args[7] (the so-called "display filename") but that prevents attachments with the same name from having "View" links, which makes no sense.... however, was there originally some use case where this made sense??  For now, I've added the entity ID to make it unique
+    if (!empty($squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]])) return;
+    $squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]] = TRUE;
 
     global $attachment_common_show_images, $attachment_common_show_images_list;
 
@@ -205,8 +209,9 @@ function attachment_common_link_image(&$Args) {
 function attachment_common_link_vcard(&$Args) {
 
     global $squirrelmail_attachments_finished_handling;
-    if (!empty($squirrelmail_attachments_finished_handling[$Args[7]])) return;
-    $squirrelmail_attachments_finished_handling[$Args[7]] = TRUE;
+    // TODO: The two lines below used to only depend on $Args[7] (the so-called "display filename") but that prevents attachments with the same name from having "View" links, which makes no sense.... however, was there originally some use case where this made sense??  For now, I've added the entity ID to make it unique
+    if (!empty($squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]])) return;
+    $squirrelmail_attachments_finished_handling[$Args[7] . $Args[5]] = TRUE;
 
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
