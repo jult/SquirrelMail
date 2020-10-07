@@ -1,6 +1,6 @@
 # SquirrelMail
 
-Package holding a stack of (GUI, security and php) patches I use for a group of Debian 9 webmail servers.
+Package holding a stack of (GUI, security and php) patches I use for a group of Debian webmail servers.
 
 Note that the original source is written and updated mostly by Paul Lesniewski, not by me, but since Debian sadly stopped shipping SM in their repositories, I created my own here, for convenience's sake.
 
