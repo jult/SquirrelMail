@@ -6,9 +6,9 @@
  *    Date:   August 15, 2000
  *
  * @author Ray Black
- * @copyright 2000-2019 The SquirrelMail Project Team
+ * @copyright 2000-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: black_bean_burrito_theme.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: black_bean_burrito_theme.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

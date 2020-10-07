@@ -5,9 +5,9 @@
  *
  * IMAP search page
  *
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: search.php 14812 2019-03-27 07:32:26Z pdontthink $
+ * @version $Id: search.php 14847 2020-03-24 17:29:26Z pdontthink $
  * @package squirrelmail
  * @subpackage search
  */
@@ -40,6 +40,7 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('composenew' , $composenew, SQ_FORM);
 sqgetGlobalVar('composesession' , $composesession , SQ_SESSION);
+sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
 
 if (!sqgetGlobalVar('mailbox',$mailbox,SQ_GET)) {
     unset($mailbox);

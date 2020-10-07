@@ -3,9 +3,9 @@
 /**
  * global.php
  *
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: global.php 14815 2019-04-16 09:52:45Z pdontthink $
+ * @version $Id: global.php 14849 2020-03-24 18:08:40Z pdontthink $
  * @package squirrelmail
  */
 
@@ -112,6 +112,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
  */
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
+$PHP_SELF = php_self();
 
 /**
  * Allow disabling of all plugins or enabling just a select few
@@ -454,8 +455,7 @@ function sqsession_destroy() {
  */
 
 function sqsession_is_active() {
-    if (session_status() === PHP_SESSION_NONE)
-        sqsession_start();
+    sqsession_start();
 }
 
 /**

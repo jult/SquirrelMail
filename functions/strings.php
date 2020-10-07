@@ -6,9 +6,9 @@
  * This code provides various string manipulation functions that are
  * used by the rest of the SquirrelMail code.
  *
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: strings.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: strings.php 14857 2020-05-23 18:43:27Z pdontthink $
  * @package squirrelmail
  */
 
@@ -263,9 +263,11 @@ function readShortMailboxName($haystack, $needle) {
  * @return string The path, filename and any arguments for the
  *                current script
  */
-function php_self() {
+function php_self($with_query_string=TRUE) {
 
-    $request_uri = '';
+    static $request_uri = '';
+    if (!empty($request_uri))
+        return ($with_query_string ? $request_uri : (strpos($request_uri, '?') !== FALSE ? substr($request_uri, 0, strpos($request_uri, '?')) : $request_uri));
 
     // first try $_SERVER['PHP_SELF'], which seems most reliable
     // (albeit it usually won't include the query string)
@@ -299,7 +301,10 @@ function php_self() {
         $request_uri .= '?' . $query_string;
     }
 
-    return $request_uri;
+    global $php_self_pattern, $php_self_replacement;
+    if (!empty($php_self_pattern))
+    $request_uri = preg_replace($php_self_pattern, $php_self_replacement, $request_uri);
+    return ($with_query_string ? $request_uri : (strpos($request_uri, '?') !== FALSE ? substr($request_uri, 0, strpos($request_uri, '?')) : $request_uri));
 
 }
 
@@ -313,7 +318,7 @@ function php_self() {
  * @return string the base uri of squirrelmail installation.
  */
 function sqm_baseuri(){
-    global $base_uri, $PHP_SELF;
+    global $base_uri;
     /**
      * If it is in the session, just return it.
      */
@@ -322,7 +327,7 @@ function sqm_baseuri(){
     }
     $dirs = array('|src/.*|', '|plugins/.*|', '|functions/.*|');
     $repl = array('', '', '');
-    $base_uri = preg_replace($dirs, $repl, $PHP_SELF);
+    $base_uri = preg_replace($dirs, $repl, php_self(FALSE));
     return $base_uri;
 }
 
@@ -343,12 +348,7 @@ function get_location () {
            $is_secure_connection, $sq_ignore_http_x_forwarded_headers;
 
     /* Get the path, handle virtual directories */
-    if(strpos(php_self(), '?')) {
-        $path = substr(php_self(), 0, strpos(php_self(), '?'));
-    } else {
-        $path = php_self();
-    }
-    $path = substr($path, 0, strrpos($path, '/'));
+    $path = substr(php_self(FALSE), 0, strrpos(php_self(FALSE), '/'));
 
     // proto+host+port are already set in config:
     if ( !empty($config_location_base) ) {
@@ -577,14 +577,16 @@ function OneTimePadCreate ($length=100) {
  * Returns a string showing the size of the message/attachment.
  *
  * @param int bytes the filesize in bytes
+ * @param int filesize_divisor the divisor we'll use (OPTIONAL; default 1024)
  * @return string the filesize in human readable format
  */
-function show_readable_size($bytes) {
-    $bytes /= 1024;
+function show_readable_size($bytes, $filesize_divisor=1024) {
+
+    $bytes /= $filesize_divisor;
     $type = 'k';
 
-    if ($bytes / 1024 > 1) {
-        $bytes /= 1024;
+    if ($bytes / $filesize_divisor > 1) {
+        $bytes /= $filesize_divisor;
         $type = 'M';
     }
 
@@ -1569,4 +1571,3 @@ function sm_encode_html_special_chars($string, $flags=ENT_COMPAT,
    return htmlspecialchars($string, $flags, $encoding);
 }
 
-$PHP_SELF = php_self();

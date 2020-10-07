@@ -8,9 +8,9 @@
  *
  * @author Marc Groot Koerkamp
  * @copyright 2002 Marc Groot Koerkamp, The Netherlands
- * @copyright 2004-2019 The SquirrelMail Project Team
+ * @copyright 2004-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: message_details_bottom.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: message_details_bottom.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package plugins
  * @subpackage message_details
  */
@@ -194,9 +194,9 @@ for ($i=1; $i < $count; $i++) {
             $entStr = CalcEntity("$entStr",0);
             $content_indx++;
             $content[$content_indx]=array();		
-            $content[$content_indx]['ent'] = '<a href="#'."$entStr \">$entStr".'</a>';
+            $content[$content_indx]['ent'] = '<a href="#' . $entStr . '">' . $entStr . '</a>';
             $pre .= "\n \n".'</div>'."\n \n".'<div class="entheader" id="'.
-                $entStr.'H"><a name="'."$entStr".'"><b><font color ='."$color[2]>";
+                $entStr.'H"><a name="'."$entStr".'"></a><b><font color ='."$color[2]>";
             $end .= '</font></b>'."\n";
             $header = true;
             $mimepart = false;

@@ -6,9 +6,9 @@
  * This contains the functions necessary to detect and decode MIME
  * messages.
  *
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: mime.php 14828 2019-07-24 00:43:05Z pdontthink $
+ * @version $Id: mime.php 14868 2020-07-11 05:05:30Z pdontthink $
  * @package squirrelmail
  */
 
@@ -534,20 +534,26 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
          */
         $hookresults = do_hook("attachment $type0/$type1", $links,
                 $startMessage, $id, $urlMailbox, $ent, $defaultlink,
-                $display_filename, $where, $what);
+                $display_filename, $where, $what, $type0, $type1);
         $hookresults = do_hook("attachment $type0/*", $hookresults[1],
                 $startMessage, $id, $urlMailbox, $ent, $hookresults[6],
-                $display_filename, $where, $what);
+                $display_filename, $where, $what, $type0, $type1);
         $hookresults = do_hook("attachment */*", $hookresults[1],
                 $startMessage, $id, $urlMailbox, $ent, $hookresults[6],
-                $display_filename, $where, $what);
+                $display_filename, $where, $what, $type0, $type1);
 
         $links = $hookresults[1];
         $defaultlink = $hookresults[6];
 
+        // base64 encoded file sizes are misleading, so approximate real size
+        if (!empty($header->encoding) && strtolower($header->encoding) == 'base64')
+            $size = $header->size / 4 * 3;
+        else
+            $size = $header->size;
+
         $attachments .= '<tr><td>' .
             '<a href="'.$defaultlink.'">'.decodeHeader($display_filename).'</a>&nbsp;</td>' .
-            '<td><small><b>' . show_readable_size($header->size) .
+            '<td><small><b>' . show_readable_size($size) .
             '</b>&nbsp;&nbsp;</small></td>' .
             '<td><small>[ '.sm_encode_html_special_chars($type0).'/'.sm_encode_html_special_chars($type1).' ]&nbsp;</small></td>' .
             '<td><small>';
@@ -1941,7 +1947,17 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
      * body {background: blah-blah}
      * and change it to .bodyclass so we can just assign it to a <div>
      */
-    $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
+    // $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
+    // Nah, this is even better - try to preface all CSS selectors with
+    // our <div> class ID "bodyclass" then correct generic "body" selectors
+    // TODO: this works pretty good but breaks stuff like this:
+    //       @media print { body { font-size: 10pt; } }
+    //       but there isn't an easy way to make this regex skip @media
+    //       definitions... though lots of the ones in the wild will be
+    //       correctly handled because they tend to end with a parenthesis, like:
+    //       @media screen and (max-width:480px) { ...
+    $content = preg_replace('/([a-z0-9._-][a-z0-9 >+~|:._-]*\s*(?:,|{.*?}))/si', '.bodyclass $1', $content);
+    $content = str_replace('.bodyclass body', '.bodyclass', $content);
 
     global $use_transparent_security_image;
     if ($use_transparent_security_image) $secremoveimg = '../images/spacer.png';

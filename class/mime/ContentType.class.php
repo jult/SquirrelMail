@@ -6,9 +6,9 @@
  * This file contains functions needed to handle content type headers 
  * (rfc2045) in mime messages.
  *
- * @copyright 2003-2019 The SquirrelMail Project Team
+ * @copyright 2003-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: ContentType.class.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: ContentType.class.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2

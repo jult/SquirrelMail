@@ -5,9 +5,9 @@
  *
  * Prints the page header (duh)
  *
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: page_header.php 14835 2019-11-26 18:51:38Z pdontthink $
+ * @version $Id: page_header.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package squirrelmail
  */
 

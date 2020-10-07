@@ -1,18 +1,78 @@
 <?php
+
 /**
  * Deliver.class.php
  *
- * This contains all the functions needed to send messages through a delivery backend.
+ * This contains all the functions needed to send messages through
+ * a delivery backend.
  *
  * @author Marc Groot Koerkamp
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver.class.php 14821 2019-05-21 00:51:31Z pdontthink $
- * @version $Id: Deliver.class.php 14822 patched for obscurity 2019-12-03 06:06:06Z jult $
+ * @version $Id: Deliver.class.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: Deliver.class.php 14841 patched for obscurity 2020-10-07 06:06:06Z jult $
  * @package https://github.com/jult/SquirrelMail
+ */
+
+/**
+ * Deliver Class - called to actually deliver the message
+ *
+ * This class is called by compose.php and other code that needs
+ * to send messages.  All delivery functionality should be centralized
+ * in this class.
+ *
+ * Do not place UI code in this class, as UI code should be placed in templates
+ * going forward.
+ *
+ * @author  Marc Groot Koerkamp
+ * @package squirrelmail
  */
 class Deliver {
 
+    /**
+     * function mail - send the message parts to the SMTP stream
+     *
+     * @param Message  $message      Message object to send
+     *                               NOTE that this is passed by
+     *                               reference and will be modified
+     *                               upon return with updated
+     *                               fields such as Message ID, References,
+     *                               In-Reply-To and Date headers.
+     * @param resource $stream       Handle to the outgoing stream
+     *                               (when FALSE, nothing will be
+     *                               written to the stream; this can
+     *                               be used to determine the actual
+     *                               number of bytes that will be 
+     *                               written to the stream)
+     * @param string   $reply_id     Identifies message being replied to
+     *                               (OPTIONAL; caller should ONLY specify
+     *                               a value for this when the message
+     *                               being sent is a reply)
+     * @param string   $reply_ent_id Identifies message being replied to
+     *                               in the case it was an embedded/attached
+     *                               message inside another (OPTIONAL; caller
+     *                               should ONLY specify a value for this 
+     *                               when the message being sent is a reply)
+     * @param resource $imap_stream  If there is an open IMAP stream in 
+     *                               the caller's context, it should be
+     *                               passed in here.  This is OPTIONAL,
+     *                               as one will be created if not given,
+     *                               but as some IMAP servers may baulk
+     *                               at opening more than one connection
+     *                               at a time, the caller should always
+     *                               abide if possible.  Currently, this
+     *                               stream is only used when $reply_id
+     *                               is also non-zero, but that is subject
+     *                               to change.
+     * @param mixed    $extra        Any implementation-specific variables
+     *                               can be passed in here and used in
+     *                               an overloaded version of this method
+     *                               if needed.
+     *
+     * @return integer The number of bytes written (or that would have been
+     *                 written) to the output stream.
+     *
+     */
     function mail(&$message, $stream=false, $reply_id=0, $reply_ent_id=0, 
                   $imap_stream=NULL, $extra=NULL) {
 
@@ -549,7 +609,7 @@ class Deliver {
             $message_id = '<'
                         . md5(GenerateRandomString(16, '', 7) . uniqid(mt_rand(),true))
                         . '@' . $SERVER_NAME .'>';
-// moved out vanity ID ^^^^^^
+// moved out vanity ID ^^^^^^  xx
         }
 
         /* Make an RFC822 Received: line */
@@ -568,13 +628,6 @@ class Deliver {
 
         /**
          * SquirrelMail header
-         *
-         * This Received: header provides information that allows to track
-         * user and machine that was used to send email. Don't remove it
-         * unless you understand all possible forging issues or your
-         * webmail installation does not prevent changes in user's email address.
-         * See SquirrelMail bug tracker #847107 for more details about it.
-         *
          * Add hide_squirrelmail_header as a candidate for config_local.php
          * (must be defined as a constant:  define('hide_squirrelmail_header', 1);
          * to allow completely hiding SquirrelMail participation in message
@@ -594,12 +647,14 @@ class Deliver {
             if (isset($HTTP_X_FORWARDED_FOR))
                 $header[] = 'X-Squirrel-ProxyHash:'.OneTimePadEncrypt($this->ip2hex($HTTP_X_FORWARDED_FOR),base64_encode($encode_header_key)).$rn;
           } else {
+
+
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
             if (!isset($hide_auth_header) || !$hide_auth_header)
-// moved out silly security risk xx                $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
-            $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
-            $header[] = "        $now_date" . $rn;
+// moved out silly security risk xx  -->   $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
+            $header[] = "       by $SERVER_NAME with HTTP;" . $rn;
+            $header[] = "       $now_date" . $rn;
           }
         }
 
@@ -657,6 +712,7 @@ class Deliver {
                 $header[] = $s;
             }
         }
+
         /* Identify SquirrelMail - weird idea to announce version, who would want to do that? Kicked it out below.. xx */
         $header[] = 'User-Agent: SquirrelMail' . $rn;
         /* Do the MIME-stuff */
@@ -1217,4 +1273,3 @@ class Deliver {
         return $ret;
     }
 }
-

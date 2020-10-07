@@ -7,9 +7,9 @@
  * Theme Name:    'Redmond Theme'
  *
  * @author Bert-Jan Wiegeraad
- * @copyright 2004-2019 The SquirrelMail Project Team
+ * @copyright 2004-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: redmond.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: redmond.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

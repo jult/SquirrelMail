@@ -8,9 +8,9 @@
  *
  * - this is the page that does all the work, really.
  *
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: printer_friendly_bottom.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: printer_friendly_bottom.php 14860 2020-05-23 18:54:31Z pdontthink $
  * @package squirrelmail
  */
 
@@ -274,11 +274,17 @@ function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
 
         $display_filename = $filename;
 
+        // base64 encoded file sizes are misleading, so approximate real size
+        if (!empty($header->encoding) && strtolower($header->encoding) == 'base64')
+            $size = $header->size / 4 * 3;
+        else
+            $size = $header->size;
+
         // TODO: maybe make it nicer?
         $attachments .= '<table cellpadding="0" cellspacing="0" border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
             '<tr border="0">'.
             html_tag( 'td',_("Size:"), 'right') .
-            html_tag( 'td',show_readable_size($header->size), 'left') .
+            html_tag( 'td',show_readable_size($size), 'left') .
             '</tr><tr>' .
             html_tag( 'td',_("Type:"), 'right') .
             html_tag( 'td',sm_encode_html_special_chars($type0).'/'.sm_encode_html_special_chars($type1), 'left') . 

@@ -11,9 +11,9 @@
  *    - Send mail
  *    - Save As Draft
  *
- * @copyright 1999-2019 The SquirrelMail Project Team
+ * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: compose.php 14802 2019-02-23 07:09:00Z pdontthink $
+ * @version $Id: compose.php 14857 2020-05-23 18:43:27Z pdontthink $
  * @package squirrelmail
  */
 
@@ -1434,7 +1434,9 @@ function showInputForm ($session, $values=false) {
             '                    </tr>' . "\n";
 
         $s_a = array();
-        global $username, $attachment_dir;
+        global $username, $attachment_dir, $upload_filesize_divisor;
+        if (empty($upload_filesize_divisor))
+           $upload_filesize_divisor = 1000; // *not* 1024 -- does this break for some users?
         $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
         if (!empty($attach_array)) {
             $attachment_count = 0;
@@ -1450,7 +1452,7 @@ function showInputForm ($session, $values=false) {
                         addCheckBox('delete[]', FALSE, $key, 'id="delete' . ++$attachment_count . '"').
                         "</td><td><label for='delete" . $attachment_count . "'>\n" . $attached_filename .
                         '</label></td><td><label for="delete' . $attachment_count . '">-</label></td><td><label for="delete' . $attachment_count . '"> ' . $type . '</label></td><td><label for="delete' . $attachment_count . '">('.
-                        show_readable_size( filesize( $hashed_attachment_dir . '/' . $attached_file ) ) .
+                        show_readable_size(filesize($hashed_attachment_dir . '/' . $attached_file), $upload_filesize_divisor) .
                         ')</label></td></tr></table>'."\n";
                 }
             }

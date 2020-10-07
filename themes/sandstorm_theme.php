@@ -6,9 +6,9 @@
  * Comment: This is a theme using Tan as its main color.
  *
  * @author Luke Ehresman
- * @copyright 2000-2019 The SquirrelMail Project Team
+ * @copyright 2000-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: sandstorm_theme.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: sandstorm_theme.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

@@ -35,9 +35,9 @@
  *  octdec(a-374)*64^5 + octdec(b-200)*64^4 + octdec(c-200)*64^3 +
  *  + octdec(d-200)*64^2 + octdec(e-200)*64 + octdec(f-200)
  *</pre>
- * @copyright 2003-2019 The SquirrelMail Project Team
+ * @copyright 2003-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: utf_8.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: utf_8.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package squirrelmail
  * @subpackage decode
  */

@@ -7,9 +7,9 @@
  * Comment: Has a dark blue left-bar and a white/grey right frame.
  *
  * @author M.J. Prinsen
- * @copyright 2001-2019 The SquirrelMail Project Team
+ * @copyright 2001-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: dompie_theme.php 14800 2019-01-08 04:27:15Z pdontthink $
+ * @version $Id: dompie_theme.php 14840 2020-01-07 07:42:38Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */
