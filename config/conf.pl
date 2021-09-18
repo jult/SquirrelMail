@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
 # conf.pl
 #
-# Copyright (c) 1999-2020 The SquirrelMail Project Team
+# Copyright (c) 1999-2021 The SquirrelMail Project Team
 # Licensed under the GNU GPL. For full terms see COPYING.
 #
 # A simple configure script to configure SquirrelMail
 #
-# $Id: conf.pl 14840 2020-01-07 07:42:38Z pdontthink $
+# $Id: conf.pl 14885 2021-02-05 19:19:32Z pdontthink $
 ############################################################              
 $conf_pl_version = "1.4.0";
 

@@ -6,9 +6,9 @@
  * This contains functions that display mailbox information, such as the
  * table row that has sender, date, subject, etc...
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: mailbox_display.php 14854 2020-03-31 04:43:20Z pdontthink $
+ * @version $Id: mailbox_display.php 14896 2021-02-08 06:30:30Z pdontthink $
  * @package squirrelmail
  */
 
@@ -39,7 +39,8 @@ function elapsed($start)
    return $diff2 + $diff1;
 }
 
-function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
+// TODO: This function needs documentation.  $not_last should usually start out as TRUE?
+function printMessageInfo($imapConnection, $t, $not_last, $key, $mailbox,
                           $start_msg, $where, $what) {
     global $checkall, $preselected,
            $color, $msgs, $msort, $td_str, $msg,

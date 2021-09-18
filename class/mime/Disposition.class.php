@@ -6,9 +6,9 @@
  * This file contains functions needed to handle content disposition headers 
  * in mime messages. See RFC 2183.
  *
- * @copyright 2003-2020 The SquirrelMail Project Team
+ * @copyright 2003-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Disposition.class.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: Disposition.class.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
@@ -46,7 +46,7 @@ class Disposition {
      * @since 1.3.1
      */
     function getProperty($par) {
-        $value = strtolower($par);
+        $par = strtolower($par);
         if (isset($this->properties[$par])) {
             return $this->properties[$par];
         }

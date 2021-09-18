@@ -9,9 +9,9 @@
  * Internally the output character set is used. Other characters are
  * encoded using Unicode entities according to HTML 4.0.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: i18n.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: i18n.php 14926 2021-08-25 03:33:09Z pdontthink $
  * @package squirrelmail
  * @subpackage i18n
  */
@@ -159,15 +159,17 @@ function sq_setlocale($category,$locale) {
 }
 
 /**
- * Converts string from given charset to charset, that can be displayed by user translation.
+ * Converts a string from the given $charset to a character set that
+ * can be displayed by the current user interface language (translation)
  *
- * Function by default returns html encoded strings, if translation uses different encoding.
+ * Function by default returns html encoded strings if translation uses
+ * different encoding.
  * If Japanese translation is used - function returns string converted to euc-jp
  * If $charset is not supported - function returns unconverted string.
  *
  * sanitizing of html tags is also done by this function.
  *
- * @param string $charset
+ * @param string $charset The charset of the incoming string
  * @param string $string Text to be decoded
  * @param boolean $force_decode converts string to html without $charset!=$default_charset check.
  * Argument is available since 1.4.5 and 1.5.1.
@@ -184,7 +186,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
     }
 
     /* All HTML special characters are 7 bit and can be replaced first */
-    if (! $save_html) $string = sm_encode_html_special_chars ($string);
+    if (! $save_html) $string = sm_encode_html_special_chars($string, ENT_COMPAT, $charset);
     $charset = strtolower($charset);
 
     set_my_charset();

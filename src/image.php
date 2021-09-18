@@ -5,9 +5,9 @@
  *
  * This file shows an attached image
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: image.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: image.php 14910 2021-03-31 05:13:32Z pdontthink $
  * @package squirrelmail
  */
 
@@ -62,7 +62,7 @@ $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
 
 <table border="0" cellspacing="0" cellpadding="2" align="center">
 <tr><td bgcolor="<?php echo $color[4]; ?>">
-<img src="<?php echo $DownloadLink; ?>" />
+<img width="100%" src="<?php echo $DownloadLink; ?>" />
 
 </td></tr></table>
 </body></html>

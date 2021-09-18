@@ -3,9 +3,9 @@
 /**
  * abook_database.php
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: abook_database.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: abook_database.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  * @subpackage addressbook
  */
@@ -656,7 +656,7 @@ class abook_database extends addressbook_backend {
             $sepstr = '';
             $where_clause = '';
             $where_clause_args = array();
-            while (list($undef, $nickname) = each($alias)) {
+            foreach ($alias as $nickname) {
                 $where_clause .= $sepstr . $this->identifier_quote_char . 'nickname' . $this->identifier_quote_char . ' = ?';
                 $where_clause_args[] = $nickname;
                 $sepstr = ' OR ';
@@ -680,7 +680,7 @@ class abook_database extends addressbook_backend {
                              $this->table, $this->owner);
 
             $sepstr = '';
-            while (list($undef, $nickname) = each($alias)) {
+            foreach ($alias as $nickname) {
                 $query .= sprintf("%s nickname='%s' ", $sepstr,
                                   $this->dbh->quoteString($nickname));
                 $sepstr = 'OR';

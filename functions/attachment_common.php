@@ -5,9 +5,9 @@
  *
  * This file provides the handling of often-used attachment types.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: attachment_common.php 14865 2020-07-11 04:13:53Z pdontthink $
+ * @version $Id: attachment_common.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  */
 
@@ -83,6 +83,9 @@ register_attachment_common('text/html',      'link_html');
 /* Register vcards */
 register_attachment_common('text/x-vcard',   'link_vcard');
 register_attachment_common('text/directory', 'link_vcard');
+
+/* Register ics (calendar) */
+register_attachment_common('application/ics',  'link_text');
 
 /* Register rules for general types.
  * These will be used if there isn't a more specific rule available. */

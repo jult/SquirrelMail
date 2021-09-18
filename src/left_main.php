@@ -6,9 +6,9 @@
  * This is the code for the left bar. The left bar shows the folders
  * available, and has cookie information.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: left_main.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: left_main.php 14916 2021-04-18 08:32:35Z pdontthink $
  * @package squirrelmail
  */
 
@@ -207,7 +207,7 @@ function create_unseen_string($boxName, $boxArray, $imapConnection, $unseen_type
     global $boxes, $unseen_type, $color, $unseen_cum;
 
     /* Initialize the return value. */
-    $result = array(0,0);
+    $result = array('',0);
 
     /* Initialize the counts for this folder. */
     $boxUnseenCount = 0;

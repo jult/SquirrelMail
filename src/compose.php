@@ -11,9 +11,9 @@
  *    - Send mail
  *    - Save As Draft
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: compose.php 14857 2020-05-23 18:43:27Z pdontthink $
+ * @version $Id: compose.php 14921 2021-05-12 05:12:06Z pdontthink $
  * @package squirrelmail
  */
 
@@ -1120,7 +1120,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
 }
 
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
-        $passed_ent_id='', $imapConnection) {
+        $passed_ent_id='', $imapConnection=NULL) {
     global $attachment_dir, $username, $data_dir, $uid_support;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
@@ -1665,6 +1665,11 @@ function deliverMessage(&$composeMessage, $draft=false) {
     global $imapServerAddress, $imapPort, $imap_stream_options, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
+
+    // clear Date header so drafts don't end up with a stale date
+    // (does this cause issues with some other scenario where a
+    // message with an existing date header should be preserved??)
+    unset($rfc822_header->date);
 
     $abook = addressbook_init(false, true);
     $rfc822_header->to = $rfc822_header->parseAddress($send_to,true, array(), '', $domain, array(&$abook,'lookup'));

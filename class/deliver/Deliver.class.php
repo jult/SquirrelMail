@@ -7,11 +7,10 @@
  * a delivery backend.
  *
  * @author Marc Groot Koerkamp
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver.class.php 14840 2020-01-07 07:42:38Z pdontthink $
- * @version $Id: Deliver.class.php 14841 patched for obscurity 2020-10-07 06:06:06Z jult $
- * @package https://github.com/jult/SquirrelMail
+ * @version $Id: Deliver.class.php 14904b 2021-09-19 00:00:09Z jult $
+ * @package squirrelmail
  */
 
 /**
@@ -166,7 +165,7 @@ class Deliver {
      *
      */
     function send_mail($message, $header, $boundary, $stream=false, 
-                       &$raw_length, $extra=NULL) {
+                       &$raw_length=0, $extra=NULL) {
 
         if ($stream) {
             $this->preWriteToStream($header);
@@ -628,6 +627,13 @@ class Deliver {
 
         /**
          * SquirrelMail header
+         *
+         * This Received: header provides information that allows to track
+         * user and machine that was used to send email. Don't remove it
+         * unless you understand all possible forging issues or your
+         * webmail installation does not prevent changes in user's email address.
+         * See SquirrelMail bug tracker #847107 for more details about it.
+         *
          * Add hide_squirrelmail_header as a candidate for config_local.php
          * (must be defined as a constant:  define('hide_squirrelmail_header', 1);
          * to allow completely hiding SquirrelMail participation in message
@@ -647,8 +653,6 @@ class Deliver {
             if (isset($HTTP_X_FORWARDED_FOR))
                 $header[] = 'X-Squirrel-ProxyHash:'.OneTimePadEncrypt($this->ip2hex($HTTP_X_FORWARDED_FOR),base64_encode($encode_header_key)).$rn;
           } else {
-
-
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
             if (!isset($hide_auth_header) || !$hide_auth_header)
@@ -712,8 +716,7 @@ class Deliver {
                 $header[] = $s;
             }
         }
-
-        /* Identify SquirrelMail - weird idea to announce version, who would want to do that? Kicked it out below.. xx */
+        /* Identify SquirrelMail - who would ever want to announce version-nrs, making it even easier to exploit? Kicked it out below.. xx */
         $header[] = 'User-Agent: SquirrelMail' . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
@@ -891,7 +894,7 @@ class Deliver {
         if (!$allow_fold_after_header_name
          && ($header_name_end_pos = strpos($header, ':'))
          && strlen($header) > $header_name_end_pos + 1
-         && in_array($header{$header_name_end_pos + 1}, $whitespace))
+         && in_array($header[$header_name_end_pos + 1], $whitespace))
             $header_name_end_pos++;
 
         // if using an indent string, reduce wrap limits by its size
@@ -1072,7 +1075,7 @@ class Deliver {
                     //
                     if (strlen($header) > $pos + 1) {
                         $header = substr($header, $pos + 1);
-                        if (!in_array($header{0}, $whitespace))
+                        if (!in_array($header[0], $whitespace))
                             $header = ' ' . $indent . $header;
                     } else {
                         $header = '';
@@ -1097,7 +1100,7 @@ class Deliver {
             //
             if (strlen($header) > strlen($hard_wrapped_line)) {
                 $header = substr($header, strlen($hard_wrapped_line));
-                if (!in_array($header{0}, $whitespace))
+                if (!in_array($header[0], $whitespace))
                     $header = ' ' . $indent . $header;
             } else {
                 $header = '';

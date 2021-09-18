@@ -5,9 +5,9 @@
  *
  * Delivery backend for the Deliver class.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver_IMAP.class.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: Deliver_IMAP.class.php 14909 2021-03-29 20:59:53Z pdontthink $
  * @package squirrelmail
  */
 
@@ -52,7 +52,7 @@ class Deliver_IMAP extends Deliver {
      *
      */
     function send_mail($message, $header, $boundary, $stream=false, 
-                       &$raw_length, $folder=NULL) {
+                       &$raw_length=0, $folder=NULL) {
 
         if (is_null($folder))
             die('Internal error. Cannot pass NULL folder name to Deliver_IMAP::send_mail()');

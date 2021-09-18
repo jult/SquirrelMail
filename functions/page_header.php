@@ -5,9 +5,9 @@
  *
  * Prints the page header (duh)
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: page_header.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: page_header.php 14888 2021-02-06 01:00:48Z pdontthink $
  * @package squirrelmail
  */
 
@@ -130,7 +130,7 @@ function displayHtmlHeader($title='SquirrelMail', $xtra_param='', $do_hook=TRUE,
     // usage of $script_libs is discussed in the docs for this function above
     // 
     foreach (array_unique($script_libs) as $item) {
-        if ($item{0} === '<')
+        if ($item[0] === '<')
             echo $item . "\n";
         else if (strpos($item, '/') !== FALSE || strpos($item, '\\') !== FALSE)
             echo '<script language="JavaScript" type="text/javascript" src="' . $item . '"></script>' . "\n";

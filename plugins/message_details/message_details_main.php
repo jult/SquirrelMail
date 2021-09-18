@@ -7,9 +7,9 @@
  *
  * @author Marc Groot Koerkamp
  * @copyright 2002 Marc Groot Koerkamp, The Netherlands
- * @copyright 2004-2020 The SquirrelMail Project Team
+ * @copyright 2004-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: message_details_main.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: message_details_main.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package plugins
  * @subpackage message_details
  */

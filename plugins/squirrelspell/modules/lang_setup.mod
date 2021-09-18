@@ -4,14 +4,14 @@
  * ---------------
  * Squirrelspell module
  *
- * Copyright (c) 1999-2020 The SquirrelMail Project Team
+ * Copyright (c) 1999-2021 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module displays available dictionaries to the user and lets
  * him/her choose which ones s/he wants to check messages with.
  *
  * @author Konstantin Riabitsev <icon@duke.edu>
- * @version $Id: lang_setup.mod 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: lang_setup.mod 14885 2021-02-05 19:19:32Z pdontthink $
  * @package plugins
  * @subpackage squirrelspell
  */
@@ -36,7 +36,7 @@ $langs = sqspell_getSettings(null);
 $add = '<p>'
   . _("Make this dictionary my default selection:")
   . " <select name=\"lang_default\">\n";
-while (list($avail_lang, $junk) = each($SQSPELL_APP)){
+foreach ($SQSPELL_APP as $avail_lang => $ignore){
   $msg .= "<input type=\"checkbox\" name=\"use_langs[]\" "
     . "value=\"$avail_lang\"";
   if (in_array($avail_lang, $langs)) {

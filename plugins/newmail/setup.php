@@ -3,7 +3,7 @@
 /**
  * newmail.php
  *
- * Copyright (c) 1999-2020 The SquirrelMail Project Team
+ * Copyright (c) 1999-2021 The SquirrelMail Project Team
  * Copyright (c) 2000 by Michael Huttinger
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
@@ -22,7 +22,7 @@
  * This was tested with IE5.0 - but I hear Netscape works well,
  * too (with a plugin).
  *
- * @version $Id: setup.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: setup.php 14923 2021-07-12 22:04:37Z pdontthink $
  * @package plugins
  * @subpackage new_mail
  */
@@ -42,7 +42,7 @@ function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, 
     global $folder_prefix, $trash_folder, $sent_folder,
         $color, $move_to_sent, $move_to_trash,
         $unseen_notify, $unseen_type, $newmail_allbox, 
-        $newmail_recent, $newmail_changetitle;
+        $newmail_recent;
 
     $mailboxURL = urlencode($real_box);
     $unseen = $recent = 0;
@@ -100,42 +100,45 @@ function newmail_sav() {
     global $data_dir, $username;
 
     if ( sqgetGlobalVar('submit_newmail', $submit, SQ_POST) ) {
-        $media_enable = '';
-        $media_popup = '';
-        $media_allbox = '';
-        $media_recent = '';
-        $media_changetitle = '';
-        $media_sel = '';
+        $newmail_enable = '';
+        $newmail_popup = '';
+        $newmail_allbox = '';
+        $newmail_recent = '';
+        $newmail_changetitle = '';
+        $newmail_changetitle_prefix = '';
+        $newmail_sel = '';
 
-        sqgetGlobalVar('media_enable',         $media_enable,         SQ_POST);
-        sqgetGlobalVar('media_popup',          $media_popup,          SQ_POST);
-        sqgetGlobalVar('media_allbox',         $media_allbox,         SQ_POST);
-        sqgetGlobalVar('media_recent',         $media_recent,         SQ_POST);
-        sqgetGlobalVar('media_changetitle',    $media_changetitle,    SQ_POST);
+        sqgetGlobalVar('newmail_enable',         $newmail_enable,         SQ_POST);
+        sqgetGlobalVar('newmail_popup',          $newmail_popup,          SQ_POST);
+        sqgetGlobalVar('newmail_allbox',         $newmail_allbox,         SQ_POST);
+        sqgetGlobalVar('newmail_recent',         $newmail_recent,         SQ_POST);
+        sqgetGlobalVar('newmail_changetitle',    $newmail_changetitle,    SQ_POST);
+        sqgetGlobalVar('newmail_changetitle_prefix',    $newmail_changetitle_prefix,    SQ_POST);
         sqgetGlobalVar('popup_height',         $newmail_popup_height, SQ_POST);
         sqgetGlobalVar('popup_width',          $newmail_popup_width,  SQ_POST);        
 
-        setPref($data_dir,$username,'newmail_enable',$media_enable);
-        setPref($data_dir,$username,'newmail_popup', $media_popup);
-        setPref($data_dir,$username,'newmail_allbox',$media_allbox);
-        setPref($data_dir,$username,'newmail_recent',$media_recent);
+        setPref($data_dir,$username,'newmail_enable',$newmail_enable);
+        setPref($data_dir,$username,'newmail_popup', $newmail_popup);
+        setPref($data_dir,$username,'newmail_allbox',$newmail_allbox);
+        setPref($data_dir,$username,'newmail_recent',$newmail_recent);
         setPref($data_dir,$username,'newmail_popup_height',$newmail_popup_height);
         setPref($data_dir,$username,'newmail_popup_width',$newmail_popup_width);
-        setPref($data_dir,$username,'newmail_changetitle',$media_changetitle);
+        setPref($data_dir,$username,'newmail_changetitle',$newmail_changetitle);
+        setPref($data_dir,$username,'newmail_changetitle_prefix',$newmail_changetitle_prefix);
             
-        if( sqgetGlobalVar('media_sel', $media_sel, SQ_POST) &&
-            ($media_sel == '(none)' || $media_sel == '(local media)') ) {
+        if( sqgetGlobalVar('newmail_sel', $newmail_sel, SQ_POST) &&
+            ($newmail_sel == '(none)' || $newmail_sel == '(local media)') ) {
             removePref($data_dir,$username,'newmail_media');
         } else {
-            setPref($data_dir,$username,'newmail_media',$media_sel);
+            setPref($data_dir,$username,'newmail_media',$newmail_sel);
         }
     }
 }
 
 function newmail_pref() {
     global $username, $data_dir, $newmail_media, $newmail_enable, $newmail_popup,
-           $newmail_allbox, $newmail_recent, $newmail_changetitle, $newmail_popup_height,
-           $newmail_popup_width;
+           $newmail_allbox, $newmail_recent, $newmail_changetitle,
+           $newmail_changetitle_prefix, $newmail_popup_height, $newmail_popup_width;
     
 
     $newmail_recent = getPref($data_dir,$username,'newmail_recent');
@@ -146,6 +149,7 @@ function newmail_pref() {
     $newmail_popup_height = getPref($data_dir, $username, 'newmail_popup_height',130);
     $newmail_popup_width = getPref($data_dir, $username, 'newmail_popup_width',200);
     $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
+    $newmail_changetitle_prefix = getPref($data_dir, $username, 'newmail_changetitle_prefix');
 
 }
 
@@ -165,7 +169,7 @@ function newmail_plugin() {
     global $username, $key, $imapServerAddress, $imapPort,
         $newmail_media, $newmail_enable, $newmail_popup,
         $newmail_popup_height, $newmail_popup_width, $newmail_recent, 
-        $newmail_changetitle, $imapConnection;
+        $newmail_changetitle, $newmail_changetitle_prefix, $imapConnection;
 
     include_once(SM_PATH . 'functions/display_messages.php');
 
@@ -223,14 +227,18 @@ function newmail_plugin() {
             global $org_title;
             echo "<script language=\"javascript\" type=\"text/javascript\">\n" .
                 "function ChangeTitleLoad() {\n";
-            if( $totalNew > 1 || $totalNew == 0 ) {
-                echo 'window.parent.document.title = "' . $org_title . ' [' .
-                    sprintf(_("%s New Messages"), $totalNew ) . 
-                    "]\";\n";
+            if ($newmail_changetitle_prefix) {
+                echo 'window.parent.document.title = "(' . $totalNew .') ' . $org_title . '";';
             } else {
-                echo 'window.parent.document.title = "' . $org_title . ' [' .
-                    sprintf(_("%s New Message"), $totalNew ) . 
-                    "]\";\n";
+                if( $totalNew > 1 || $totalNew == 0 ) {
+                    echo 'window.parent.document.title = "' . $org_title . ' [' .
+                        sprintf(_("%s New Messages"), $totalNew ) . 
+                        "]\";\n";
+                } else {
+                    echo 'window.parent.document.title = "' . $org_title . ' [' .
+                        sprintf(_("%s New Message"), $totalNew ) . 
+                        "]\";\n";
+                }
             }
             echo    "if (BeforeChangeTitle != null)\n".
                 "BeforeChangeTitle();\n".

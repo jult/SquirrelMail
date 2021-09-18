@@ -5,9 +5,9 @@
  *
  * IMAP search page
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: search.php 14847 2020-03-24 17:29:26Z pdontthink $
+ * @version $Id: search.php 14895 2021-02-08 05:35:56Z pdontthink $
  * @package squirrelmail
  * @subpackage search
  */
@@ -537,7 +537,7 @@ if ($search_all == 'all') {
             $mailbox = $boxes[$x]['unformatted'];
             if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
                 sqimap_mailbox_select($imapConnection, $mailbox);
-                $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
+                $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color);
                 $count_all = count($msgs);
                 printSearchMessages($msgs, $mailbox, $count_all, $imapConnection,
                                     $where, $what, false, false);
@@ -562,7 +562,7 @@ else {
         echo '<br />'
         . html_tag( 'div', '<b>' . _("Search Results") . '</b>', 'center' ) . "\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
-        $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
+        $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color);
         if (count($msgs)) {
             printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection,
                                 $where, $what, false, false);

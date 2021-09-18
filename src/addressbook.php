@@ -5,9 +5,9 @@
  *
  * Manage personal address book.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: addressbook.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: addressbook.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  * @subpackage addressbook
  */
@@ -132,7 +132,7 @@ function list_writable_backends($name) {
     if ( $abook->numbackends > 1 ) {
         $backends = $abook->get_backend_list();
         $writeable_abooks=array();
-        while (list($undef,$v) = each($backends)) {
+        foreach ($backends as $v) {
             if ($v->writeable) {
                 // add each backend to array
                 $writeable_abooks[$v->bnum]=$v->sname;
@@ -439,7 +439,7 @@ if ($showaddrlist) {
             $abook_fields = 5;
         }
         $count = 0;
-        while(list($undef,$row) = each($alist)) {
+        foreach ($alist as $row) {
 
             /* New table header for each backend */
             if($prevbackend != $row['backend']) {

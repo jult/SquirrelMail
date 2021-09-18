@@ -7,9 +7,9 @@
  * shown can be given as parameters. If the user is not logged in
  * this file will verify username and password.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: webmail.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: webmail.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  */
 

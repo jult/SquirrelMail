@@ -6,10 +6,10 @@
  * This a simple login screen. Some housekeeping is done to clean
  * cookies and find language.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: login.php 14840 2020-01-07 07:42:38Z pdontthink $
- * @version $Id: login.php 14841 2020-10-10 23:36:07Z jult $
+ * @version $Id: login.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: login.php 14886 2021-09-04 23:36:07Z jult $
  * @package squirrelmail
  */
 
@@ -141,8 +141,8 @@ $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
           "    }\n".
           "  }\n".
           "// -->\n".
+          "</script>\n";
 /* xxx begin */
-          "</script>\n".
   "<style type=\"text/css\">\n".
         "body{\n".
         "margin: 0;".
@@ -164,12 +164,12 @@ $custom_css = 'none';
 if (! isset($color) || ! is_array($color)) {
     // Add default color theme, if theme loading fails
     $color = array();
-    $color[0]  = '';  /*    TitleBar               */
-    $color[1]  = '#900000';  /*                                   */
-    $color[2]  = '#aa2200';  /*      Warning/Error Messages */
-    $color[4]  = '';  /* greyish         Normal Background      */
-    $color[7]  = '#00aa00';  /* green          Links                  */
-    $color[8]  = '#000000';  /* black         Normal text            */
+    $color[0]  = '';  /*               TitleBar                 */
+    $color[1]  = '#900000';  /*                                */
+    $color[2]  = '#AA2200';  /*        Warning/Error Messages */
+    $color[4]  = '';  /* greyish       Normal Background     */
+    $color[7]  = '#00AA00';  /* green  Links                */
+    $color[8]  = '#000000';  /* black  Normal text         */
 }
 /* xxx end */
 
@@ -191,7 +191,9 @@ if(sqgetGlobalVar('mailtodata', $mailtodata)) {
     $mailtofield = '';
 }
 
+/* If they don't have a logo, don't bother.. */
 if (isset($org_logo) && $org_logo) {
+    /* Display width and height like good little people */
     $width_and_height = '';
     if (isset($org_logo_width) && is_numeric($org_logo_width) &&
      $org_logo_width>0) {

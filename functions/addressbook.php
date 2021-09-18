@@ -5,9 +5,9 @@
  *
  * Functions require SM_PATH and support of forms.php functions
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: addressbook.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: addressbook.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  * @subpackage addressbook
  */
@@ -136,7 +136,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     /* Load configured LDAP servers (if PHP has LDAP support) */
     if (isset($ldap_server) && is_array($ldap_server) && function_exists('ldap_connect')) {
         reset($ldap_server);
-        while (list($undef,$param) = each($ldap_server)) {
+        foreach ($ldap_server as $param) {
             if (is_array($param)) {
                 $r = $abook->add_backend('ldap_server', $param);
                 if (!$r && $showerr) {

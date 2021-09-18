@@ -3,9 +3,9 @@
 /**
  * global.php
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: global.php 14849 2020-03-24 18:08:40Z pdontthink $
+ * @version $Id: global.php 14919 2021-05-08 03:00:20Z pdontthink $
  * @package squirrelmail
  */
 
@@ -417,7 +417,8 @@ function sqsession_destroy() {
     global $base_uri;
 
     if (isset($_COOKIE[session_name()])) {
-        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri);
+        // sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri);
+        sqsetcookie(session_name(), 'SQMTRASH', 1, $base_uri);
 
         /*
          * Make sure to kill /src and /src/ cookies, just in case there are
@@ -428,8 +429,10 @@ function sqsession_destroy() {
          *     or fixate the $base_uri cookie, so we don't worry about
          *     trying to delete all of them here.
          */
-        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src');
-        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src/');
+        // sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src');
+        // sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src/');
+        sqsetcookie(session_name(), 'SQMTRASH', 1, $base_uri . 'src');
+        sqsetcookie(session_name(), 'SQMTRASH', 1, $base_uri . 'src/');
     }
 
     if (isset($_COOKIE['key'])) sqsetcookie('key', 'SQMTRASH', 1, $base_uri);
@@ -506,6 +509,16 @@ function sqsession_start() {
  *                           transmitted over a secure HTTPS connection.
  * @param boolean $bHttpOnly Disallow JS to access the cookie (IE6/FF2)
  * @param boolean $bReplace  Replace previous cookies with same name?
+ * @param string  $sSameSite Optional override of the default SameSite
+ *                           cookie policy detemined from the global
+ *                           configuration item $same_site_cookies
+ *                           (which can be set in config/config_local.php)
+ *                           (should be NULL to accept the configured global
+ *                           default or one of "Lax" "Strict" or "None"
+ *                           but "None" will not work if $bSecure is FALSE.
+ *                           Can also be set set to an empty string in order
+ *                           to NOT specify the SameSite cookie attribute at
+ *                           all and accept whatever the browser default is)
  *
  * @return void
  *
@@ -513,7 +526,7 @@ function sqsession_start() {
  *
  */
 function sqsetcookie($sName, $sValue='deleted', $iExpire=0, $sPath="", $sDomain="",
-                     $bSecure=false, $bHttpOnly=true, $bReplace=false) {
+                     $bSecure=false, $bHttpOnly=true, $bReplace=false, $sSameSite=NULL) {
 
     // some environments can get overwhelmed by an excessive
     // setting of the same cookie over and over (e.g., many
@@ -548,6 +561,21 @@ function sqsetcookie($sName, $sValue='deleted', $iExpire=0, $sPath="", $sDomain=
     if (!$only_secure_cookies)
         $bSecure = false;
 
+    // use global SameSite setting, but allow override
+    // The global $same_site_cookies (for which an override value
+    // can be specified in config/config_local.php) defaults to
+    // "Strict" when it is NULL (when not given in the config file),
+    // or can be manually set to "Lax" "Strict" or "None" if desired
+    // or can be set to an empty string in order to not specify
+    // SameSite at all and use the browser default
+    if (is_null($sSameSite)) {
+        global $same_site_cookies;
+        if (is_null($same_site_cookies))
+           $sSameSite = 'Strict';
+        else
+           $sSameSite = $same_site_cookies;
+    }
+
     if (false && check_php_version(5,2)) {
        // php 5 supports the httponly attribute in setcookie, but because setcookie seems a bit
        // broken we use the header function for php 5.2 as well. We might change that later.
@@ -568,7 +596,8 @@ function sqsetcookie($sName, $sValue='deleted', $iExpire=0, $sPath="", $sDomain=
                             . (empty($sPath) ? '' : '; path=' . $sPath)
                             . (empty($sDomain) ? '' : '; domain=' . $sDomain)
                             . (!$bSecure ? '' : '; secure')
-                            . (!$bHttpOnly ? '' : '; HttpOnly'), $bReplace);
+                            . (!$bHttpOnly ? '' : '; HttpOnly')
+                            . (empty($sSameSite) ? '' : '; SameSite=' . $sSameSite), $bReplace);
     }
 }
 

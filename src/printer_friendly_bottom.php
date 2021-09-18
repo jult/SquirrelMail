@@ -8,9 +8,9 @@
  *
  * - this is the page that does all the work, really.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: printer_friendly_bottom.php 14860 2020-05-23 18:54:31Z pdontthink $
+ * @version $Id: printer_friendly_bottom.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  */
 

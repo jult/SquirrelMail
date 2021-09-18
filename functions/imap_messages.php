@@ -6,9 +6,9 @@
  * This implements functions that manipulate messages
  * NOTE: Quite a few functions in this file are obsolete
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: imap_messages.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: imap_messages.php 14924 2021-08-10 06:40:54Z pdontthink $
  * @package squirrelmail
  * @subpackage imap
  */
@@ -465,14 +465,14 @@ function elapsedTime($start) {
  * @return string $s parsed string without the double quotes or literal count
  */
 function parseString($read,&$i) {
-    $char = $read{$i};
+    $char = $read[$i];
     $s = '';
     if ($char == '"') {
         $iPos = ++$i;
         while (true) {
             $iPos = strpos($read,'"',$iPos);
             if (!$iPos) break;
-            if ($iPos && $read{$iPos -1} != '\\') {
+            if ($iPos && $read[$iPos -1] != '\\') {
                 $s = substr($read,$i,($iPos-$i));
                 $i = $iPos;
                 break;
@@ -634,7 +634,7 @@ function parseFetch(&$aResponse, $aMessageList = array()) {
                                 case 'date':
                                     $aMsg['date'] = trim(str_replace('  ', ' ', $value));
                                     break;
-                                case 'x-priority': $aMsg['x-priority'] = ($value) ? (int) $value{0} : 3; break;
+                                case 'x-priority': $aMsg['x-priority'] = ($value) ? (int) $value[0] : 3; break;
                                 case 'priority':
                                 case 'importance':
                                     // duplicate code with Rfc822Header.cls:parsePriority()
@@ -910,7 +910,7 @@ function sqimap_get_small_header_list($imap_stream, $msg_list, $show_num=false) 
         }
         if (isset($date) || isset($internal_date)) {
             if (isset($internal_date)) {
-                $internal_date = str_replace('  ', ' ', $internal_date);
+                $internal_date = preg_replace('/\s+/', ' ', $internal_date);
                 $tmpinternal_date  = explode(' ', trim($internal_date));
                 if (!isset($date)) {
                     $date = $internal_date;
@@ -918,7 +918,7 @@ function sqimap_get_small_header_list($imap_stream, $msg_list, $show_num=false) 
                 }
             }
             if (isset($date)) {
-                $date = str_replace('  ', ' ', $date);
+                $date = preg_replace('/\s+/', ' ', $date);
                 $tmpdate  = explode(' ', trim($date));
                 if (!isset($internal_date)) {
                     $internal_date = $date;

@@ -5,9 +5,9 @@
  *
  * SMTP delivery backend for the Deliver class.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver_SMTP.class.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: Deliver_SMTP.class.php 14914 2021-04-15 17:18:59Z pdontthink $
  * @package squirrelmail
  */
 
@@ -45,7 +45,7 @@ class Deliver_SMTP extends Deliver {
 
     function preWriteToStream(&$s) {
         if ($s) {
-            if ($s{0} == '.')   $s = '.' . $s;
+            if ($s[0] == '.')   $s = '.' . $s;
             $s = str_replace("\n.","\n..",$s);
         }
     }
@@ -54,7 +54,7 @@ class Deliver_SMTP extends Deliver {
         global $use_smtp_tls, $smtp_auth_mech;
 
         if ($authpop) {
-            $this->authPop($pop_host, '', $user, $pass);
+            $this->authPop($user, $pass, $pop_host, '');
         }
 
         $rfc822_header = $message->rfc822_header;
@@ -157,7 +157,7 @@ class Deliver_SMTP extends Deliver {
         $tmp = $this->parse_ehlo_response($stream);
         if ($this->errorCheck($tmp,$stream)) {
             // fall back to HELO if EHLO is not supported (error 5xx)
-            if ($this->dlv_ret_nr{0} == '5') {
+            if ($this->dlv_ret_nr[0] == '5') {
                 fputs($stream, "HELO $helohost\r\n");
                 $tmp = fgets($stream,1024);
                 if ($this->errorCheck($tmp,$stream)) {
@@ -402,7 +402,7 @@ class Deliver_SMTP extends Deliver {
             $server_msg .= substr($line, 4);
         }
 
-        if ( ((int) $err_num{0}) < 4) {
+        if ( ((int) $err_num[0]) < 4) {
             return false;
         }
 
@@ -457,7 +457,7 @@ class Deliver_SMTP extends Deliver {
         return true;
     }
 
-    function authPop($pop_server='', $pop_port='', $user, $pass) {
+    function authPop($user, $pass, $pop_server='', $pop_port='') {
         if (!$pop_port) {
             $pop_port = 110;
         }

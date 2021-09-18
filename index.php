@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * index.php
+ *
+ * Redirects to the login page.
+ *
+ * @copyright 1999-2021 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id: index.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @package squirrelmail
+ */
+
 // Are we configured yet?
 if( ! file_exists ( 'config/config.php' ) ) {
     echo '<html><body><p><strong>ERROR:</strong> Config file ' .

@@ -6,9 +6,9 @@
  * takes a string of unicode entities and converts it to a cp1251 encoded string
  * Unsupported characters are replaced with ?.
  *
- * @copyright 2004-2020 The SquirrelMail Project Team
+ * @copyright 2004-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: cp1251.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: cp1251.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  * @subpackage encode
  */

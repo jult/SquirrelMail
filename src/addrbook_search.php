@@ -9,9 +9,9 @@
  *       addrbook_search_html.html -- If you change one,
  *       change the other one too!
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: addrbook_search.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: addrbook_search.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  * @subpackage addressbook
  */
@@ -137,7 +137,7 @@ function display_result($res, $includesource = true) {
     }    
     echo "</tr>\n";
     
-    while (list($undef, $row) = each($res)) {
+    foreach ($res as $row) {
         $email = sm_encode_html_special_chars(addcslashes(AddressBook::full_address($row), "'"), ENT_QUOTES);
         if ($line % 2) { 
             $tr_bgcolor = $color[12];
@@ -220,7 +220,7 @@ if ($show == 'form' && empty($listall)) {
         $selopts['-1'] = _("All address books");
 
         $ret = $abook->get_backend_list();
-        while (list($undef,$v) = each($ret)) {
+        foreach ($ret as $v) {
             $selopts[$v->bnum] = $v->sname;
         }
         echo addSelect('backend', $selopts, '-1', TRUE);

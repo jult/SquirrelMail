@@ -1,14 +1,14 @@
 /**
  * check_me.js
  *
- * Copyright (c) 1999-2020 The SquirrelMail Project Team
+ * Copyright (c) 1999-2021 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This JavaScript app is the driving power of the SquirrelSpell's
  * main spellchecker window. Hope you have as much pain figuring
  * it out as it took to write. ;))
  *
- * $Id: check_me.js 14840 2020-01-07 07:42:38Z pdontthink $
+ * $Id: check_me.js 14885 2021-02-05 19:19:32Z pdontthink $
  */
 
 var CurrentError=0;

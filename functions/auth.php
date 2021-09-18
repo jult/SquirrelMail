@@ -5,9 +5,9 @@
  *
  * Contains functions used to do authentication.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: auth.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: auth.php 14887 2021-02-06 00:49:08Z pdontthink $
  * @package squirrelmail
  */
 
@@ -227,13 +227,13 @@ function digest_md5_parse_challenge($challenge) {
     $challenge=base64_decode($challenge);
     $parsed = array();
     while (!empty($challenge)) {
-        if ($challenge{0} == ',') { // First char is a comma, must not be 1st time through loop
+        if ($challenge[0] == ',') { // First char is a comma, must not be 1st time through loop
             $challenge=substr($challenge,1);
         }
         $key=explode('=',$challenge,2);
         $challenge=$key[1];
         $key=$key[0];
-        if ($challenge{0} == '"') {
+        if ($challenge[0] == '"') {
             // We're in a quoted value
             // Drop the first quote, since we don't care about it
             $challenge=substr($challenge,1);

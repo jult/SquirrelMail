@@ -4,9 +4,9 @@ echo "Disallowed"; die;
 /**
  * SquirrelMail configtest script
  *
- * @copyright 2003-2020 The SquirrelMail Project Team
+ * @copyright 2003-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: configtest.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: configtest.php 14890 2021-02-06 01:55:51Z pdontthink $
  * @package squirrelmail
  * @subpackage config
  */
@@ -411,7 +411,7 @@ if($useSendmail) {
 
     // check for SMTP code; should be 2xx to allow us access
     $smtpline = fgets($stream, 1024);
-    if(((int) $smtpline{0}) > 3) {
+    if(((int) $smtpline[0]) > 3) {
         do_err("Error connecting to SMTP server. Server error: ".
                 sm_encode_html_special_chars($smtpline));
     }

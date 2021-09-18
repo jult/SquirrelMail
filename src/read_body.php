@@ -6,9 +6,9 @@
  * This file is used for reading the msgs array and displaying
  * the resulting emails in the right frame.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: read_body.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: read_body.php 14906 2021-03-28 18:28:31Z pdontthink $
  * @package squirrelmail
  */
 
@@ -928,7 +928,7 @@ if (($attachment_common_show_images) &&
 
         echo html_tag( 'table', "\n" .
                     html_tag( 'tr', "\n" .
-                        html_tag( 'td', '<img src="' . $imgurl . '" />' ."\n", 'left'
+                        html_tag( 'td', '<img width="100%" src="' . $imgurl . '" />' ."\n", 'left'
                         )
                     ) ,
         'center', '', 'cellspacing="0" border="0" cellpadding="2"');

@@ -4,9 +4,9 @@
   * This file contains a set of general-purpose library
   * functions.
   *
-  * @copyright &copy; 1999-2020 The SquirrelMail Project Team
+  * @copyright &copy; 1999-2021 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: common.js 14840 2020-01-07 07:42:38Z pdontthink $
+  * @version $Id: common.js 14885 2021-02-05 19:19:32Z pdontthink $
   * @package squirrelmail
   * @since 1.4.23
   *

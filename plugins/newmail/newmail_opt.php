@@ -3,12 +3,12 @@
 /**
  * newmails_opt.php
  *
- * Copyright (c) 1999-2020 The SquirrelMail Project Team
+ * Copyright (c) 1999-2021 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Displays all options relating to new mail sounds
  *
- * $Id: newmail_opt.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * $Id: newmail_opt.php 14923 2021-07-12 22:04:37Z pdontthink $
  * @package plugins
  * @subpackage newmail
  */
@@ -25,14 +25,15 @@ require_once(SM_PATH . 'include/load_prefs.php');
 
 displayPageHeader($color, 'None');
 
-$media_enable = getPref($data_dir,$username, 'newmail_enable', 'FALSE' );
-$media_popup = getPref($data_dir, $username,'newmail_popup');
-$media_allbox = getPref($data_dir,$username,'newmail_allbox');
-$media_recent = getPref($data_dir,$username,'newmail_recent');
-$media_changetitle = getPref($data_dir,$username,'newmail_changetitle');
+$newmail_enable = getPref($data_dir,$username, 'newmail_enable', 'FALSE' );
+$newmail_popup = getPref($data_dir, $username,'newmail_popup');
+$newmail_allbox = getPref($data_dir,$username,'newmail_allbox');
+$newmail_recent = getPref($data_dir,$username,'newmail_recent');
+$newmail_changetitle = getPref($data_dir,$username,'newmail_changetitle');
+$newmail_changetitle_prefix = getPref($data_dir,$username,'newmail_changetitle_prefix');
 $newmail_popup_height = getPref($data_dir, $username, 'newmail_popup_height',130);
 $newmail_popup_width = getPref($data_dir, $username, 'newmail_popup_width',200);
-$media = getPref($data_dir,$username,'newmail_media', '(none)');
+$newmail_media = getPref($data_dir,$username,'newmail_media', '(none)');
 
 // Set $allowsound to false if you don't want sound files available
 $allowsound = "true";
@@ -56,6 +57,9 @@ echo html_tag( 'p',
      ) . "\n" .
      html_tag( 'p',
         sprintf(_("Selecting the %s option will change the title in some browsers to let you know when you have new mail (requires JavaScript). This will always tell you if you have new mail, even if you have %s enabled."), '&quot;'._("Change title on supported browsers").'&quot;', '&quot;'._("Count only messages that are RECENT").'&quot;')
+     ) . "\n" .
+     html_tag( 'p',
+        sprintf(_("When the browser title change is enabled, you can use %s to have the number of new messages prefixed to the title (suffixed otherwise) (requires JavaScript)."), '&quot;'._("Prefix new message count").'&quot;')
      ) . "\n";
 if ($allowsound == "true") {
     echo html_tag( 'p',
@@ -74,45 +78,55 @@ echo '<form action="'.sqm_baseuri().'src/options.php" method="post">' . "\n" .
         '<input type="hidden" name="smtoken" value="' . sm_generate_security_token() . '">' . "\n" .
         html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n";
 
-// Option: media_allbox
+// Option: newmail_allbox
 echo html_tag( 'tr' ) .
         html_tag( 'td', _("Check all boxes, not just INBOX").':', 'right', '', 'nowrap' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if ($media_allbox == 'on') {
+if ($newmail_allbox == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_allbox" /></td></tr>' . "\n";
+echo 'name="newmail_allbox" /></td></tr>' . "\n";
 
-// Option: media_recent
+// Option: newmail_recent
 echo html_tag( 'tr' ) .
         html_tag( 'td', _("Count only messages that are RECENT").':', 'right', '', 'nowrap' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if ($media_recent == 'on') {
+if ($newmail_recent == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_recent" /></td></tr>' . "\n";
+echo 'name="newmail_recent" /></td></tr>' . "\n";
 
-// Option: media_changetitle
+// Option: newmail_changetitle
 echo html_tag( 'tr' ) .
         html_tag( 'td', _("Change title on supported browsers").':', 'right', '', 'nowrap' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if ($media_changetitle == 'on') {
+if ($newmail_changetitle == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_changetitle" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
+echo 'name="newmail_changetitle" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
 
-// Option: media_popup
+// Option: newmail_changetitle_prefix
+echo html_tag( 'tr' ) .
+        html_tag( 'td', _("Prefix new message count").':', 'right', '', 'nowrap' ) .
+            html_tag( 'td', '', 'left' ) .
+                '<input type="checkbox" ';
+if ($newmail_changetitle_prefix == 'on') {
+    echo 'checked="checked" ';
+}
+echo 'name="newmail_changetitle_prefix" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
+
+// Option: newmail_popup
 echo html_tag( 'tr' ) .
         html_tag( 'td', _("Show popup window on new mail").':', 'right', '', 'nowrap' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if($media_popup == 'on') {
+if($newmail_popup == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_popup" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
+echo 'name="newmail_popup" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
 
 echo html_tag( 'tr' )
      . html_tag('td',_("Width of popup window:"),'right','', 'style="white-space: nowrap;"')
@@ -130,23 +144,23 @@ echo html_tag( 'tr' )
 
 
 if ($allowsound == "true") {
-// Option: media_enable
+// Option: newmail_enable
     echo html_tag( 'tr' ) .
             html_tag( 'td', _("Enable Media Playing").':', 'right', '', 'nowrap' ) .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
-    if ($media_enable == 'on') {
+    if ($newmail_enable == 'on') {
         echo 'checked="checked" ';
     }
-    echo 'name="media_enable" /></td></tr>' . "\n";
+    echo 'name="newmail_enable" /></td></tr>' . "\n";
 
-// Option: media_sel
+// Option: newmail_sel
     echo html_tag( 'tr' ) .
         html_tag( 'td', _("Select server file").':', 'right', '', 'nowrap' ) .
             html_tag( 'td', '', 'left' ) .
-                '<select name="media_sel">' . "\n" .
+                '<select name="newmail_sel">' . "\n" .
                     '<option value="(none)"';
-    if ( $media == '(none)') {
+    if ( $newmail_media == '(none)') {
         echo 'selected="selected" ';
     }
     echo '>' . _("(none)") . '</option>' .  "\n";
@@ -157,7 +171,7 @@ if ($allowsound == "true") {
             $fname = get_location () . '/sounds/' . $entry;
             if ($entry != '..' && $entry != '.' && $entry != 'CVS' && $entry != 'index.php') {
                 echo '<option ';
-                if ($fname == $media) {
+                if ($fname == $newmail_media) {
                     echo 'selected="selected" ';
                 }
                 echo 'value="' . sm_encode_html_special_chars($fname) . '">' .
@@ -166,18 +180,18 @@ if ($allowsound == "true") {
         }
         $d->close();
     }
-    $media_output = ($media == '(none)') ? _("(none)") : substr($media, strrpos($media, '/')+1);
+    $newmail_output = ($newmail_media == '(none)') ? _("(none)") : substr($newmail_media, strrpos($newmail_media, '/')+1);
     echo '</select>'.
         '<input type="submit" value="' . _("Try") . '" name="test" onClick="' .
-            "window.open('testsound.php?sound='+media_sel.options[media_sel.selectedIndex].value, 'TestSound'," .
+            "window.open('testsound.php?sound='+newmail_sel.options[newmail_sel.selectedIndex].value, 'TestSound'," .
             "'width=150,height=30,scrollbars=no');" .
             'return false;' .
             '" /></td></tr>' .
             html_tag( 'tr', "\n" .
                 html_tag( 'td', _("Current File:"), 'right', '', 'nowrap' ) .
                     html_tag( 'td', '<input type="hidden" value="' .
-                        sm_encode_html_special_chars($media) . '" name="media_default">' .
-                        sm_encode_html_special_chars($media_output) . '', 'left' )
+                        sm_encode_html_special_chars($newmail_media) . '" name="newmail_default">' .
+                        sm_encode_html_special_chars($newmail_output) . '', 'left' )
              ) . "\n";
 }
 echo html_tag( 'tr', "\n" .

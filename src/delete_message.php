@@ -5,9 +5,9 @@
  *
  * Deletes a meesage from the IMAP server
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: delete_message.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: delete_message.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  */
 

@@ -11,9 +11,9 @@
  *
  * POP3 class
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: class.POP3.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: class.POP3.php 14891 2021-02-06 02:14:07Z pdontthink $
  * @package plugins
  * @subpackage mail_fetch
  */
@@ -368,7 +368,7 @@ class POP3 {
         $line = fgets($fp,$buffer);
         while ( !preg_match('/^\.\r\n/',$line))
         {
-            if ( $line{0} == '.' ) { $line = substr($line,1); }
+            if ( $line[0] == '.' ) { $line = substr($line,1); }
             $MsgArray[$count] = $line;
             $count++;
             $line = fgets($fp,$buffer);

@@ -8,9 +8,9 @@
  *
  * @author Marc Groot Koerkamp
  * @copyright 2002 Marc Groot Koerkamp, The Netherlands
- * @copyright 2004-2020 The SquirrelMail Project Team
+ * @copyright 2004-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: message_details_bottom.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: message_details_bottom.php 14891 2021-02-06 02:14:07Z pdontthink $
  * @package plugins
  * @subpackage message_details
  */
@@ -166,7 +166,7 @@ for ($i=1; $i < $count; $i++) {
         }
     }
     
-    if (($line != '' && $line{0} == '-' || $header)  && isset($boundaries[0])) {
+    if (($line != '' && $line[0] == '-' || $header)  && isset($boundaries[0])) {
         $cnt=count($boundaries)-1;
 	$bnd = $boundaries[$cnt]['bnd'];
 	$bndreg = $boundaries[$cnt]['bndreg'];
@@ -176,7 +176,7 @@ for ($i=1; $i < $count; $i++) {
 	    $bndlen = strlen($reg[1]);
 	    $bndend = false;	    
             if (strlen($line) > ($bndlen + 3)) {
-		if ($line{$bndlen+2} == '-' && $line{$bndlen+3} == '-') 
+		if ($line[$bndlen+2] == '-' && $line[$bndlen+3] == '-') 
 		    $bndend = true;
 	    }
 	    if ($bndend) {

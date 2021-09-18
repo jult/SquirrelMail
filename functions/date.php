@@ -8,9 +8,9 @@
  *       <Tue,> 29 Jun 1999 09:52:11 -0500 (EDT)
  * (as specified in RFC 822) -- 'Tue' is optional
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: date.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: date.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package squirrelmail
  * @subpackage date
  */
@@ -56,6 +56,7 @@ function getGMTSeconds($stamp, $tzc) {
             $tzc = '-0400';
             break;
         case 'GMT':
+        case 'UTC':
             $tzc = '+0000';
             break;
         case 'BST':

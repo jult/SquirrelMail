@@ -3,9 +3,9 @@
 /**
  * Displays the main calendar page (month view).
  *
- * @copyright 2002-2020 The SquirrelMail Project Team
+ * @copyright 2002-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: calendar.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: calendar.php 14885 2021-02-05 19:19:32Z pdontthink $
  * @package plugins
  * @subpackage calendar
  */
@@ -110,10 +110,10 @@ function drawmonthview() {
             }
             if (isset($calendardata[$cdate])){
                 $i=0;
-                while ($calfoo = each($calendardata[$cdate])) {
-                    $calbar = $calendardata[$cdate][$calfoo['key']];
+                foreach ($calendardata[$cdate] as $key => $value) {
+                    $calbar = $calendardata[$cdate][$key];
                     // FIXME: how to display multiline task
-                    $title = '['. $calfoo['key']. '] ' .
+                    $title = '['. $key. '] ' .
                         str_replace(array("\r","\n"),array(' ',' '),sm_encode_html_special_chars($calbar['message']));
                     // FIXME: link to nowhere
                     echo "<a href=\"#\" style=\"text-decoration:none; color: "
