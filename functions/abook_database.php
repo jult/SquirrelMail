@@ -3,9 +3,9 @@
 /**
  * abook_database.php
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: abook_database.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: abook_database.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage addressbook
  */
@@ -43,8 +43,8 @@ if (!$use_pdo && !include_once('DB.php')) {
  * An array with the following elements must be passed to
  * the class constructor (elements marked ? are optional):
  * <pre>
- *   dsn       => database DNS (see PEAR for syntax, but more or
- *                less it is:  mysql://user:pass@hostname/dbname)
+ *   dsn       => database DNS (see PEAR for syntax, but basically
+ *                it is:  mysql://user:pass@hostname/dbname)
  *   table     => table to store addresses in (must exist)
  *   owner     => current user (owner of address data)
  * ? name      => name of address book
@@ -82,6 +82,12 @@ if (!$use_pdo && !include_once('DB.php')) {
  *                                      putting it here, or tell SquirrelMail
  *                                      NOT to quote identifiers by setting
  *                                      this to "none"
+ *
+ * If needed, you can also set $addrbook_db_charset as a string
+ * (such as "utf8mb4") in config/config_local.php if your system
+ * does not default the SQL connection character set as expected
+ * (most sensible systems will do the right thing transparently).
+ * TODO: make this specific to each backend and not a global?
  *
  * @package squirrelmail
  * @subpackage addressbook
@@ -205,7 +211,7 @@ class abook_database extends addressbook_backend {
      * @return bool
      */
     function open($new = false) {
-        global $use_pdo;
+        global $use_pdo, $addrbook_db_charset;
         $this->error = '';
 
         /* Return true is file is open and $new is unset */
@@ -261,6 +267,8 @@ class abook_database extends addressbook_backend {
                 $pdo_prefs_dsn = $matches[1] . ':unix_socket=' . $matches[9] . ';dbname=' . $matches[5];
             else
                 $pdo_prefs_dsn = $matches[1] . ':host=' . $matches[4] . (!empty($matches[6]) ? ';port=' . $matches[6] : '') . ';dbname=' . $matches[5];
+            if (!empty($addrbook_db_charset))
+               $pdo_prefs_dsn .= ';charset=' . $addrbook_db_charset;
             try {
                 $dbh = new PDO($pdo_prefs_dsn, $matches[2], $matches[3]);
             } catch (Exception $e) {
@@ -285,6 +293,31 @@ class abook_database extends addressbook_backend {
         }
 
         $this->dbh = $dbh;
+
+        // Older versions of PHP are buggy with setting charset on the dsn so we also issue a SET NAMES
+        if (!empty($addrbook_db_charset)) {
+            if ($use_pdo) {
+                $res = $dbh->exec('SET NAMES \'' . $addrbook_db_charset . '\'');
+                /* Purposefully not checking for errors; some setups reportedly botch it on queries like this
+                if ($res === FALSE) {
+                    if ($pdo_show_sql_errors)
+                        $this->error = implode(' - ', $sth->errorInfo());
+                    else
+                        $this->error = _("Could not execute query");
+                }
+                $this->failQuery();
+                */
+            }
+            else {
+                $res = $this->dbh->simpleQuery('SET NAMES \'' . $addrbook_db_charset . '\'');
+                /* Purposefully not checking for errors; some setups reportedly botch it on queries like this
+                if(DB::isError($res)) {
+                    $this->failQuery($res);
+                }
+                */
+            }
+        }
+
         return true;
     }
 

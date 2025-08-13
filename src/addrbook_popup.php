@@ -5,9 +5,9 @@
  *
  * Frameset for the JavaScript version of the address book.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: addrbook_popup.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: addrbook_popup.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage addressbook
  */

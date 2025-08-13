@@ -3,9 +3,9 @@
 /**
  * Other calendar plugin functions.
  *
- * @copyright 2002-2021 The SquirrelMail Project Team
+ * @copyright 2002-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: functions.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: functions.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package plugins
  * @subpackage calendar
  */
@@ -55,11 +55,11 @@ function select_option_length($selected) {
         '360' => _("6 hr.")
     );
 
-    while( $bar = each($eventlength)) {
-        if($bar['key']==$selected){
-            echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
+    foreach($eventlength as $key => $value) {
+        if($key==$selected){
+            echo '        <option value="'.$key.'" selected="selected">'.$value."</option>\n";
         } else {
-            echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
+            echo '        <option value="'.$key.'">'.$value."</option>\n";
         }
     }
 }
@@ -87,11 +87,11 @@ function select_option_minute($selected) {
         '55'=>'55'
     );
 
-    while ( $bar = each($eventminute)) {
-        if ($bar['key']==$selected){
-            echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
+    foreach($eventminute as $key => $value) {
+        if ($key==$selected){
+            echo '        <option value="'.$key.'" selected="selected">'.$value."</option>\n";
         } else {
-            echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
+            echo '        <option value="'.$key.'">'.$value."</option>\n";
         }
     }
 }
@@ -125,11 +125,11 @@ function select_option_priority($selected) {
         '1' => _("High"),
     );
 
-    while( $bar = each($eventpriority)) {
-        if($bar['key']==$selected){
-            echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
+    foreach($eventpriority as $key => $value) {
+        if($key==$selected){
+            echo '        <option value="'.$key.'" selected="selected">'.$value."</option>\n";
         } else {
-            echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
+            echo '        <option value="'.$key.'">'.$value."</option>\n";
         }
     }
 }

@@ -11,9 +11,9 @@
  *    - Send mail
  *    - Save As Draft
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: compose.php 14921 2021-05-12 05:12:06Z pdontthink $
+ * @version $Id: compose.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 
@@ -1726,7 +1726,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
 
     /* Receipt: On Delivery */
     if (isset($request_dr) && $request_dr) {
-        $rfc822_header->more_headers['Return-Receipt-To'] = $from_mail;
+        $rfc822_header->dsn = $rfc822_header->parseAddress($from_mail,true);
     }
 
     /* multipart messages */

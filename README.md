@@ -9,3 +9,5 @@ Keeping this sync with validated/self-tested Stable Snapshots from https://squir
 Thanks to Hanno Böck and Andrew Sachen for a few patches for php 7.*
 
 If you want to contribute to this here master (making SM more github sourced), feel free to use/comment/fork.
+
+Original source documentation resides under /doc

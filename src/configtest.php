@@ -4,9 +4,9 @@ echo "Disallowed"; die;
 /**
  * SquirrelMail configtest script
  *
- * @copyright 2003-2021 The SquirrelMail Project Team
+ * @copyright 2003-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: configtest.php 14890 2021-02-06 01:55:51Z pdontthink $
+ * @version $Id: configtest.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage config
  */
@@ -291,7 +291,7 @@ if($data_dir == $attachment_dir) {
 
 
 /* check plugins and themes */
-if (isset($plugins[0])) {
+if (!empty($plugins) && is_array($plugins)) {
     foreach($plugins as $plugin) {
         if(!file_exists(SM_PATH .'plugins/'.$plugin)) {
             do_err('You have enabled the <i>'.$plugin.'</i> plugin, but I cannot find it.', FALSE);
@@ -326,7 +326,7 @@ if (isset($plugins[0])) {
         echo $IND . "Plugins OK.<br />\n";
     }
 } else {
-    echo $IND . "Plugins are not enabled in config.<br />\n";
+    echo $IND . "Plugins are not correctly enabled in the configuration file.<br />\n";
 }
 foreach($theme as $thm) {
     if(!file_exists($thm['PATH'])) {

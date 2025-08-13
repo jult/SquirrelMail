@@ -3,9 +3,9 @@
 /**
  * Displays the day page (day view).
  *
- * @copyright 2002-2021 The SquirrelMail Project Team
+ * @copyright 2002-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: day.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: day.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package plugins
  * @subpackage calendar
  */
@@ -80,8 +80,8 @@ function initialize_events() {
     $cdate = $month . $day . $year;
 
     if (isset($calendardata[$cdate])){
-        while ( $calfoo = each($calendardata[$cdate])){
-            $daily_events["$calfoo[key]"] = $calendardata[$cdate][$calfoo['key']];
+        foreach ($calendardata[$cdate] as $key => $value){
+            $daily_events[$key] = $calendardata[$cdate][$key];
         }
     }
 }
@@ -96,47 +96,46 @@ function display_events() {
 
     ksort($daily_events,SORT_STRING);
     $eo=0;
-    while ($calfoo = each($daily_events)){
+    foreach ($daily_events as $key => $event){
         if ($eo==0){
             $eo=4;
         } else {
             $eo=0;
         }
 
-        $ehour = substr($calfoo['key'],0,2);
-        $eminute = substr($calfoo['key'],2,2);
-        if (!is_array($calfoo['value'])){
+        $ehour = substr($key,0,2);
+        $eminute = substr($key,2,2);
+        if (!is_array($event)){
             echo html_tag( 'tr',
                        html_tag( 'td', $ehour . ':' . $eminute, 'left' ) .
                        html_tag( 'td', '&nbsp;', 'left' ) .
                        html_tag( 'td',
                            "<font size=\"-1\"><a href=\"event_create.php?year=$year&amp;month=$month&amp;day=$day&amp;hour="
-                           .substr($calfoo['key'],0,2)."\">".
+                           .substr($key,0,2)."\">".
                            _("ADD") . "</a></font>" ,
                        'center' ) ,
                    '', $color[$eo]);
 
         } else {
-            $calbar=$calfoo['value'];
-            if ($calbar['length']!=0){
-                $elength = '-'.date_intl(_("H:i"),mktime($ehour,$eminute+$calbar['length'],0,1,1,0));
+            if ($event['length']!=0){
+                $elength = '-'.date_intl(_("H:i"),mktime($ehour,$eminute+$event['length'],0,1,1,0));
             } else {
                 $elength='';
             }
             echo html_tag( 'tr', '', '', $color[$eo] ) .
                         html_tag( 'td', date_intl(_("H:i"),mktime($ehour,$eminute,0,1,1,0)) . $elength, 'left' ) .
                         html_tag( 'td', '', 'left' ) . '[';
-                            echo ($calbar['priority']==1) ? 
-                                "<font color=\"$color[1]\">".sm_encode_html_special_chars($calbar['title']).'</font>' : 
-                                sm_encode_html_special_chars($calbar['title']);
-                            echo'] <div style="margin-left:10px">'.nl2br(sm_encode_html_special_chars($calbar['message'])).'</div>' .
+                            echo ($event['priority']==1) ? 
+                                "<font color=\"$color[1]\">".sm_encode_html_special_chars($event['title']).'</font>' : 
+                                sm_encode_html_special_chars($event['title']);
+                            echo'] <div style="margin-left:10px">'.nl2br(sm_encode_html_special_chars($event['message'])).'</div>' .
                         html_tag( 'td',
                             "<font size=\"-1\"><nobr>\n" .
                             "<a href=\"event_edit.php?year=$year&amp;month=$month&amp;day=$day&amp;hour=".
-                            substr($calfoo['key'],0,2)."&amp;minute=".substr($calfoo['key'],2,2)."\">".
+                            substr($key,0,2)."&amp;minute=".substr($key,2,2)."\">".
                             _("EDIT") . "</a>&nbsp;|&nbsp;\n" .
                             "<a href=\"event_delete.php?dyear=$year&amp;dmonth=$month&amp;dday=$day&amp;dhour=".
-                            substr($calfoo['key'],0,2)."&amp;dminute=".substr($calfoo['key'],2,2).
+                            substr($key,0,2)."&amp;dminute=".substr($key,2,2).
                             "&amp;year=$year&amp;month=$month&amp;day=$day\">" .
                             _("DEL") . '</a>' .
                             "</nobr></font>\n" ,

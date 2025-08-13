@@ -5,9 +5,9 @@
  *
  * SMTP delivery backend for the Deliver class.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver_SMTP.class.php 14914 2021-04-15 17:18:59Z pdontthink $
+ * @version $Id: Deliver_SMTP.class.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 
@@ -19,6 +19,12 @@ require_once(SM_PATH . 'class/deliver/Deliver.class.php');
  * @package squirrelmail
  */
 class Deliver_SMTP extends Deliver {
+    /** @var string delivery error message */
+    var $dlv_msg = '';
+    /** @var integer delivery error number from server */
+    var $dlv_ret_nr = '';
+    /** @var string delivery error message from server */
+    var $dlv_server_msg = '';
 
     /**
      * Array keys are uppercased ehlo keywords
@@ -340,7 +346,17 @@ class Deliver_SMTP extends Deliver {
         for ($i = 0, $cnt = count($to); $i < $cnt; $i++) {
             if (!$to[$i]->host) $to[$i]->host = $domain;
             if (strlen($to[$i]->mailbox)) {
-                fputs($stream, 'RCPT TO:<'.$to[$i]->mailbox.'@'.$to[$i]->host.">\r\n");
+                // Ask for DSN if user has requested such and remote server supports it
+                if ($rfc822_header->dsn && array_key_exists('DSN',$this->ehlo)) {
+                    // TODO: Make the DSN parameters configurable by admin? user?
+                    fputs($stream, 'RCPT TO:<'.$to[$i]->mailbox.'@'.$to[$i]->host."> NOTIFY=SUCCESS,DELAY,FAILURE\r\n");
+                    // Retry without DSN fields for cranky MTAs
+                    if ($this->errorCheck($tmp, $stream)) {
+                        fputs($stream, 'RCPT TO:<'.$to[$i]->mailbox.'@'.$to[$i]->host.">\r\n");
+                    }
+                }
+                else
+                    fputs($stream, 'RCPT TO:<'.$to[$i]->mailbox.'@'.$to[$i]->host.">\r\n");
                 $tmp = fgets($stream, 1024);
                 if ($this->errorCheck($tmp, $stream)) {
                     return(0);
@@ -351,7 +367,17 @@ class Deliver_SMTP extends Deliver {
         for ($i = 0, $cnt = count($cc); $i < $cnt; $i++) {
             if (!$cc[$i]->host) $cc[$i]->host = $domain;
             if (strlen($cc[$i]->mailbox)) {
-                fputs($stream, 'RCPT TO:<'.$cc[$i]->mailbox.'@'.$cc[$i]->host.">\r\n");
+                // Ask for DSN if user has requested such and remote server supports it
+                if ($rfc822_header->dsn && array_key_exists('DSN',$this->ehlo)) {
+                    // TODO: Make the DSN parameters configurable by admin? user?
+                    fputs($stream, 'RCPT TO:<'.$cc[$i]->mailbox.'@'.$cc[$i]->host."> NOTIFY=SUCCESS,DELAY,FAILURE\r\n");
+                    // Retry without DSN fields for cranky MTAs
+                    if ($this->errorCheck($tmp, $stream)) {
+                        fputs($stream, 'RCPT TO:<'.$cc[$i]->mailbox.'@'.$cc[$i]->host.">\r\n");
+                    }
+                }
+                else
+                    fputs($stream, 'RCPT TO:<'.$cc[$i]->mailbox.'@'.$cc[$i]->host.">\r\n");
                 $tmp = fgets($stream, 1024);
                 if ($this->errorCheck($tmp, $stream)) {
                     return(0);
@@ -362,7 +388,17 @@ class Deliver_SMTP extends Deliver {
         for ($i = 0, $cnt = count($bcc); $i < $cnt; $i++) {
             if (!$bcc[$i]->host) $bcc[$i]->host = $domain;
             if (strlen($bcc[$i]->mailbox)) {
-                fputs($stream, 'RCPT TO:<'.$bcc[$i]->mailbox.'@'.$bcc[$i]->host.">\r\n");
+                // Ask for DSN if user has requested such and remote server supports it
+                if ($rfc822_header->dsn && array_key_exists('DSN',$this->ehlo)) {
+                    // TODO: Make the DSN parameters configurable by admin? user?
+                    fputs($stream, 'RCPT TO:<'.$bcc[$i]->mailbox.'@'.$bcc[$i]->host."> NOTIFY=SUCCESS,DELAY,FAILURE\r\n");
+                    // Retry without DSN fields for cranky MTAs
+                    if ($this->errorCheck($tmp, $stream)) {
+                        fputs($stream, 'RCPT TO:<'.$bcc[$i]->mailbox.'@'.$bcc[$i]->host.">\r\n");
+                    }
+                }
+                else
+                    fputs($stream, 'RCPT TO:<'.$bcc[$i]->mailbox.'@'.$bcc[$i]->host.">\r\n");
                 $tmp = fgets($stream, 1024);
                 if ($this->errorCheck($tmp, $stream)) {
                     return(0);

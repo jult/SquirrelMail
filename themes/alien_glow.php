@@ -5,9 +5,9 @@
  * Date: May 2, 2002
  *
  * @author Todd Hammer <thammer at rtccom.com>
- * @copyright 2002-2020 The SquirrelMail Project Team
+ * @copyright 2002-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: alien_glow.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: alien_glow.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

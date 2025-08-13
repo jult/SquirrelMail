@@ -5,9 +5,9 @@
  *
  * Functions needed to display the options pages.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: options.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: options.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage prefs
  */
@@ -1235,7 +1235,7 @@ function save_option($option) {
 
     // all other widgets except TEXTAREAs should never be allowed to have newlines
     //
-    else if ($option->type != SMOPT_TYPE_TEXTAREA)
+    else if ($option->type != SMOPT_TYPE_TEXTAREA && !empty($option->new_value))
         $option->new_value = str_replace(array("\r", "\n"), '', $option->new_value);
 
 

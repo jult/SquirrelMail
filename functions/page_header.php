@@ -5,9 +5,9 @@
  *
  * Prints the page header (duh)
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: page_header.php 14888 2021-02-06 01:00:48Z pdontthink $
+ * @version $Id: page_header.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 
@@ -121,6 +121,13 @@ function displayHtmlHeader($title='SquirrelMail', $xtra_param='', $do_hook=TRUE,
     if ($do_hook) {
         do_hook('generic_header');
     }
+
+    // Add message subject to page title (should only have an effect when loaded in its own browser window/tab)
+    // TODO: For search page, could add " - Search: $what" or something like that
+    global $message;
+    if (!empty($message) && !empty($message->rfc822_header) && !empty($message->rfc822_header->subject))
+        // decodeHeader() should already encode the output, so no sm_encode_html_special_chars()
+        $title .= ' - ' . decodeHeader($message->rfc822_header->subject);
 
     echo "\n<title>$title</title>$xtra\n";
 
@@ -254,7 +261,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
              "\n    if (alreadyFocused) return;\n";
 
             global $action, $reply_focus;
-            if (strpos($action, 'reply') !== FALSE && $reply_focus)
+            if (!empty($action) && strpos($action, 'reply') !== FALSE && $reply_focus)
             {
                 if ($reply_focus == 'select') $js .= "document.forms['compose'].body.select();}\n";
                 else if ($reply_focus == 'focus') $js .= "document.forms['compose'].body.focus(); cursorToTop(document.forms['compose'].body);}\n";
@@ -451,7 +458,7 @@ function compose_Header($color, $mailbox) {
              "\n    if (alreadyFocused) return;\n";
 
             global $action, $reply_focus;
-            if (strpos($action, 'reply') !== FALSE && $reply_focus)
+            if (!empty($action) && strpos($action, 'reply') !== FALSE && $reply_focus)
             {
                 if ($reply_focus == 'select') $js .= "document.forms['compose'].body.select();}\n";
                 else if ($reply_focus == 'focus') $js .= "document.forms['compose'].body.focus();}\n";

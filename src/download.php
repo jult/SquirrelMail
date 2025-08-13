@@ -6,9 +6,9 @@
  * Handles attachment downloads to the users computer.
  * Also allows displaying of attachments when possible.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: download.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: download.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 

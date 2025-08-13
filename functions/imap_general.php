@@ -5,9 +5,9 @@
  *
  * This implements all functions that do general IMAP functions.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: imap_general.php 14887 2021-02-06 00:49:08Z pdontthink $
+ * @version $Id: imap_general.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage imap
  */
@@ -568,6 +568,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                     $read=sqimap_fgets($imap_stream);
                 }
             }
+            // IMAP server might return some untagged info before
+            // the tagged login command response - skip over that
+            while ($read[0] === '*') {
+                $read = sqimap_fgets($imap_stream);
+            }
             $results=explode(" ",$read,3);
             $response=$results[1];
             $message=$results[2];
@@ -618,7 +623,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
          * credentials and use that as the authorization identity.
          */
         $tag=sqimap_session_id(false);
-        $sasl = (isset($sqimap_capabilities['SASL-IR']) && $sqimap_capabilities['SASL-IR']) ? true : false;
+        $sasl = sqimap_capability($imap_stream, 'SASL-IR');
         if(!empty($authz)) {
             $auth = base64_encode("$username\0$authz\0$password");
         } else {
@@ -638,6 +643,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 fputs($imap_stream, "$auth\r\n");
                 $read = sqimap_fgets($imap_stream);
             }
+        }
+        // IMAP server might return some untagged info before
+        // the tagged login command response - skip over that
+        while ($read[0] === '*') {
+            $read = sqimap_fgets($imap_stream);
         }
         $results=explode(" ",$read,3);
         $response=$results[1];

@@ -6,9 +6,9 @@
  * This file contains functions needed to handle content disposition headers 
  * in mime messages. See RFC 2183.
  *
- * @copyright 2003-2021 The SquirrelMail Project Team
+ * @copyright 2003-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Disposition.class.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: Disposition.class.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
@@ -19,9 +19,11 @@
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.0
- * @todo FIXME: do we have to declare vars ($name and $properties)?
  */
 class Disposition {
+    var $name;
+    var $properties;
+
     /**
      * Constructor (PHP5 style, required in some future version of PHP)
      * @param string $name

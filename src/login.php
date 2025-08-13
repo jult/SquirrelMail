@@ -6,10 +6,10 @@
  * This a simple login screen. Some housekeeping is done to clean
  * cookies and find language.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: login.php 14885 2021-02-05 19:19:32Z pdontthink $
- * @version $Id: login.php 14886 2021-09-04 23:36:07Z jult $
+ * @version $Id: login.php 15030 2025-01-02 02:06:04Z pdontthink $
+ * @version $Id: login.php 15031 2025-08-12 18:18:04Z jult $
  * @package squirrelmail
  */
 
@@ -141,8 +141,8 @@ $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
           "    }\n".
           "  }\n".
           "// -->\n".
-          "</script>\n";
 /* xxx begin */
+          "</script>\n".
   "<style type=\"text/css\">\n".
         "body{\n".
         "margin: 0;".
@@ -164,12 +164,12 @@ $custom_css = 'none';
 if (! isset($color) || ! is_array($color)) {
     // Add default color theme, if theme loading fails
     $color = array();
-    $color[0]  = '';  /*               TitleBar                 */
-    $color[1]  = '#900000';  /*                                */
-    $color[2]  = '#AA2200';  /*        Warning/Error Messages */
-    $color[4]  = '';  /* greyish       Normal Background     */
-    $color[7]  = '#00AA00';  /* green  Links                */
-    $color[8]  = '#000000';  /* black  Normal text         */
+    $color[0]  = '';  /*    TitleBar               */
+    $color[1]  = '#900000';  /*                                   */
+    $color[2]  = '#aa2200';  /*      Warning/Error Messages */
+    $color[4]  = '';  /* greyish         Normal Background      */
+    $color[7]  = '#00aa00';  /* green          Links                  */
+    $color[8]  = '#000000';  /* black         Normal text            */
 }
 /* xxx end */
 
@@ -177,13 +177,14 @@ if (! isset($color) || ! is_array($color)) {
 if (!boolean_hook_function('login_before_page_header', array($header), 1))
     displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
-// xx begin -> added div content part
+// xxx begin -> added div content part
 echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload();\"><br /><div id=\"content\">" .
      "\n" . addForm('redirect.php', 'post', 'login_form');
 
 $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
 do_hook('login_top');
+
 
 if(sqgetGlobalVar('mailtodata', $mailtodata)) {
     $mailtofield = addHidden('mailtodata', $mailtodata);
@@ -218,7 +219,7 @@ echo html_tag( 'table',
 // moved out vanity ads begin xx
             '<small>' . sprintf (_("version %s"), $version) . "\n".
             '  ' . _(".") . '<br /></small>' . "\n" ) .
-// moved out ads end xx
+// moved out SM ads end xx
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
@@ -265,3 +266,4 @@ echo '</form></div>' . "\n";
 do_hook('login_bottom');
 ?>
 </body></html>
+

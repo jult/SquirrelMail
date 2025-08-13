@@ -6,9 +6,9 @@
  * This file is used for reading the msgs array and displaying
  * the resulting emails in the right frame.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: read_body.php 14906 2021-03-28 18:28:31Z pdontthink $
+ * @version $Id: read_body.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 
@@ -184,7 +184,10 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         $content_type->properties['charset']=$default_charset;
     }
     $rfc822_header->content_type = $content_type;
-    $rfc822_header->to[] = $header->dnt;
+    if (!empty($header->dnt))
+        $rfc822_header->to[] = $header->dnt;
+    else
+        $rfc822_header->to[] = $header->dsn;
     $rfc822_header->subject = _("Read:") . ' ' . decodeHeader($header->subject, true, false);
 
     // FIXME: use identity.php from SM 1.5. Change this also in compose.php
@@ -465,7 +468,9 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     }
     if ($default_use_mdn) {
         if ($mdn_user_support) {
-            if ($header->dnt) {
+            // We are generous to the sender because DSNs are commonly ignored by servers and
+            // technically offering a return receipt in the MUA for a DSN is overstepping the RFCs
+            if ($header->dnt || $header->dsn) {
                 if ($message->is_mdnsent) {
                     $env[_("Read receipt")] = _("sent");
                 } else {

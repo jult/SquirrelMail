@@ -5,9 +5,9 @@
  *
  * This file contains functions needed to handle mime messages.
  *
- * @copyright 2003-2021 The SquirrelMail Project Team
+ * @copyright 2003-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Message.class.php 14887 2021-02-06 00:49:08Z pdontthink $
+ * @version $Id: Message.class.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
@@ -25,6 +25,7 @@
  * @since 1.3.0
  */
 class Message {
+    var $header;
     /**
      * rfc822header object
      * @var object

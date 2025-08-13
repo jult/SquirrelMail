@@ -7,21 +7,18 @@
  * a delivery backend.
  *
  * @author Marc Groot Koerkamp
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Deliver.class.php 14904b 2021-09-19 00:00:09Z jult $
- * @package squirrelmail
+ * @version $Id: Deliver.class.php 15030 2025-01-02 02:06:04Z pdontthink $
+ * @version $Id: Deliver.class.php 15031 patched for obscurity 2025-08-12 06:06:06Z jult $
+ * @package https://github.com/jult/SquirrelMail
  */
 
 /**
  * Deliver Class - called to actually deliver the message
- *
- * This class is called by compose.php and other code that needs
- * to send messages.  All delivery functionality should be centralized
- * in this class.
- *
- * Do not place UI code in this class, as UI code should be placed in templates
- * going forward.
+ * This class is called by compose.php and other code that needs to send messages.
+ * All delivery functionality should be centralized in this class.
+ * Do not place UI code in this class, as UI code should be placed in templates going forward.
  *
  * @author  Marc Groot Koerkamp
  * @package squirrelmail
@@ -591,7 +588,7 @@ class Deliver {
 
         $rn = "\r\n";
 
-        /* This creates an RFC 822 date */
+    /* This creates an RFC 822 date */
         $now = time();
         $now_date = date('D, j M Y H:i:s ', $now) . $this->timezone();
         // TODO: Do we really want to preserve possibly old date?  Date header should always have "now"... but here is not where this decision should be made -- the caller really should blank out $rfc822_header->date even for drafts being re-edited or sent
@@ -608,7 +605,7 @@ class Deliver {
             $message_id = '<'
                         . md5(GenerateRandomString(16, '', 7) . uniqid(mt_rand(),true))
                         . '@' . $SERVER_NAME .'>';
-// moved out vanity ID ^^^^^^  xx
+// xxx moved out vanity ID ^^^^^^^^
         }
 
         /* Make an RFC822 Received: line */
@@ -656,7 +653,7 @@ class Deliver {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
             if (!isset($hide_auth_header) || !$hide_auth_header)
-// moved out silly security risk xx  -->   $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
+// xxx moved out silly security risk  ->    $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
             $header[] = "       by $SERVER_NAME with HTTP;" . $rn;
             $header[] = "       $now_date" . $rn;
           }
@@ -716,8 +713,8 @@ class Deliver {
                 $header[] = $s;
             }
         }
-        /* Identify SquirrelMail - who would ever want to announce version-nrs, making it even easier to exploit? Kicked it out below.. xx */
-        $header[] = 'User-Agent: SquirrelMail' . $rn;
+        /* Identify SquirrelMail */
+        $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
@@ -739,6 +736,10 @@ class Deliver {
             $header[] = 'X-Confirm-Reading-To: '.$dnt. $rn;
             /* RFC 2298 */
             $header[] = 'Disposition-Notification-To: '.$dnt. $rn;
+        }
+        if ($rfc822_header->dsn) {
+            $dsn = $rfc822_header->getAddr_s('dsn');
+            $header[] = 'Return-Receipt-To: '.$dsn. $rn;
         }
         if ($rfc822_header->priority) {
             switch($rfc822_header->priority)

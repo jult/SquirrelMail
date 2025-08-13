@@ -27,9 +27,9 @@
  * see ../contrib/squirrelmail.mailto.NT2KXP.reg for a Windows Registry file
  * that will set this up in the most robust manner.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: mailto.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: mailto.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 

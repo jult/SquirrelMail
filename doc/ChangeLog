@@ -152,6 +152,7 @@ Version 1.4.23 - SVN
     who a message is from
   - Show more accurate filesize for uploaded files and base64-encoded
     attachments (when reading a message)
+  - Migrate away from create_function() as long as we have PHP 5.3+
 
 Version 1.4.22 - 12 July 2011
 -----------------------------

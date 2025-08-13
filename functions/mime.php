@@ -6,9 +6,9 @@
  * This contains the functions necessary to detect and decode MIME
  * messages.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: mime.php 14912 2021-04-12 03:16:42Z pdontthink $
+ * @version $Id: mime.php 15037 2025-04-02 04:02:28Z pdontthink $
  * @package squirrelmail
  */
 
@@ -348,18 +348,38 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
          */
 
         if ($body_message->header->type1 == 'html') {
-            if ($show_html_default <> 1) {
+            // Do we need to make an HTML part viewable as non-HTML plain text?
+            if ($show_html_default != 1) {
                 $entity_conv = array('&nbsp;' => ' ',
-                                     '<p>'    => "\n",
-                                     '<P>'    => "\n",
-                                     '<br>'   => "\n",
-                                     '<BR>'   => "\n",
-                                     '<br />' => "\n",
-                                     '<BR />' => "\n",
+                                     // These are better done by regex (below)
+                                     // '<p>'    => "\n",
+                                     // '<P>'    => "\n",
+                                     // '<br>'   => "\n",
+                                     // '<BR>'   => "\n",
+                                     // '<br />' => "\n",
+                                     // '<BR />' => "\n",
+                                     // '<tr>'   => "\n",
+                                     // '<div>'  => "\n",
                                      '&gt;'   => '>',
-                                     '&lt;'   => '<');
+                                     '&lt;'   => '<',
+                                     '&amp;'   => '&',
+                                     '&copy;'   => '©');
+                // first, completely remove <style> tags as they aren't useful in this context
+                $body = preg_replace('/<style.*>.*<\/style.*>/isU', '', $body);
+                // emulate how newlines are treated as spaces in HTML
+                $body = preg_replace('/(\r|\n)+/', ' ', $body);
+                // now replace the tags listed just above
                 $body = strtr($body, $entity_conv);
+                // <p>, <br>, <tr> and <div> are best replaced by a newline
+                $body = preg_replace('/<(p|br|tr|div).*>/isU', "\n", $body);
+                // remove the rest of the HTML tags
                 $body = strip_tags($body);
+                // condense multiple spaces into one
+                $body = preg_replace('/[ \t]+/', ' ', $body);
+                // trim each line
+                $body = preg_replace('/ *\n */', "\n", $body);
+                // allow maximum two newlines
+                $body = preg_replace('/\n\n\n+/', "\n\n", $body);
                 $body = trim($body);
                 translateText($body, $wrap_at,
                         $body_message->header->getParameter('charset'));
@@ -659,6 +679,10 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
         $string = implode("\n", $string);
     }
 
+    // loose type checking also catches $string === NULL here:
+    if ($string == '')
+        return '';
+
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
             function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $string = $languages[$squirrelmail_language]['XTRA_CODE']('decodeheader', $string);
@@ -765,7 +789,9 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
             }
         }
 
-        if (!$encoded && $htmlsave) {
+        // It is possible to slip XSS in here when a header has encoded content followed by unecoded malicious content --- this test was written long ago, but because the leftover $chunk has not been classified or handled in any way, we can't assume it is safe to include as-is.... We'll assume the person who wrote this if() would agree and didn't mean to accidentally allow such and that what they meant was the following corrected line:
+        // if (!$encoded && $htmlsave) {
+        if ($htmlsave) {
             $ret .= sm_encode_html_special_chars($chunk);
         } else {
             $ret .= $chunk;

@@ -5,9 +5,9 @@
  *
  * This file contains functions needed to handle headers in mime messages.
  *
- * @copyright 2003-2021 The SquirrelMail Project Team
+ * @copyright 2003-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: MessageHeader.class.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: MessageHeader.class.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
@@ -23,6 +23,9 @@
  * @since 1.3.2
  */
 class MessageHeader {
+    var $entity_id;
+    var $lines;
+
     /**
      * Media type
      * @var string

@@ -6,9 +6,9 @@
  * This implements functions that manipulate messages
  * NOTE: Quite a few functions in this file are obsolete
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: imap_messages.php 14924 2021-08-10 06:40:54Z pdontthink $
+ * @version $Id: imap_messages.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage imap
  */
@@ -71,8 +71,10 @@ function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = tru
  *
  */
 function sqimap_msgs_list_delete($imap_stream, $mailbox, $id) {
-    global $move_to_trash, $trash_folder, $uid_support;
+    global $move_to_trash, $trash_folder, $uid_support, $mark_as_read_upon_delete;
     $msgs_id = sqimap_message_list_squisher($id);
+    if ($mark_as_read_upon_delete)
+        sqimap_toggle_flag($imap_stream, $id, '\\Seen', true, true);
     if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
         /**
          * turn off internal error handling (third argument = false) and
@@ -180,6 +182,7 @@ function sqimap_get_sort_order($imap_stream, $sort, $mbxresponse) {
         return $server_sort_array;
     }
 
+    // TODO: If capabilities include SORT=DISPLAY then 2 and 3 can be DISPLAYFROM... should this be a user or admin option? Maybe it could cycle/switch between FROM and DISPLAYFROM?
     $sort_on = array (0=> 'DATE',
                       1=> 'DATE',
                       2=> 'FROM',
@@ -192,6 +195,7 @@ function sqimap_get_sort_order($imap_stream, $sort, $mbxresponse) {
         $sort_on[0] = 'ARRIVAL';
         $sort_on[1] = 'ARRIVAL';
     }
+    // TODO: If capabilities include SORT=DISPLAY then 2 and 3 can be DISPLAYTO... should this be a user or admin option? Maybe it could cycle/switch between TO and DISPLAYTO?
     if ($sent_folder == $mailbox) {
         $sort_on[2] = 'TO';
         $sort_on[3] = 'TO';
@@ -725,9 +729,9 @@ function parsePriority($sValue) {
  */
 function sqimap_get_small_header_list($imap_stream, $msg_list, $show_num=false) {
     global $squirrelmail_language, $color, $data_dir, $username, $imap_server_type;
-    global $uid_support, $allow_server_sort;
+    global $uid_support, $allow_server_sort, $extra_small_header_fields;
     /* Get the small headers for each message in $msg_list */
-    $maxmsg = sizeof($msg_list);
+    $msg_count = is_array($msg_list) ? sizeof($msg_list) : 1;
     if ($show_num != '999999') {
         $msgs_str = sqimap_message_list_squisher($msg_list);
     } else {
@@ -741,15 +745,20 @@ function sqimap_get_small_header_list($imap_stream, $msg_list, $show_num=false) 
      * in $msg_list, but IMAP servers are free to return responses in
      * whatever order they wish... So we need to re-sort manually
      */
-    for ($i = 0; $i < sizeof($msg_list); $i++) {
-        $messages["$msg_list[$i]"] = array();
+    for ($i = 0; $i < $msg_count; $i++) {
+        $messages[$msg_list[$i]] = array();
     }
 
     $internaldate = getPref($data_dir, $username, 'internal_date_sort', SMPREF_ON);
+    if (!empty($extra_small_header_fields)) {
+        $extra_small_header_fields = trim($extra_small_header_fields);
+        if (!empty($extra_small_header_fields))
+            $extra_small_header_fields = ' ' . $extra_small_header_fields;
+    }
     if ($internaldate) {
-        $query = "FETCH $msgs_str (FLAGS UID RFC822.SIZE INTERNALDATE BODY.PEEK[HEADER.FIELDS (Date To Cc From Subject X-Priority Importance Priority Content-Type)])";
+        $query = "FETCH $msgs_str (FLAGS UID RFC822.SIZE INTERNALDATE BODY.PEEK[HEADER.FIELDS (Date To Cc From Subject X-Priority Importance Priority Content-Type$extra_small_header_fields)])";
     } else {
-        $query = "FETCH $msgs_str (FLAGS UID RFC822.SIZE BODY.PEEK[HEADER.FIELDS (Date To Cc From Subject X-Priority Importance Priority Content-Type)])";
+        $query = "FETCH $msgs_str (FLAGS UID RFC822.SIZE BODY.PEEK[HEADER.FIELDS (Date To Cc From Subject X-Priority Importance Priority Content-Type$extra_small_header_fields)])";
     }
     $read_list = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, $uid_support);
     $i = 0;
@@ -793,11 +802,14 @@ function sqimap_get_small_header_list($imap_stream, $msg_list, $show_num=false) 
         $read = substr($read,$i+1);
         $i_len = strlen($read);
         $i = 0;
+        $extra_small_header_field_values = array();
         while ($i < $i_len && $i !== false) {
             /* get argument */
             $read = trim(substr($read,$i));
             $i_len = strlen($read);
             $i = strpos($read,' ');
+            if ($i === FALSE)
+                break;
             $arg = substr($read,0,$i);
             ++$i;
             switch ($arg)
@@ -897,7 +909,9 @@ function sqimap_get_small_header_list($imap_stream, $msg_list, $show_num=false) 
                                     $type[1] = 'plain';
                                 }
                                 break;
-                            default: break;
+                            default:
+                                $extra_small_header_field_values[$field] = $value;
+                                break;
                             }
                         }
                     }
@@ -955,6 +969,8 @@ function sqimap_get_small_header_list($imap_stream, $msg_list, $show_num=false) 
         $messages[$msgi]['FLAG_ANSWERED'] = $flag_answered;
         $messages[$msgi]['FLAG_SEEN'] = $flag_seen;
         $messages[$msgi]['FLAG_FLAGGED'] = $flag_flagged;
+        foreach ($extra_small_header_field_values as $field => $value)
+            $messages[$msgi][strtoupper($field)] = $value;
 
         /* non server sort stuff */
         if (!$allow_server_sort) {

@@ -6,9 +6,9 @@
  *    Date:   July 20, 2001
  *
  * @author M.J. Prinsen
- * @copyright 2001-2020 The SquirrelMail Project Team
+ * @copyright 2001-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: blue_grey_theme.php 14840 2020-01-07 07:42:38Z pdontthink $
+ * @version $Id: blue_grey_theme.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage themes
  */

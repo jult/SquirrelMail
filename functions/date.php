@@ -8,9 +8,9 @@
  *       <Tue,> 29 Jun 1999 09:52:11 -0500 (EDT)
  * (as specified in RFC 822) -- 'Tue' is optional
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: date.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: date.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage date
  */
@@ -81,13 +81,16 @@ function getGMTSeconds($stamp, $tzc) {
             break;
     }
     $neg = false;
-    if (substr($tzc, 0, 1) == '-') {
-        $neg = true;
-    } else if (substr($tzc, 0, 1) != '+') {
-        $tzc = '+'.$tzc;
+    if (preg_match('/^([+-]?)(\d\d)(\d\d)$/', $tzc, $matches)) {
+        if ($matches[1] === '-')
+            $neg = true;
+        $hh = $matches[2];
+        $mm = $matches[3];
+    } else {
+        // anything not listed above and not in the form +0400
+        // defaults to UTC
+        $hh = $mm = 0;
     }
-    $hh = substr($tzc,1,2);
-    $mm = substr($tzc,3,2);
     $iTzc = ($hh * 60 + $mm) * 60;
     if ($neg) $iTzc = -1 * (int) $iTzc;
     /* stamp in gmt */

@@ -35,21 +35,26 @@
  *                                 internal database information from being
  *                                 exposed. This should be enabled only for
  *                                 debugging purposes.
- *    string $pdo_identifier_quote_char By default, SquirrelMail will quote
- *                                      table and field names in database
- *                                      queries with what it thinks is the
- *                                      appropriate quote character for the
- *                                      database type being used (backtick
- *                                      for MySQL (and thus MariaDB), double
- *                                      quotes for all others), but you can
- *                                      override the character used by
- *                                      putting it here, or tell SquirrelMail
- *                                      NOT to quote identifiers by setting
- *                                      this to "none"
+ *    string $db_identifier_quote_char By default, SquirrelMail will quote
+ *                                     table and field names in database
+ *                                     queries with what it thinks is the
+ *                                     appropriate quote character for the
+ *                                     database type being used (backtick
+ *                                     for MySQL (and thus MariaDB), double
+ *                                     quotes for all others), but you can
+ *                                     override the character used by
+ *                                     putting it here, or tell SquirrelMail
+ *                                     NOT to quote identifiers by setting
+ *                                     this to "none"
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * If needed, you can also set $prefs_db_charset as a string
+ * (such as "utf8mb4") in config/config_local.php if your system
+ * does not default the SQL connection character set as expected
+ * (most sensible systems will do the right thing transparently).
+ *
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: db_prefs.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: db_prefs.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage prefs
  * @since 1.1.3
@@ -170,7 +175,7 @@ class dbPrefs {
     }
 
     function open() {
-        global $prefs_dsn, $prefs_table, $use_pdo, $pdo_identifier_quote_char;
+        global $prefs_dsn, $prefs_db_charset, $prefs_table, $use_pdo, $db_identifier_quote_char;
         global $prefs_user_field, $prefs_key_field, $prefs_val_field;
 
         if(isset($this->dbh)) {
@@ -183,29 +188,22 @@ class dbPrefs {
             $this->db_type = SMDB_PGSQL;
         }
 
-        // figure out identifier quoting (only used for PDO, though we could change that)
-        if (empty($pdo_identifier_quote_char)) {
+        // figure out identifier quoting
+        if (empty($db_identifier_quote_char)) {
             if ($this->db_type == SMDB_MYSQL)
                 $this->identifier_quote_char = '`';
             else
                 $this->identifier_quote_char = '"';
-        } else if ($pdo_identifier_quote_char === 'none')
+        } else if ($db_identifier_quote_char === 'none')
             $this->identifier_quote_char = '';
         else
-            $this->identifier_quote_char = $pdo_identifier_quote_char;
+            $this->identifier_quote_char = $db_identifier_quote_char;
 
         if (!empty($prefs_table)) {
             $this->table = $prefs_table;
         }
         if (!empty($prefs_user_field)) {
             $this->user_field = $prefs_user_field;
-        }
-
-        // the default user field is "user", which in PostgreSQL
-        // is an identifier and causes errors if not escaped
-        //
-        if ($this->db_type == SMDB_PGSQL) {
-           $this->user_field = '"' . $this->user_field . '"';
         }
 
         if (!empty($prefs_key_field)) {
@@ -261,6 +259,8 @@ class dbPrefs {
                 $pdo_prefs_dsn = $matches[1] . ':unix_socket=' . $matches[9] . ';dbname=' . $matches[5];
             else
                 $pdo_prefs_dsn = $matches[1] . ':host=' . $matches[4] . (!empty($matches[6]) ? ';port=' . $matches[6] : '') . ';dbname=' . $matches[5];
+            if (!empty($prefs_db_charset))
+               $pdo_prefs_dsn .= ';charset=' . $prefs_db_charset;
             try {
                 $dbh = new PDO($pdo_prefs_dsn, $matches[2], $matches[3]);
             } catch (Exception $e) {
@@ -277,6 +277,31 @@ class dbPrefs {
         }
 
         $this->dbh = $dbh;
+
+        // Older versions of PHP are buggy with setting charset on the dsn so we also issue a SET NAMES
+        if (!empty($prefs_db_charset)) {
+            if ($use_pdo) {
+                $res = $dbh->exec('SET NAMES \'' . $prefs_db_charset . '\'');
+                /* Purposefully not checking for errors; some setups reportedly botch it on queries like this
+                if ($res === FALSE) {
+                    if ($pdo_show_sql_errors)
+                        $this->error = implode(' - ', $sth->errorInfo());
+                    else
+                        $this->error = _("Could not execute query");
+                }
+                $this->failQuery();
+                */
+            }
+            else {
+                $res = $this->dbh->simpleQuery('SET NAMES \'' . $prefs_db_charset . '\'');
+                /* Purposefully not checking for errors; some setups reportedly botch it on queries like this
+                if(DB::isError($res)) {
+                    $this->failQuery($res);
+                }
+                */
+            }
+        }
+
         return true;
     }
 
@@ -342,11 +367,17 @@ class dbPrefs {
                 $this->failQuery();
             }
         } else {
-            $query = sprintf("DELETE FROM %s WHERE %s='%s' AND %s='%s'",
+            $query = sprintf("DELETE FROM %s%s%s WHERE %s%s%s='%s' AND %s%s%s='%s'",
+                             $this->identifier_quote_char,
                              $this->table,
+                             $this->identifier_quote_char,
+                             $this->identifier_quote_char,
                              $this->user_field,
+                             $this->identifier_quote_char,
                              $this->dbh->quoteString($user),
+                             $this->identifier_quote_char,
                              $this->key_field,
+                             $this->identifier_quote_char,
                              $this->dbh->quoteString($key));
 
             $res = $this->dbh->simpleQuery($query);
@@ -382,12 +413,20 @@ class dbPrefs {
                     $this->failQuery();
                 }
             } else {
-                $query = sprintf("REPLACE INTO %s (%s, %s, %s) ".
+                $query = sprintf("REPLACE INTO %s%s%s (%s%s%s, %s%s%s, %s%s%s) ".
                                  "VALUES('%s','%s','%s')",
+                                 $this->identifier_quote_char,
                                  $this->table,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->user_field,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->key_field,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->val_field,
+                                 $this->identifier_quote_char,
                                  $this->dbh->quoteString($user),
                                  $this->dbh->quoteString($key),
                                  $this->dbh->quoteString($value));
@@ -445,22 +484,36 @@ class dbPrefs {
                 }
             } else {
                 $this->dbh->simpleQuery("BEGIN TRANSACTION");
-                $query = sprintf("DELETE FROM %s WHERE %s='%s' AND %s='%s'",
+                $query = sprintf("DELETE FROM %s%s%s WHERE %s%s%s='%s' AND %s%s%s='%s'",
+                                 $this->identifier_quote_char,
                                  $this->table,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->user_field,
+                                 $this->identifier_quote_char,
                                  $this->dbh->quoteString($user),
+                                 $this->identifier_quote_char,
                                  $this->key_field,
+                                 $this->identifier_quote_char,
                                  $this->dbh->quoteString($key));
                 $res = $this->dbh->simpleQuery($query);
                 if (DB::isError($res)) {
                     $this->dbh->simpleQuery("ROLLBACK TRANSACTION");
                     $this->failQuery($res);
                 }
-                $query = sprintf("INSERT INTO %s (%s, %s, %s) VALUES ('%s', '%s', '%s')",
+                $query = sprintf("INSERT INTO %s%s%s (%s%s%s, %s%s%s, %s%s%s) VALUES ('%s', '%s', '%s')",
+                                 $this->identifier_quote_char,
                                  $this->table,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->user_field,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->key_field,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->val_field,
+                                 $this->identifier_quote_char,
                                  $this->dbh->quoteString($user),
                                  $this->dbh->quoteString($key),
                                  $this->dbh->quoteString($value));
@@ -502,21 +555,35 @@ class dbPrefs {
                     $this->failQuery();
                 }
             } else {
-                $query = sprintf("DELETE FROM %s WHERE %s='%s' AND %s='%s'",
+                $query = sprintf("DELETE FROM %s%s%s WHERE %s%s%s='%s' AND %s%s%s='%s'",
+                                 $this->identifier_quote_char,
                                  $this->table,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->user_field,
+                                 $this->identifier_quote_char,
                                  $this->dbh->quoteString($user),
+                                 $this->identifier_quote_char,
                                  $this->key_field,
+                                 $this->identifier_quote_char,
                                  $this->dbh->quoteString($key));
                 $res = $this->dbh->simpleQuery($query);
                 if (DB::isError($res)) {
                     $this->failQuery($res);
                 }
-                $query = sprintf("INSERT INTO %s (%s, %s, %s) VALUES ('%s', '%s', '%s')",
+                $query = sprintf("INSERT INTO %s%s%s (%s%s%s, %s%s%s, %s%s%s) VALUES ('%s', '%s', '%s')",
+                                 $this->identifier_quote_char,
                                  $this->table,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->user_field,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->key_field,
+                                 $this->identifier_quote_char,
+                                 $this->identifier_quote_char,
                                  $this->val_field,
+                                 $this->identifier_quote_char,
                                  $this->dbh->quoteString($user),
                                  $this->dbh->quoteString($key),
                                  $this->dbh->quoteString($value));
@@ -558,12 +625,20 @@ class dbPrefs {
                 $prefs_cache[$row['prefkey']] = $row['prefval'];
             }
         } else {
-            $query = sprintf("SELECT %s as prefkey, %s as prefval FROM %s ".
-                             "WHERE %s = '%s'",
+            $query = sprintf("SELECT %s%s%s as prefkey, %s%s%s as prefval FROM %s%s%s ".
+                             "WHERE %s%s%s = '%s'",
+                             $this->identifier_quote_char,
                              $this->key_field,
+                             $this->identifier_quote_char,
+                             $this->identifier_quote_char,
                              $this->val_field,
+                             $this->identifier_quote_char,
+                             $this->identifier_quote_char,
                              $this->table,
+                             $this->identifier_quote_char,
+                             $this->identifier_quote_char,
                              $this->user_field,
+                             $this->identifier_quote_char,
                              $this->dbh->quoteString($user));
             $res = $this->dbh->query($query);
             if (DB::isError($res)) {

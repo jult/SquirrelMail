@@ -6,9 +6,9 @@
  * This contains functions that display mailbox information, such as the
  * table row that has sender, date, subject, etc...
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: mailbox_display.php 14896 2021-02-08 06:30:30Z pdontthink $
+ * @version $Id: mailbox_display.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 
@@ -1335,7 +1335,8 @@ function processSubject($subject, $threadlevel = 0) {
 function getMbxList($imapConnection) {
     global $lastTargetMailbox;
     echo  '         &nbsp;<tt><select name="targetMailbox">';
-    echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)) );
+    echo sqimap_mailbox_option_list($imapConnection,
+                                    isset($lastTargetMailbox) ? array(strtolower($lastTargetMailbox)) : array());
     echo '         </select></tt>&nbsp;';
 }
 

@@ -5,9 +5,9 @@
  *
  * IMAP search page
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: search.php 14895 2021-02-08 05:35:56Z pdontthink $
+ * @version $Id: search.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage search
  */

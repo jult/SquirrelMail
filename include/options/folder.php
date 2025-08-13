@@ -5,9 +5,9 @@
  *
  * Displays all options relating to folders
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: folder.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: folder.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 
@@ -96,6 +96,12 @@ function load_optpage_data_folder() {
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => $sent_folder_values,
         'save'    => 'save_option_sent_folder'
+    );
+    $optvals[SMOPT_GRP_SPCFOLDER][] = array(
+        'name'    => 'mark_as_read_upon_delete',
+        'caption' => _("Mark Deleted Messages as Read"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
     );
 
     /*** Load the General Options into the array ***/

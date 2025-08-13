@@ -5,9 +5,9 @@
  *
  * This file contains functions needed to handle headers in mime messages.
  *
- * @copyright 2003-2021 The SquirrelMail Project Team
+ * @copyright 2003-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: Rfc822Header.class.php 14887 2021-02-06 00:49:08Z pdontthink $
+ * @version $Id: Rfc822Header.class.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
@@ -119,6 +119,10 @@ class Rfc822Header {
      * @var mixed
      */
     var $dnt = '';
+    /**
+     * @var mixed
+     */
+    var $dsn = '';
     /**
      * @var mixed
      */
@@ -266,10 +270,13 @@ class Rfc822Header {
                 $this->references = $value;
                 break;
             case 'x-confirm-reading-to':
-            case 'return-receipt-to':
             case 'disposition-notification-to':
                 $value = $this->stripComments($value);
                 $this->dnt = $this->parseAddress($value);
+                break;
+            case 'return-receipt-to':
+                $value = $this->stripComments($value);
+                $this->dsn = $this->parseAddress($value);
                 break;
             case 'mime-version':
                 $value = $this->stripComments($value);

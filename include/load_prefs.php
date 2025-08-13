@@ -6,9 +6,9 @@
  * Loads preferences from the $username.pref file used by almost
  * every other script in the source directory and alswhere.
  *
- * @copyright 1999-2021 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: load_prefs.php 14885 2021-02-05 19:19:32Z pdontthink $
+ * @version $Id: load_prefs.php 15030 2025-01-02 02:06:04Z pdontthink $
  * @package squirrelmail
  */
 
@@ -86,6 +86,9 @@ $move_to_trash =
     getPref($data_dir, $username, 'move_to_trash', $default_move_to_trash);
 $save_as_draft =
     getPref($data_dir, $username, 'save_as_draft', $default_save_as_draft);
+
+$mark_as_read_upon_delete =
+    getPref($data_dir, $username, 'mark_as_read_upon_delete', FALSE);
 
 if ($default_unseen_type == '') {
     $default_unseen_type = 1;
